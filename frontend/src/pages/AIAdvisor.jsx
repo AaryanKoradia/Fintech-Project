@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import api from '../services/api';
+import { FaMicrophone, FaMicrophoneSlash, FaVolumeUp, FaStop } from 'react-icons/fa';
 
 const AIAdvisor = () => {
   const { strings, currentLanguage } = useLanguage();
@@ -10,6 +11,170 @@ const AIAdvisor = () => {
   const [question, setQuestion] = useState('');
   const [conversation, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [speechLang, setSpeechLang] = useState(currentLanguage === 'english' ? 'en-IN' : 'hi-IN');
+  const [interimText, setInterimText] = useState('');
+  
+  const recognitionRef = useRef(null);
+  const synthRef = useRef(null);
+
+  // Initialize Speech Recognition
+  useEffect(() => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = true; // Keep listening
+      recognitionRef.current.interimResults = true; // Show interim results
+      recognitionRef.current.maxAlternatives = 1;
+      
+      recognitionRef.current.onstart = () => {
+        console.log('Speech recognition started');
+        setInterimText('');
+      };
+      
+      recognitionRef.current.onresult = (event) => {
+        let interimTranscript = '';
+        let finalTranscript = '';
+        
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + ' ';
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+        
+        // Show interim results as user speaks
+        if (interimTranscript) {
+          setInterimText(interimTranscript);
+        }
+        
+        // When final result comes, add to question
+        if (finalTranscript) {
+          setQuestion(prev => prev + finalTranscript);
+          setInterimText('');
+        }
+      };
+      
+      recognitionRef.current.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        
+        if (event.error === 'no-speech') {
+          // Don't alert immediately, just log
+          console.log('No speech detected. Keep speaking...');
+        } else if (event.error === 'not-allowed') {
+          alert('Microphone access denied. Please allow microphone access in browser settings.');
+          setIsListening(false);
+        } else if (event.error === 'network') {
+          alert('Network error. Speech recognition requires internet connection.');
+          setIsListening(false);
+        } else {
+          console.log(`Speech error: ${event.error}`);
+        }
+      };
+      
+      recognitionRef.current.onend = () => {
+        console.log('Speech recognition ended');
+        if (isListening) {
+          // Auto-restart if still in listening mode (for continuous)
+          try {
+            recognitionRef.current.start();
+          } catch (e) {
+            console.log('Recognition restart failed:', e);
+            setIsListening(false);
+            setInterimText('');
+          }
+        } else {
+          setInterimText('');
+        }
+      };
+    } else {
+      console.warn('Speech recognition not supported in this browser');
+    }
+
+    // Initialize Speech Synthesis
+    if ('speechSynthesis' in window) {
+      synthRef.current = window.speechSynthesis;
+    }
+
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {
+          // Ignore errors when stopping
+        }
+      }
+      if (synthRef.current) {
+        synthRef.current.cancel();
+      }
+    };
+  }, [isListening]);
+
+  // Update speech language when app language changes
+  useEffect(() => {
+    setSpeechLang(currentLanguage === 'english' ? 'en-IN' : 'hi-IN');
+  }, [currentLanguage]);
+
+  // Start voice recognition
+  const startListening = async () => {
+    if (!recognitionRef.current) {
+      alert('Speech recognition not supported in this browser. Please use Chrome or Edge.');
+      return;
+    }
+
+    try {
+      // Request microphone permission first
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+      
+      if (!isListening) {
+        recognitionRef.current.lang = speechLang;
+        recognitionRef.current.start();
+        setIsListening(true);
+      }
+    } catch (error) {
+      console.error('Microphone access error:', error);
+      alert('Please allow microphone access to use voice input. Check your browser settings.');
+      setIsListening(false);
+    }
+  };
+
+  // Stop voice recognition
+  const stopListening = () => {
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    }
+  };
+
+  // Speak text using Text-to-Speech
+  const speakText = (text) => {
+    if (synthRef.current) {
+      // Stop any ongoing speech
+      synthRef.current.cancel();
+      
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = speechLang;
+      utterance.rate = 0.9; // Slightly slower for clarity
+      utterance.pitch = 1;
+      
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+      
+      synthRef.current.speak(utterance);
+    }
+  };
+
+  // Stop speaking
+  const stopSpeaking = () => {
+    if (synthRef.current) {
+      synthRef.current.cancel();
+      setIsSpeaking(false);
+    }
+  };
   
   // Bilingual example questions
   const exampleQuestions = currentLanguage === 'english' ? [
@@ -38,9 +203,12 @@ const AIAdvisor = () => {
     
     try {
       // Call AI API
-      const response = await api.post('/ai/ask', { question });
+      const response = await api.post('/ai/ask', { question: userMessage.content });
       const aiMessage = { role: 'ai', content: response.data.answer };
       setConversation(prev => [...prev, aiMessage]);
+      
+      // Auto-speak AI response
+      setTimeout(() => speakText(response.data.answer), 500);
     } catch (error) {
       console.error('Failed to get AI response:', error);
       const errorMessage = { 
@@ -104,14 +272,25 @@ const AIAdvisor = () => {
                   key={index}
                   className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div
-                    className={`max-w-[85%] px-5 py-4 rounded-2xl shadow-md ${
-                      message.role === 'user'
-                        ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white'
-                        : 'bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-600'
-                    }`}
-                  >
-                    <p className="whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                  <div className="flex items-start gap-2 max-w-[85%]">
+                    <div
+                      className={`flex-1 px-5 py-4 rounded-2xl shadow-md ${
+                        message.role === 'user'
+                          ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white'
+                          : 'bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-600'
+                      }`}
+                    >
+                      <p className="whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                    </div>
+                    {message.role === 'ai' && (
+                      <button
+                        onClick={() => speakText(message.content)}
+                        className="p-2 bg-emerald-100 dark:bg-emerald-900/30 hover:bg-emerald-200 dark:hover:bg-emerald-800/40 rounded-lg transition-colors"
+                        title={currentLanguage === 'english' ? 'Listen to response' : 'जवाब सुनें'}
+                      >
+                        <FaVolumeUp className="text-emerald-600 dark:text-emerald-400" />
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -138,17 +317,93 @@ const AIAdvisor = () => {
             ⚠️ {strings.aiDisclaimer}
           </p>
         </div>
+
+        {/* Voice Controls */}
+        <div className="flex items-center justify-between bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 mb-4 shadow-sm">
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+              {currentLanguage === 'english' ? 'Voice Language:' : 'आवाज़ भाषा:'}
+            </span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setSpeechLang('en-IN')}
+                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  speechLang === 'en-IN'
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                }`}
+              >
+                English
+              </button>
+              <button
+                onClick={() => setSpeechLang('hi-IN')}
+                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  speechLang === 'hi-IN'
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                }`}
+              >
+                हिन्दी
+              </button>
+            </div>
+          </div>
+          {isSpeaking && (
+            <button
+              onClick={stopSpeaking}
+              className="flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-800/40 text-red-700 dark:text-red-400 rounded-lg transition-colors"
+            >
+              <FaStop />
+              <span className="text-sm font-medium">
+                {currentLanguage === 'english' ? 'Stop' : 'रोकें'}
+              </span>
+            </button>
+          )}
+        </div>
         
         {/* Input Form */}
         <form onSubmit={handleSubmit} className="flex gap-3">
-          <input
-            type="text"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            placeholder={strings.questionPlaceholder}
-            className="flex-1 px-5 py-4 rounded-xl border-2 border-emerald-300 dark:border-emerald-700 focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 shadow-sm"
-            disabled={loading}
-          />
+          <div className="flex-1 relative">
+            <input
+              type="text"
+              value={question + interimText}
+              onChange={(e) => setQuestion(e.target.value)}
+              placeholder={isListening 
+                ? (currentLanguage === 'english' ? '🎤 Listening... Speak now!' : '🎤 सुन रहे हैं... अब बोलें!')
+                : strings.questionPlaceholder
+              }
+              className={`w-full px-5 py-4 pr-14 rounded-xl border-2 ${
+                isListening 
+                  ? 'border-red-500 bg-red-50 dark:bg-red-900/10' 
+                  : 'border-emerald-300 dark:border-emerald-700 bg-white dark:bg-gray-800'
+              } focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 shadow-sm transition-all`}
+              disabled={loading}
+            />
+            {isListening && (
+              <div className="absolute left-3 top-1/2 -translate-y-1/2">
+                <div className="flex gap-1">
+                  <div className="w-1 h-4 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-1 h-6 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '100ms' }}></div>
+                  <div className="w-1 h-4 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '200ms' }}></div>
+                </div>
+              </div>
+            )}
+            <button
+              type="button"
+              onClick={isListening ? stopListening : startListening}
+              className={`absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-lg transition-all ${
+                isListening
+                  ? 'bg-red-500 text-white shadow-lg shadow-red-500/50 scale-110'
+                  : 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-200 dark:hover:bg-emerald-800/40'
+              }`}
+              disabled={loading}
+              title={isListening 
+                ? (currentLanguage === 'english' ? 'Click to stop recording' : 'रिकॉर्डिंग बंद करने के लिए क्लिक करें')
+                : (currentLanguage === 'english' ? 'Click and speak your question' : 'क्लिक करें और अपना सवाल बोलें')
+              }
+            >
+              {isListening ? <FaMicrophoneSlash size={18} className="animate-pulse" /> : <FaMicrophone size={18} />}
+            </button>
+          </div>
           <button
             type="submit"
             disabled={loading || !question.trim()}

@@ -23,6 +23,8 @@ import Learning from './pages/Learning';
 import Schemes from './pages/Schemes';
 import AIAdvisor from './pages/AIAdvisor';
 import Profile from './pages/Profile';
+import ExpenseTracker from './pages/ExpenseTracker';
+import DocumentScanner from './pages/DocumentScanner';
 
 // Admin Pages
 import ManageUsers from './pages/admin/ManageUsers';
@@ -80,6 +82,22 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['USER']}>
                     <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/user/expenses"
+                element={
+                  <ProtectedRoute allowedRoles={['USER']}>
+                    <ExpenseTracker />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/user/document-scanner"
+                element={
+                  <ProtectedRoute allowedRoles={['USER']}>
+                    <DocumentScanner />
                   </ProtectedRoute>
                 }
               />

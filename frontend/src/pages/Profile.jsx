@@ -37,7 +37,6 @@ const Profile = () => {
               </span>
             </div>
             
-            {/* User Info */}
             <div>
               <h2 className="text-2xl font-bold text-text-light dark:text-text-dark">
                 {user?.fullName || user?.email}

@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-from app.routes import auth, users, admin, lessons, schemes, ai
+from app.routes import auth, users, admin, lessons, schemes, ai, confidence, nudges, expenses, document_scanner
 
 app = FastAPI(title="FinLit API", description="Financial Literacy & Empowerment Platform API", version="1.0.0")
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",")
@@ -24,6 +24,10 @@ app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(lessons.router, prefix="/api/lessons", tags=["Lessons"])
 app.include_router(schemes.router, prefix="/api/schemes", tags=["Schemes"])
 app.include_router(ai.router, prefix="/api/ai", tags=["AI Advisor"])
+app.include_router(confidence.router, prefix="/api/confidence", tags=["Confidence Score"])
+app.include_router(nudges.router, prefix="/api/nudges", tags=["Daily Nudges"])
+app.include_router(expenses.router, prefix="/api/expenses", tags=["Expense Tracker"])
+app.include_router(document_scanner.router, prefix="/api/document-scanner", tags=["Document Scanner"])
 
 @app.get("/")
 async def root():

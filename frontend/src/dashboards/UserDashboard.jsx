@@ -4,11 +4,13 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ConfidenceScore from '../components/ConfidenceScore';
+import DailyNudges from '../components/DailyNudges';
 import api from '../services/api';
 import { 
   FaCoins, FaTrophy, FaUniversity, FaLightbulb, FaGraduationCap, 
   FaChartLine, FaUser, FaBook, FaRocket, FaStar, FaFire,
-  FaMedal, FaArrowRight, FaCheckCircle, FaCalendar, FaClock
+  FaMedal, FaArrowRight, FaCheckCircle, FaCalendar, FaClock, FaPen, FaFileImage
 } from 'react-icons/fa';
 
 const UserDashboard = () => {
@@ -190,6 +192,15 @@ const UserDashboard = () => {
           </div>
         </div>
 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+          <div>
+            <ConfidenceScore compact={true} />
+          </div>
+          <div>
+            <DailyNudges />
+          </div>
+        </div>
+
         <div className="mb-10">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-[#FF9933] to-[#138808] bg-clip-text text-transparent flex items-center gap-3">
@@ -203,6 +214,25 @@ const UserDashboard = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Link to="/user/expenses" className="group relative overflow-hidden bg-gradient-to-br from-rose-50 to-red-50 dark:from-rose-900/20 dark:to-red-900/20 rounded-3xl shadow-lg hover:shadow-2xl transition-all p-6 border-2 border-rose-200 dark:border-rose-700 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-rose-400/0 to-rose-400/0 group-hover:from-rose-400/10 group-hover:to-red-400/10 transition-all"></div>
+              <div className="relative">
+                <div className="w-16 h-16 bg-gradient-to-br from-rose-400 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:rotate-6 transition-transform animate-pulse">
+                  <FaPen className="text-3xl text-white" />
+                </div>
+                <h3 className="text-center text-lg font-bold text-gray-800 dark:text-white mb-2">
+                  {strings.expenseTracker}
+                </h3>
+                <p className="text-center text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  {currentLanguage === 'english' ? 'Track daily expenses' : 'दैनिक खर्च ट्रैक करें'}
+                </p>
+                <div className="flex items-center justify-center gap-2 text-rose-600 dark:text-rose-400 font-semibold text-sm">
+                  <span>{currentLanguage === 'english' ? 'Start' : 'शुरू करें'}</span>
+                  <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+
             <Link to="/user/learn" className="group relative overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-3xl shadow-lg hover:shadow-2xl transition-all p-6 border-2 border-emerald-200 dark:border-emerald-700 hover:scale-105">
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/0 to-emerald-400/0 group-hover:from-emerald-400/10 group-hover:to-teal-400/10 transition-all"></div>
               <div className="relative">
@@ -255,6 +285,25 @@ const UserDashboard = () => {
                 </p>
                 <div className="flex items-center justify-center gap-2 text-purple-600 dark:text-purple-400 font-semibold text-sm">
                   <span>{currentLanguage === 'english' ? 'Ask Now' : 'अभी पूछें'}</span>
+                  <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+
+            <Link to="/user/document-scanner" className="group relative overflow-hidden bg-gradient-to-br from-cyan-50 to-teal-50 dark:from-cyan-900/20 dark:to-teal-900/20 rounded-3xl shadow-lg hover:shadow-2xl transition-all p-6 border-2 border-cyan-200 dark:border-cyan-700 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/0 to-cyan-400/0 group-hover:from-cyan-400/10 group-hover:to-teal-400/10 transition-all"></div>
+              <div className="relative">
+                <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:rotate-6 transition-transform">
+                  <FaFileImage className="text-3xl text-white" />
+                </div>
+                <h3 className="text-center text-lg font-bold text-gray-800 dark:text-white mb-2">
+                  {currentLanguage === 'english' ? 'Document Scanner' : 'दस्तावेज़ स्कैनर'}
+                </h3>
+                <p className="text-center text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  {currentLanguage === 'english' ? 'Scan & analyze docs' : 'दस्तावेज़ स्कैन करें'}
+                </p>
+                <div className="flex items-center justify-center gap-2 text-cyan-600 dark:text-cyan-400 font-semibold text-sm">
+                  <span>{currentLanguage === 'english' ? 'Scan Now' : 'अभी स्कैन करें'}</span>
                   <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
