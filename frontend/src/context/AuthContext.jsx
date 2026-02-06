@@ -46,8 +46,13 @@ export const AuthProvider = ({ children }) => {
       setToken(access_token);
       setUser(userData);
     
+      // Role-based navigation
       if (userData.role === 'ADMIN') {
         navigate('/admin/dashboard');
+      } else if (userData.role === 'AGENT') {
+        navigate('/agent/portal');
+      } else if (userData.role === 'DISTRICT_OFFICER' || userData.role === 'STATE_OFFICER' || userData.role === 'MINISTRY') {
+        navigate('/government/dashboard');
       } else {
         navigate('/user/dashboard');
       }
@@ -71,8 +76,13 @@ export const AuthProvider = ({ children }) => {
       setToken(access_token);
       setUser(newUser);
       
+      // Role-based navigation
       if (newUser.role === 'ADMIN') {
         navigate('/admin/dashboard');
+      } else if (newUser.role === 'AGENT') {
+        navigate('/agent/portal');
+      } else if (newUser.role === 'DISTRICT_OFFICER' || newUser.role === 'STATE_OFFICER' || newUser.role === 'MINISTRY') {
+        navigate('/government/dashboard');
       } else {
         navigate('/user/dashboard');
       }
@@ -101,7 +111,24 @@ export const AuthProvider = ({ children }) => {
   const isAuthenticated = !!token && !!user;
   const isAdmin = user?.role === 'ADMIN';
   const isUser = user?.role === 'USER';
-  const value = {user, token, loading, login, signup, logout, hasRole, isAuthenticated, isAdmin, isUser, loadUserData,};
+  const isAgent = user?.role === 'AGENT';
+  const isGovernment = ['DISTRICT_OFFICER', 'STATE_OFFICER', 'MINISTRY'].includes(user?.role);
+  
+  const value = {
+    user, 
+    token, 
+    loading, 
+    login, 
+    signup, 
+    logout, 
+    hasRole, 
+    isAuthenticated, 
+    isAdmin, 
+    isUser, 
+    isAgent, 
+    isGovernment,
+    loadUserData,
+  };
   
   return (
     <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

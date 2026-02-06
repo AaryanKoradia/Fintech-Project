@@ -104,3 +104,64 @@ class AdminResponse(BaseModel):
     role: str
     createdAt: datetime
     isActive: bool
+
+# Financial Planning & Expense Tracking Schemas
+class FamilyMember(BaseModel):
+    name: str
+    relationship: str  # "spouse", "son", "daughter", "parent"
+    age: int
+    gender: str  # "male", "female"
+
+class LifeMilestone(BaseModel):
+    goal: str
+    targetYear: int
+    estimatedCost: float
+    priority: str  # "high", "medium", "low"
+
+class UserFinancialProfileCreate(BaseModel):
+    monthlyIncome: float = Field(..., gt=0)
+    familyMembers: List[FamilyMember] = []
+    lifeMilestones: List[LifeMilestone] = []
+    occupation: Optional[str] = None
+    hasInsurance: bool = False
+    hasBankAccount: bool = False
+
+class UserFinancialProfileResponse(UserFinancialProfileCreate):
+    id: str
+    userId: str
+    createdAt: datetime
+    updatedAt: datetime
+
+class AIFinancialPlanResponse(BaseModel):
+    userId: str
+    monthYear: str  # "2026-02"
+    monthlyIncome: float
+    recommendedSavings: float
+    recommendedSchemes: List[dict]
+    milestoneRoadmap: List[dict]
+    budgetAllocation: dict
+    aiAdvice: str
+    createdAt: datetime
+
+class ExpenseCreate(BaseModel):
+    amount: float = Field(..., gt=0)
+    category: str
+    description: str
+    date: Optional[datetime] = None
+
+class ExpenseResponse(ExpenseCreate):
+    id: str
+    userId: str
+    monthYear: str
+    isUnnecessary: bool = False
+    createdAt: datetime
+
+class MonthlyBudgetSummary(BaseModel):
+    monthYear: str
+    totalIncome: float
+    totalExpenses: float
+    remaining: float
+    savings: float
+    expenses: List[ExpenseResponse]
+    unnecessaryExpenses: float
+    budgetStatus: str  # "on-track", "warning", "exceeded"

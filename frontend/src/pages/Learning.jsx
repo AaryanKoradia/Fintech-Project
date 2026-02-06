@@ -352,18 +352,17 @@ const Learning = () => {
 
   const WelcomeModal = () => (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fade-in">
-      <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-2xl w-full p-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#FF9933]/20 to-[#138808]/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
+      <div className="bg-white rounded-lg max-w-2xl w-full p-8 relative overflow-hidden">
         
         <div className="relative">
           <div className="text-center mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#FF9933] to-[#138808] rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
-              <FaRocket className="text-4xl text-white" />
+            <div className="w-20 h-20 bg-primary-50 border-2 border-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <FaRocket className="text-4xl text-primary-600" />
             </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-[#FF9933] via-[#000080] to-[#138808] bg-clip-text text-transparent mb-2">
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">
               {currentLanguage === 'english' ? 'Welcome to Financial Learning!' : 'वित्तीय शिक्षा में आपका स्वागत है!'}
             </h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600">
               {currentLanguage === 'english' 
                 ? 'Your journey to financial freedom starts here!' 
                 : 'वित्तीय स्वतंत्रता की आपकी यात्रा यहाँ से शुरू होती है!'}
@@ -371,13 +370,13 @@ const Learning = () => {
           </div>
 
           <div className="space-y-4 mb-6">
-            <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl">
-              <FaLightbulb className="text-2xl text-emerald-600 flex-shrink-0 mt-1" />
+            <div className="flex items-start gap-4 p-4 bg-primary-50 border border-primary-600 rounded-lg">
+              <FaLightbulb className="text-2xl text-primary-600 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-bold text-gray-800 dark:text-white mb-1">
+                <h3 className="font-bold text-gray-800 mb-1">
                   {currentLanguage === 'english' ? 'Interactive Lessons' : 'इंटरैक्टिव पाठ'}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   {currentLanguage === 'english' 
                     ? 'Learn with real examples in both English and Hindi' 
                     : 'अंग्रेजी और हिंदी दोनों में वास्तविक उदाहरणों के साथ सीखें'}
@@ -385,13 +384,13 @@ const Learning = () => {
               </div>
             </div>
 
-            <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl">
+            <div className="flex items-start gap-4 p-4 bg-amber-50 border border-amber-500 rounded-lg">
               <FaCoins className="text-2xl text-amber-600 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-bold text-gray-800 dark:text-white mb-1">
+                <h3 className="font-bold text-gray-800 mb-1">
                   {currentLanguage === 'english' ? 'Earn Rewards' : 'पुरस्कार अर्जित करें'}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   {currentLanguage === 'english' 
                     ? 'Collect coins and badges as you complete lessons' 
                     : 'पाठ पूर्ण करने पर सिक्के और बैज एकत्र करें'}
@@ -399,13 +398,13 @@ const Learning = () => {
               </div>
             </div>
 
-            <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl">
-              <FaTrophy className="text-2xl text-purple-600 flex-shrink-0 mt-1" />
+            <div className="flex items-start gap-4 p-4 bg-green-50 border border-green-500 rounded-lg">
+              <FaTrophy className="text-2xl text-green-600 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-bold text-gray-800 dark:text-white mb-1">
+                <h3 className="font-bold text-gray-800 mb-1">
                   {currentLanguage === 'english' ? 'Track Progress' : 'प्रगति ट्रैक करें'}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   {currentLanguage === 'english' 
                     ? 'See your growth and achievement journey' 
                     : 'अपनी वृद्धि और उपलब्धि यात्रा देखें'}
@@ -416,7 +415,7 @@ const Learning = () => {
 
           <button
             onClick={() => setShowWelcome(false)}
-            className="w-full bg-gradient-to-r from-[#FF9933] to-[#138808] text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transition-all flex items-center justify-center gap-2"
+            className="w-full bg-primary-600 hover:bg-primary-700 text-white py-4 rounded-lg font-bold text-lg transition-all flex items-center justify-center gap-2"
           >
             {currentLanguage === 'english' ? 'Start Learning' : 'सीखना शुरू करें'}
             <FaArrowRight />
@@ -432,24 +431,24 @@ const Learning = () => {
 
     return (
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-4xl w-full my-8 relative">
-          <div className="sticky top-0 bg-gradient-to-r from-[#FF9933] via-white to-[#138808] p-1 rounded-t-3xl z-10">
-            <div className="bg-white dark:bg-gray-800 rounded-t-3xl p-6">
+        <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full my-8 relative">
+          <div className="sticky top-0 bg-primary-600 p-1 rounded-t-lg z-10">
+            <div className="bg-white rounded-t-lg p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">
+                  <h2 className="text-2xl font-bold text-gray-800 mb-1">
                     {currentLanguage === 'english' ? lesson.titleEn : lesson.titleHi}
                   </h2>
-                  <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="flex items-center gap-4 text-sm text-gray-600">
                     <span className="flex items-center gap-1">
-                      <FaClock className="text-[#FF9933]" />
+                      <FaClock className="text-primary-600" />
                       {lesson.duration} {currentLanguage === 'english' ? 'min' : 'मिनट'}
                     </span>
                     <span className="flex items-center gap-1">
                       <FaCoins className="text-amber-500" />
                       {lesson.coins} {currentLanguage === 'english' ? 'coins' : 'सिक्के'}
                     </span>
-                    <span className="px-3 py-1 bg-gradient-to-r from-[#FF9933]/10 to-[#138808]/10 rounded-full text-xs font-medium">
+                    <span className="px-3 py-1 bg-primary-50 border border-primary-600 rounded-full text-xs font-medium text-primary-700">
                       {lesson.difficulty}
                     </span>
                   </div>
@@ -460,20 +459,20 @@ const Learning = () => {
                     setSelectedLesson(null);
                     setCurrentStep(0);
                   }}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   <FaTimes className="text-2xl" />
                 </button>
               </div>
               
-              <div className="flex items-center gap-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-3 pt-3 border-t border-gray-200">
                 <select
                   value={voiceLanguage}
                   onChange={(e) => {
                     stopSpeaking();
                     setVoiceLanguage(e.target.value);
                   }}
-                  className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#FF9933] transition-all"
+                  className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all"
                 >
                   <option value="english">🇬🇧 English Voice</option>
                   <option value="hindi">🇮🇳 Hindi Voice</option>
@@ -482,7 +481,7 @@ const Learning = () => {
                 {!isSpeaking ? (
                   <button
                     onClick={() => speakText(getCurrentStepText())}
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#FF9933] to-[#138808] text-white rounded-lg hover:shadow-lg transition-all transform hover:scale-105"
+                    className="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-all"
                   >
                     <FaVolumeUp className="text-lg" />
                     <span className="font-medium">{currentLanguage === 'english' ? 'Play Audio' : 'ऑडियो चलाएं'}</span>
@@ -490,7 +489,7 @@ const Learning = () => {
                 ) : (
                   <button
                     onClick={stopSpeaking}
-                    className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:shadow-lg transition-all transform hover:scale-105 animate-pulse"
+                    className="flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all animate-pulse"
                   >
                     <FaStop className="text-lg" />
                     <span className="font-medium">{currentLanguage === 'english' ? 'Stop Audio' : 'ऑडियो रोकें'}</span>
@@ -504,25 +503,25 @@ const Learning = () => {
             {!isLastStep ? (
               <div className="mb-6 animate-fade-in">
                 {content[currentStep].type === 'intro' && (
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-2xl border-2 border-blue-200 dark:border-blue-700">
-                    <FaInfoCircle className="text-4xl text-blue-600 dark:text-blue-400 mb-4" />
-                    <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <div className="bg-blue-50 border border-blue-500 p-6 rounded-lg">
+                    <FaInfoCircle className="text-4xl text-blue-600 mb-4" />
+                    <p className="text-lg text-gray-700 leading-relaxed">
                       {content[currentStep].text}
                     </p>
                   </div>
                 )}
 
                 {content[currentStep].type === 'point' && (
-                  <div className="bg-white dark:bg-gray-700 p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-600">
-                    <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-                      <FaHandPointRight className="text-[#FF9933]" />
+                  <div className="bg-white p-6 rounded-lg border border-gray-300">
+                    <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                      <FaHandPointRight className="text-primary-600" />
                       {content[currentStep].title}
                     </h3>
                     <ul className="space-y-3">
                       {content[currentStep].items.map((item, idx) => (
                         <li key={idx} className="flex items-start gap-3">
-                          <FaCheckCircle className="text-emerald-500 flex-shrink-0 mt-1" />
-                          <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                          <FaCheckCircle className="text-green-600 flex-shrink-0 mt-1" />
+                          <span className="text-gray-700">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -530,28 +529,28 @@ const Learning = () => {
                 )}
 
                 {content[currentStep].type === 'example' && (
-                  <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 p-6 rounded-2xl border-2 border-amber-200 dark:border-amber-700">
+                  <div className="bg-amber-50 border border-amber-500 p-6 rounded-lg">
                     <div className="flex items-center gap-3 mb-4">
                       <FaStar className="text-2xl text-amber-500" />
-                      <h3 className="text-xl font-bold text-gray-800 dark:text-white">
+                      <h3 className="text-xl font-bold text-gray-800">
                         {content[currentStep].title}
                       </h3>
                     </div>
-                    <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed italic">
+                    <p className="text-lg text-gray-700 leading-relaxed italic">
                       {content[currentStep].text}
                     </p>
                   </div>
                 )}
 
                 {content[currentStep].type === 'tip' && (
-                  <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 p-6 rounded-2xl border-2 border-emerald-200 dark:border-emerald-700">
+                  <div className="bg-green-50 border border-green-500 p-6 rounded-lg">
                     <div className="flex items-center gap-3 mb-4">
-                      <FaLightbulb className="text-3xl text-emerald-600" />
-                      <h3 className="text-xl font-bold text-gray-800 dark:text-white">
+                      <FaLightbulb className="text-3xl text-green-600" />
+                      <h3 className="text-xl font-bold text-gray-800">
                         {currentLanguage === 'english' ? 'Pro Tip' : 'प्रो टिप'}
                       </h3>
                     </div>
-                    <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-semibold">
+                    <p className="text-lg text-gray-700 leading-relaxed font-semibold">
                       {content[currentStep].text}
                     </p>
                   </div>
@@ -559,31 +558,31 @@ const Learning = () => {
               </div>
             ) : (
               <div className="text-center py-12 animate-fade-in">
-                <div className="w-24 h-24 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
-                  <FaTrophy className="text-5xl text-white" />
+                <div className="w-24 h-24 bg-primary-50 border-4 border-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FaTrophy className="text-5xl text-primary-600" />
                 </div>
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-4">
+                <h3 className="text-3xl font-bold text-gray-800 mb-4">
                   {currentLanguage === 'english' ? 'Lesson Complete!' : 'पाठ पूर्ण!'}
                 </h3>
-                <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
+                <p className="text-xl text-gray-600 mb-6">
                   {currentLanguage === 'english' ? 'Great job! You earned' : 'बढ़िया काम! आपने अर्जित किया'}
                 </p>
                 <div className="flex items-center justify-center gap-3 mb-8">
-                  <div className="flex items-center gap-2 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 px-8 py-4 rounded-2xl border-2 border-amber-300 dark:border-amber-700">
+                  <div className="flex items-center gap-2 bg-amber-50 border-2 border-amber-500 px-8 py-4 rounded-lg">
                     <FaCoins className="text-3xl text-amber-500" />
-                    <span className="text-3xl font-bold text-amber-700 dark:text-amber-300">+{lesson.coins}</span>
+                    <span className="text-3xl font-bold text-amber-700">+{lesson.coins}</span>
                   </div>
                 </div>
               </div>
             )}
 
-            <div className="flex items-center justify-between mt-8 pt-6 border-t-2 border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between mt-8 pt-6 border-t-2 border-gray-200">
               <div className="flex gap-2">
                 {content.map((_, idx) => (
                   <div
                     key={idx}
                     className={`h-2 rounded-full transition-all ${
-                      idx <= currentStep ? 'bg-gradient-to-r from-emerald-500 to-teal-500 w-12' : 'bg-gray-300 dark:bg-gray-600 w-8'
+                      idx <= currentStep ? 'bg-primary-600 w-12' : 'bg-gray-300 w-8'
                     }`}
                   ></div>
                 ))}
@@ -596,7 +595,7 @@ const Learning = () => {
                       stopSpeaking();
                       setCurrentStep(currentStep - 1);
                     }}
-                    className="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
+                    className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-all"
                   >
                     {currentLanguage === 'english' ? 'Previous' : 'पिछला'}
                   </button>
@@ -608,7 +607,7 @@ const Learning = () => {
                       stopSpeaking();
                       setCurrentStep(currentStep + 1);
                     }}
-                    className="px-6 py-3 bg-gradient-to-r from-[#FF9933] to-[#138808] text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+                    className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold transition-all flex items-center gap-2"
                   >
                     {currentLanguage === 'english' ? 'Next' : 'अगला'}
                     <FaArrowRight />
@@ -619,7 +618,7 @@ const Learning = () => {
                       stopSpeaking();
                       completeLesson();
                     }}
-                    className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2"
+                    className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-all flex items-center gap-2"
                   >
                     {currentLanguage === 'english' ? 'Finish' : 'समाप्त'}
                     <FaCheckCircle />
@@ -634,25 +633,24 @@ const Learning = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-orange-50 via-white to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
       
       {showWelcome && <WelcomeModal />}
       {selectedLesson && <LessonModal lesson={selectedLesson} />}
       
-      <main className="flex-1 px-4 py-8 max-w-7xl mx-auto w-full">
-        <div className="relative mb-10 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FF9933]/10 via-white/50 to-[#138808]/10 dark:from-[#FF9933]/5 dark:via-gray-800 dark:to-[#138808]/5 rounded-3xl blur-3xl"></div>
-          <div className="relative bg-gradient-to-r from-[#FF9933] via-white to-[#138808] p-1 rounded-3xl shadow-2xl">
-            <div className="bg-white dark:bg-gray-800 rounded-3xl p-8">
+      <main className="flex-1 px-6 py-8 w-full">
+        <div className="relative mb-10">
+          <div className="relative bg-white border-2 border-primary-600 rounded-lg shadow-lg">
+            <div className="bg-white rounded-lg p-8">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div className="flex-1">
-                  <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#FF9933] via-[#000080] to-[#138808] bg-clip-text text-transparent mb-3 flex items-center gap-3">
-                    <FaGraduationCap className="text-[#FF9933]" />
+                  <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3 flex items-center gap-3">
+                    <FaGraduationCap className="text-primary-600" />
                     {currentLanguage === 'english' ? 'Financial Lessons' : 'वित्तीय पाठ'}
                   </h1>
-                  <p className="text-lg text-gray-600 dark:text-gray-400 flex items-center gap-2">
-                    <FaFire className="text-[#FF9933]" />
+                  <p className="text-lg text-gray-600 flex items-center gap-2">
+                    <FaFire className="text-primary-600" />
                     {currentLanguage === 'english' 
                       ? 'Master money management in your language' 
                       : 'अपनी भाषा में पैसे के प्रबंधन में महारत हासिल करें'}
@@ -661,7 +659,7 @@ const Learning = () => {
                 
                 <button
                   onClick={() => setShowWelcome(true)}
-                  className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all"
+                  className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-all"
                 >
                   <FaInfoCircle />
                   {currentLanguage === 'english' ? 'Help Guide' : 'मदद गाइड'}
@@ -672,8 +670,8 @@ const Learning = () => {
         </div>
         
         <div className="mb-8">
-          <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-            <FaBook className="text-[#138808]" />
+          <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <FaBook className="text-primary-600" />
             {currentLanguage === 'english' ? 'Choose Category' : 'श्रेणी चुनें'}
           </h2>
           <div className="overflow-x-auto">
@@ -684,10 +682,10 @@ const Learning = () => {
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`px-6 py-4 rounded-2xl font-semibold transition-all flex items-center gap-3 whitespace-nowrap ${
+                    className={`px-6 py-4 rounded-lg font-semibold transition-all flex items-center gap-3 whitespace-nowrap ${
                       selectedCategory === category.id
-                        ? 'bg-gradient-to-r from-[#FF9933] to-[#138808] text-white shadow-xl scale-105'
-                        : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:shadow-lg border-2 border-gray-200 dark:border-gray-700 hover:border-[#FF9933]'
+                        ? 'bg-primary-600 text-white shadow-lg'
+                        : 'bg-white text-gray-700 hover:shadow-md border border-gray-300 hover:border-primary-600'
                     }`}
                   >
                     <IconComponent className="text-2xl" />
@@ -701,8 +699,8 @@ const Learning = () => {
         
         {loading ? (
           <div className="text-center py-12">
-            <div className="w-16 h-16 border-4 border-[#FF9933] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">
+            <div className="w-16 h-16 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600">
               {currentLanguage === 'english' ? 'Loading lessons...' : 'पाठ लोड हो रहे हैं...'}
             </p>
           </div>
@@ -712,18 +710,17 @@ const Learning = () => {
               lessons.map((lesson, index) => (
                 <div 
                   key={lesson.id || index} 
-                  className="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 dark:border-gray-700 hover:border-[#FF9933] dark:hover:border-[#FF9933]"
+                  className="group relative overflow-hidden bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-300 hover:border-primary-600"
                 >
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#FF9933] via-white to-[#138808]"></div>
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#FF9933]/10 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+                  <div className="absolute top-0 left-0 w-full h-1 bg-primary-600"></div>
                   
                   <div className="relative flex flex-col md:flex-row items-start md:items-center gap-6 p-6">
                     <div className="flex-shrink-0">
                       <div className="relative">
-                        <div className="w-24 h-24 bg-gradient-to-br from-[#FF9933] to-[#138808] rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                          <FaGraduationCap className="text-4xl text-white" />
+                        <div className="w-24 h-24 bg-primary-50 border-2 border-primary-600 rounded-lg flex items-center justify-center shadow-md">
+                          <FaGraduationCap className="text-4xl text-primary-600" />
                         </div>
-                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center shadow-md">
                           <span className="text-xs font-bold text-white">{index + 1}</span>
                         </div>
                       </div>
@@ -731,30 +728,30 @@ const Learning = () => {
                     
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-3 mb-3">
-                        <h3 className="text-2xl font-bold text-gray-800 dark:text-white">
+                        <h3 className="text-2xl font-bold text-gray-800">
                           {currentLanguage === 'english' ? lesson.titleEn : lesson.titleHi}
                         </h3>
-                        <span className="px-3 py-1 bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-semibold">
+                        <span className="px-3 py-1 bg-primary-50 border border-primary-600 text-primary-700 rounded-full text-sm font-semibold">
                           {lesson.difficulty}
                         </span>
                       </div>
                       
-                      <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                      <p className="text-gray-600 mb-4 line-clamp-2">
                         {currentLanguage === 'english' ? lesson.descriptionEn : lesson.descriptionHi}
                       </p>
                       
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
                         <div className="flex items-center gap-2">
-                          <FaClock className="text-[#FF9933]" />
+                          <FaClock className="text-primary-600" />
                           <span>{lesson.duration} {currentLanguage === 'english' ? 'minutes' : 'मिनट'}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <FaMedal className="text-purple-500" />
+                          <FaMedal className="text-amber-600" />
                           <span>{lesson.category}</span>
                         </div>
                         {lesson.progress > 0 && (
                           <div className="flex items-center gap-2">
-                            <FaCheckCircle className="text-emerald-500" />
+                            <FaCheckCircle className="text-green-600" />
                             <span>{lesson.progress}% {currentLanguage === 'english' ? 'complete' : 'पूर्ण'}</span>
                           </div>
                         )}
@@ -762,9 +759,9 @@ const Learning = () => {
                       
                       {lesson.progress > 0 && (
                         <div className="mt-4 flex items-center gap-3">
-                          <div className="flex-1 h-2.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                          <div className="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
                             <div 
-                              className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-500" 
+                              className="h-full bg-primary-600 transition-all duration-500" 
                               style={{ width: `${lesson.progress}%` }}
                             ></div>
                           </div>
@@ -775,7 +772,7 @@ const Learning = () => {
                     <div className="flex flex-col gap-3 items-end">
                       <button 
                         onClick={() => startLesson(lesson)}
-                        className="bg-gradient-to-r from-[#FF9933] to-[#138808] text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2 group-hover:scale-105"
+                        className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all flex items-center gap-2"
                       >
                         <FaPlay />
                         {lesson.progress > 0 
@@ -783,9 +780,9 @@ const Learning = () => {
                           : (currentLanguage === 'english' ? 'Start' : 'शुरू करें')}
                       </button>
                       
-                      <div className="flex items-center gap-2 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 px-6 py-2 rounded-xl border-2 border-amber-300 dark:border-amber-700">
+                      <div className="flex items-center gap-2 bg-amber-50 border-2 border-amber-500 px-6 py-2 rounded-lg">
                         <FaCoins className="text-amber-500 text-xl" />
-                        <span className="text-amber-700 dark:text-amber-300 font-bold text-lg">
+                        <span className="text-amber-700 font-bold text-lg">
                           +{lesson.coins}
                         </span>
                       </div>
@@ -794,9 +791,9 @@ const Learning = () => {
                 </div>
               ))
             ) : (
-              <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-3xl">
+              <div className="text-center py-12 bg-white rounded-lg">
                 <FaBook className="text-6xl text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600 dark:text-gray-400 text-lg">
+                <p className="text-gray-600 text-lg">
                   {currentLanguage === 'english' 
                     ? 'No lessons available in this category' 
                     : 'इस श्रेणी में कोई पाठ उपलब्ध नहीं है'}
@@ -806,10 +803,10 @@ const Learning = () => {
           </div>
         )}
 
-        <div className="mt-12 bg-gradient-to-r from-[#FF9933] via-white to-[#138808] p-1 rounded-3xl">
-          <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 text-center">
+        <div className="mt-12 bg-white border-2 border-primary-600 rounded-lg shadow-lg">
+          <div className="bg-white rounded-lg p-8 text-center">
             <FaStar className="text-5xl text-amber-500 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+            <h3 className="text-2xl font-bold text-gray-800 mb-2">
               {currentLanguage === 'english' ? 'Keep Learning!' : 'सीखते रहें!'}
             </h3>
             <p className="text-gray-600 dark:text-gray-400">

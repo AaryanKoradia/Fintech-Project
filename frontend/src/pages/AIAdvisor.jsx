@@ -226,30 +226,30 @@ const AIAdvisor = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-emerald-950 dark:to-teal-950">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
       
-      <main className="flex-1 px-4 py-8 max-w-5xl mx-auto w-full">
+      <main className="flex-1 px-6 py-8 w-full">
         {/* Header */}
         <div className="mb-8 text-center">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg transform hover:scale-105 transition-transform">
-            <svg className="w-11 h-11 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-20 h-20 bg-primary-50 border border-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-transform">
+            <svg className="w-11 h-11 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
             </svg>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent mb-3">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3">
             {strings.aiAssistant}
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 text-lg font-medium">
+          <p className="text-gray-600 text-lg font-medium">
             {strings.askQuestion}
           </p>
         </div>
         
         {/* Conversation Area */}
-        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-emerald-200 dark:border-emerald-800 p-6 mb-6 min-h-[450px] max-h-[550px] overflow-y-auto">
+        <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 min-h-[450px] max-h-[550px] overflow-y-auto">
           {conversation.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-700 dark:text-gray-300 mb-8 text-lg font-semibold">
+              <p className="text-gray-700 mb-8 text-lg font-semibold">
                 {strings.exampleQuestions}:
               </p>
               <div className="space-y-3">
@@ -257,9 +257,9 @@ const AIAdvisor = () => {
                   <button
                     key={index}
                     onClick={() => handleExampleClick(q)}
-                    className="block w-full text-left px-6 py-4 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30 hover:from-emerald-100 hover:to-teal-100 dark:hover:from-emerald-800/40 dark:hover:to-teal-800/40 rounded-xl transition-all duration-200 text-gray-800 dark:text-gray-200 font-medium border border-emerald-200 dark:border-emerald-700 hover:shadow-md transform hover:-translate-y-0.5"
+                    className="block w-full text-left px-6 py-4 bg-white hover:bg-primary-50 rounded-lg transition-all duration-200 text-gray-800 font-medium border border-gray-300 hover:border-primary-600"
                   >
-                    <span className="text-emerald-600 dark:text-emerald-400 mr-2">❯</span>
+                    <span className="text-primary-600 mr-2">❯</span>
                     {q}
                   </button>
                 ))}
@@ -274,10 +274,10 @@ const AIAdvisor = () => {
                 >
                   <div className="flex items-start gap-2 max-w-[85%]">
                     <div
-                      className={`flex-1 px-5 py-4 rounded-2xl shadow-md ${
+                      className={`flex-1 px-5 py-4 rounded-lg border ${
                         message.role === 'user'
-                          ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white'
-                          : 'bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-600'
+                          ? 'bg-primary-600 text-white border-primary-600'
+                          : 'bg-white text-gray-800 border-gray-300'
                       }`}
                     >
                       <p className="whitespace-pre-wrap leading-relaxed">{message.content}</p>
@@ -285,10 +285,10 @@ const AIAdvisor = () => {
                     {message.role === 'ai' && (
                       <button
                         onClick={() => speakText(message.content)}
-                        className="p-2 bg-emerald-100 dark:bg-emerald-900/30 hover:bg-emerald-200 dark:hover:bg-emerald-800/40 rounded-lg transition-colors"
+                        className="p-2 bg-primary-50 hover:bg-primary-100 border border-gray-300 rounded-lg transition-colors"
                         title={currentLanguage === 'english' ? 'Listen to response' : 'जवाब सुनें'}
                       >
-                        <FaVolumeUp className="text-emerald-600 dark:text-emerald-400" />
+                        <FaVolumeUp className="text-primary-600" />
                       </button>
                     )}
                   </div>
@@ -298,11 +298,11 @@ const AIAdvisor = () => {
               {/* Loading Indicator */}
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-white dark:bg-gray-700 px-5 py-4 rounded-2xl shadow-md border border-gray-200 dark:border-gray-600">
+                  <div className="bg-white px-5 py-4 rounded-lg border border-gray-300">
                     <div className="flex space-x-2">
-                      <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                      <div className="w-2.5 h-2.5 bg-teal-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                      <div className="w-2.5 h-2.5 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                      <div className="w-2.5 h-2.5 bg-primary-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-2.5 h-2.5 bg-primary-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-2.5 h-2.5 bg-primary-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                     </div>
                   </div>
                 </div>
@@ -312,8 +312,8 @@ const AIAdvisor = () => {
         </div>
         
         {/* Disclaimer */}
-        <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/30 border-l-4 border-amber-500 rounded-lg px-5 py-4 mb-6 shadow-sm">
-          <p className="text-sm text-amber-900 dark:text-amber-200 font-medium">
+        <div className="bg-amber-50 border-l-4 border-amber-500 rounded-lg px-5 py-4 mb-6">
+          <p className="text-sm text-amber-900 font-medium">
             ⚠️ {strings.aiDisclaimer}
           </p>
         </div>
@@ -350,7 +350,7 @@ const AIAdvisor = () => {
           {isSpeaking && (
             <button
               onClick={stopSpeaking}
-              className="flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-800/40 text-red-700 dark:text-red-400 rounded-lg transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 border border-red-300 rounded-lg transition-colors"
             >
               <FaStop />
               <span className="text-sm font-medium">
@@ -371,11 +371,11 @@ const AIAdvisor = () => {
                 ? (currentLanguage === 'english' ? '🎤 Listening... Speak now!' : '🎤 सुन रहे हैं... अब बोलें!')
                 : strings.questionPlaceholder
               }
-              className={`w-full px-5 py-4 pr-14 rounded-xl border-2 ${
+              className={`w-full px-5 py-4 pr-14 rounded-lg border-2 ${
                 isListening 
-                  ? 'border-red-500 bg-red-50 dark:bg-red-900/10' 
-                  : 'border-emerald-300 dark:border-emerald-700 bg-white dark:bg-gray-800'
-              } focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 shadow-sm transition-all`}
+                  ? 'border-red-500 bg-red-50' 
+                  : 'border-gray-300 bg-white'
+              } focus:border-primary-500 focus:ring-2 focus:ring-primary-200 text-gray-900 placeholder-gray-500 transition-all`}
               disabled={loading}
             />
             {isListening && (
@@ -392,8 +392,8 @@ const AIAdvisor = () => {
               onClick={isListening ? stopListening : startListening}
               className={`absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-lg transition-all ${
                 isListening
-                  ? 'bg-red-500 text-white shadow-lg shadow-red-500/50 scale-110'
-                  : 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-200 dark:hover:bg-emerald-800/40'
+                  ? 'bg-red-500 text-white'
+                  : 'bg-primary-50 border border-primary-600 text-primary-600 hover:bg-primary-100'
               }`}
               disabled={loading}
               title={isListening 
@@ -407,7 +407,7 @@ const AIAdvisor = () => {
           <button
             type="submit"
             disabled={loading || !question.trim()}
-            className="px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+            className="px-8 py-4 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? strings.loading : strings.askAI}
           </button>

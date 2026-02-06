@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, Query
 from app.schemas import LessonResponse
 from app.database import get_collection, LESSONS_COLLECTION
 from app.utils.auth import get_current_user
+from app.services.event_tracker import track_lesson_completion
 from typing import List, Optional
 
 router = APIRouter()
@@ -146,6 +147,12 @@ async def complete_lesson(lesson_id: str, current_user: dict = Depends(get_curre
                 "badges": current_badges
             }
         }
+    )
+    
+    await track_lesson_completion(
+        user_id=current_user["sub"],
+        lesson_id=lesson_id,
+        metadata={"coins_earned": lesson["coins"], "new_badge": new_badge}
     )
     
     response_data = {

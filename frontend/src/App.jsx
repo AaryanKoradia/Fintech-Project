@@ -1,36 +1,28 @@
-/**
- * Main Application Component
- * Configures routing, contexts, and protected routes
- */
-
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import ProtectedRoute from './components/ProtectedRoute';
-
-// Pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import LandingPage from './pages/LandingPage';
-
-// Dashboards
 import UserDashboard from './dashboards/UserDashboard';
 import AdminDashboard from './dashboards/AdminDashboard';
-
-// User Pages
 import Learning from './pages/Learning';
 import Schemes from './pages/Schemes';
 import AIAdvisor from './pages/AIAdvisor';
 import Profile from './pages/Profile';
 import ExpenseTracker from './pages/ExpenseTracker';
 import DocumentScanner from './pages/DocumentScanner';
-
-// Admin Pages
+import MoneyTranslator from './pages/MoneyTranslator';
 import ManageUsers from './pages/admin/ManageUsers';
 import ManageSchemes from './pages/admin/ManageSchemes';
 import Analytics from './pages/admin/Analytics';
 import ManageAdmins from './pages/admin/ManageAdmins';
+import BankingEducation from './pages/BankingEducation';
+import GovernmentDashboard from './pages/GovernmentDashboard';
+import AgentPortal from './pages/AgentPortal';
+import Marketplace from './pages/Marketplace';
 
 function App() {
   return (
@@ -39,12 +31,9 @@ function App() {
         <LanguageProvider>
           <AuthProvider>
             <Routes>
-              {/* Public Routes */}
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              
-              {/* User Routes - Protected */}
               <Route
                 path="/user/dashboard"
                 element={
@@ -94,6 +83,14 @@ function App() {
                 }
               />
               <Route
+                path="/user/money-translator"
+                element={
+                  <ProtectedRoute allowedRoles={['USER']}>
+                    <MoneyTranslator />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
                 path="/user/document-scanner"
                 element={
                   <ProtectedRoute allowedRoles={['USER']}>
@@ -101,8 +98,22 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              
-              {/* Admin Routes - Protected */}
+              <Route
+                path="/user/banking-education"
+                element={
+                  <ProtectedRoute allowedRoles={['USER']}>
+                    <BankingEducation />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/user/marketplace"
+                element={
+                  <ProtectedRoute allowedRoles={['USER']}>
+                    <Marketplace />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/admin/dashboard"
                 element={
@@ -140,6 +151,26 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['ADMIN']}>
                     <Analytics />
+                  </ProtectedRoute>
+                }
+              />
+              
+              {/* Government Dashboard - for ADMIN, DISTRICT_OFFICER, STATE_OFFICER, MINISTRY */}
+              <Route
+                path="/government/dashboard"
+                element={
+                  <ProtectedRoute allowedRoles={['ADMIN', 'DISTRICT_OFFICER', 'STATE_OFFICER', 'MINISTRY']}>
+                    <GovernmentDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              
+              {/* Agent Portal - for AGENT role */}
+              <Route
+                path="/agent/portal"
+                element={
+                  <ProtectedRoute allowedRoles={['AGENT']}>
+                    <AgentPortal />
                   </ProtectedRoute>
                 }
               />

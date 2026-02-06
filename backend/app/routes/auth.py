@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from app.schemas import UserSignup, UserLogin, Token, UserResponse
-from app.database import get_collection, USERS_COLLECTION
+from app.database import get_collection, USERS_COLLECTION, AGENTS_COLLECTION
 from app.utils.auth import hash_password, verify_password, create_access_token, get_current_user
+from bson import ObjectId
 from datetime import datetime
 from bson import ObjectId
 
@@ -58,8 +59,45 @@ async def signup(user_data: UserSignup):
 async def login(credentials: UserLogin):
     users_collection = get_collection(USERS_COLLECTION)
     user = await users_collection.find_one({"email": credentials.email})
+    
     if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password")
+        agents_collection = get_collection(AGENTS_COLLECTION)
+        agent = await agents_collection.find_one({"email": credentials.email})
+        
+        if not agent:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password")
+        
+        if not agent.get("is_active", False):
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Agent account is not active. Please contact admin.")
+        
+        if not verify_password(credentials.password, agent["password"]):
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password")
+        
+        user_id = str(agent["_id"])
+        access_token = create_access_token(
+            data={
+                "sub": user_id,
+                "email": agent["email"],
+                "role": agent["role"]
+            }
+        )
+        
+        user_response = {
+            "id": user_id,
+            "fullName": agent.get("full_name", "Agent"),
+            "email": agent["email"],
+            "village": agent.get("assigned_villages", [""])[0] if agent.get("assigned_villages") else "",
+            "role": agent["role"],
+            "progress": 0,
+            "coins": 0,
+            "badges": []
+        }
+        
+        return {
+            "access_token": access_token,
+            "token_type": "bearer",
+            "user": user_response
+        }
     
     if not verify_password(credentials.password, user["hashedPassword"]):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password")
@@ -94,20 +132,34 @@ async def login(credentials: UserLogin):
 async def get_current_user_profile(current_user: dict = Depends(get_current_user)):
     users_collection = get_collection(USERS_COLLECTION)
     user = await users_collection.find_one({"_id": ObjectId(current_user["sub"])})
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found"
-        )
     
-    return {
-        "id": str(user["_id"]),
-        "fullName": user["fullName"],
-        "email": user["email"],
-        "village": user["village"],
-        "role": user["role"],
-        "progress": user.get("progress", 0),
-        "coins": user.get("coins", 0),
-        "badges": user.get("badges", []),
-        "isActive": user.get("isActive", True)
-    }
+    if user:
+        return {
+            "id": str(user["_id"]),
+            "fullName": user["fullName"],
+            "email": user["email"],
+            "village": user["village"],
+            "role": user["role"],
+            "progress": user.get("progress", 0),
+            "coins": user.get("coins", 0),
+            "badges": user.get("badges", []),
+            "isActive": user.get("isActive", True)
+        }
+    
+    agents_collection = get_collection(AGENTS_COLLECTION)
+    agent = await agents_collection.find_one({"_id": ObjectId(current_user["sub"])})
+    
+    if agent:
+        return {
+            "id": str(agent["_id"]),
+            "fullName": agent.get("full_name", "Agent"),
+            "email": agent["email"],
+            "village": agent.get("assigned_villages", [""])[0] if agent.get("assigned_villages") else "",
+            "role": agent["role"],
+            "progress": 0,
+            "coins": 0,
+            "badges": [],
+            "isActive": agent.get("is_active", True)
+        }
+    
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")

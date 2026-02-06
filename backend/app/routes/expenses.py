@@ -1,9 +1,3 @@
-"""
-Expense Tracker Routes
-Simple expense tracking with AI-powered suggestions
-Designed for rural users - habit-based, not theory-based
-"""
-
 from fastapi import APIRouter, Depends
 from app.utils.auth import get_current_user
 from app.database import get_collection, USERS_COLLECTION
@@ -15,11 +9,8 @@ import google.generativeai as genai
 import os
 
 router = APIRouter()
-
-# Configure Gemini AI
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel('gemini-1.5-flash')
-
 
 class ExpenseCreate(BaseModel):
     amount: float
@@ -27,16 +18,8 @@ class ExpenseCreate(BaseModel):
     category: str
     date: Optional[str] = None
 
-
 @router.post("/add")
-async def add_expense(
-    expense: ExpenseCreate,
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Add a daily expense
-    Simple - just amount, description, category
-    """
+async def add_expense(expense: ExpenseCreate, current_user: dict = Depends(get_current_user)):
     users_collection = get_collection(USERS_COLLECTION)
     
     expense_data = {
@@ -47,7 +30,6 @@ async def add_expense(
         "createdAt": datetime.utcnow()
     }
     
-    # Add to user's expenses
     await users_collection.update_one(
         {"_id": ObjectId(current_user["sub"])},
         {
@@ -61,16 +43,8 @@ async def add_expense(
         "expense": expense_data
     }
 
-
 @router.get("/list")
-async def get_expenses(
-    days: int = 30,
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Get user's expenses for last N days
-    Default: 30 days
-    """
+async def get_expenses(days: int = 30, current_user: dict = Depends(get_current_user)):
     users_collection = get_collection(USERS_COLLECTION)
     user = await users_collection.find_one({"_id": ObjectId(current_user["sub"])})
     
@@ -79,8 +53,6 @@ async def get_expenses(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     
     expenses = user.get("expenses", [])
-    
-    # Filter by date
     cutoff_date = datetime.utcnow() - timedelta(days=days)
     filtered_expenses = [
         exp for exp in expenses 
@@ -94,13 +66,7 @@ async def get_expenses(
 
 
 @router.get("/analytics")
-async def get_expense_analytics(
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Get expense analytics with AI suggestions
-    Category-wise breakdown + Gemini AI advice
-    """
+async def get_expense_analytics(current_user: dict = Depends(get_current_user)):
     users_collection = get_collection(USERS_COLLECTION)
     user = await users_collection.find_one({"_id": ObjectId(current_user["sub"])})
     
@@ -109,15 +75,12 @@ async def get_expense_analytics(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     
     expenses = user.get("expenses", [])
-    
-    # Last 30 days
     cutoff_date = datetime.utcnow() - timedelta(days=30)
     recent_expenses = [
         exp for exp in expenses 
         if datetime.fromisoformat(exp.get("date", exp.get("createdAt").isoformat())) >= cutoff_date
     ]
-    
-    # Category-wise totals
+
     category_totals = {}
     total_amount = 0
     
@@ -126,8 +89,6 @@ async def get_expense_analytics(
         amt = exp.get("amount", 0)
         category_totals[cat] = category_totals.get(cat, 0) + amt
         total_amount += amt
-    
-    # Get AI suggestion
     ai_suggestion = await get_ai_suggestion(recent_expenses, category_totals, user)
     
     return {
@@ -140,19 +101,10 @@ async def get_expense_analytics(
 
 
 async def get_ai_suggestion(expenses: List, category_totals: dict, user: dict):
-    """
-    Get AI-powered expense suggestions from Gemini
-    Rural-friendly, practical advice
-    """
     try:
-        # Build simple context
         monthly_income = user.get("monthlyIncome", "Not specified")
         occupation = user.get("occupation", "Not specified")
-        
-        # Top spending categories
         top_categories = sorted(category_totals.items(), key=lambda x: x[1], reverse=True)[:3]
-        
-        # Prepare prompt for Gemini
         prompt = f"""
 You are a financial advisor for rural India. Give VERY SHORT, PRACTICAL advice in simple language.
 
@@ -174,7 +126,6 @@ Give 2-3 SHORT suggestions:
 Keep it VERY simple - max 2 lines per point. No complex financial terms.
 """
         
-        # Call Gemini API
         response = model.generate_content(prompt)
         
         return {
@@ -198,13 +149,7 @@ Remember: Small savings add up!""",
 
 
 @router.delete("/{expense_index}")
-async def delete_expense(
-    expense_index: int,
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Delete an expense by index
-    """
+async def delete_expense(expense_index: int, current_user: dict = Depends(get_current_user)):
     users_collection = get_collection(USERS_COLLECTION)
     user = await users_collection.find_one({"_id": ObjectId(current_user["sub"])})
     
@@ -218,7 +163,6 @@ async def delete_expense(
         from fastapi import HTTPException, status
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid index")
     
-    # Remove expense
     deleted_expense = expenses.pop(expense_index)
     
     await users_collection.update_one(
@@ -234,21 +178,12 @@ async def delete_expense(
 
 @router.get("/today-nudge")
 async def get_today_expense_nudge(current_user: dict = Depends(get_current_user)):
-    """
-    Get today's expense-related action nudge
-    "Write today's expense", "Ask for receipt", etc.
-    """
     users_collection = get_collection(USERS_COLLECTION)
     user = await users_collection.find_one({"_id": ObjectId(current_user["sub"])})
-    
-    # Check if user added expense today
     expenses = user.get("expenses", [])
     today = datetime.utcnow().date()
     
-    has_today_expense = any(
-        datetime.fromisoformat(exp.get("date", exp.get("createdAt").isoformat())).date() == today
-        for exp in expenses
-    )
+    has_today_expense = any(datetime.fromisoformat(exp.get("date", exp.get("createdAt").isoformat())).date() == today for exp in expenses)
     
     if not has_today_expense:
         return {

@@ -86,28 +86,26 @@ const ConfidenceScore = ({ compact = false }) => {
   };
 
   const getLevelColor = () => {
-    switch(level) {
-      case 'expert': return 'from-yellow-400 to-orange-500';
-      case 'high': return 'from-purple-400 to-pink-500';
-      case 'medium': return 'from-blue-400 to-cyan-500';
-      default: return 'from-green-400 to-emerald-500';
-    }
+    // Using single blue color for all levels
+    return 'primary-600';
   };
 
   // Compact view for dashboard
   if (compact) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border-2 border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-300 dark:border-gray-700 hover:border-primary-500 transition-all">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold text-gray-800 dark:text-white">
             {strings.confidenceScore}
           </h3>
-          {getLevelIcon()}
+          <div className="text-3xl text-primary-600">
+            {getLevelIcon()}
+          </div>
         </div>
         
         <div className="mb-4">
           <div className="flex items-end gap-2 mb-2">
-            <span className={`text-5xl font-bold bg-gradient-to-r ${getLevelColor()} bg-clip-text text-transparent`}>
+            <span className="text-5xl font-bold text-primary-600">
               {totalScore}
             </span>
             <span className="text-2xl text-gray-500 dark:text-gray-400 mb-2">/100</span>
@@ -119,9 +117,32 @@ const ConfidenceScore = ({ compact = false }) => {
 
         <div className="relative h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
           <div 
-            className={`absolute top-0 left-0 h-full bg-gradient-to-r ${getLevelColor()} rounded-full transition-all duration-500`}
+            className="absolute top-0 left-0 h-full bg-primary-600 rounded-full transition-all duration-500"
             style={{ width: `${totalScore}%` }}
           ></div>
+        </div>
+
+        {/* Tips Section - Fills empty space */}
+        <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+            {currentLanguage === 'english' ? 'Quick Tips to Improve:' : 'सुधार के लिए सुझाव:'}
+          </p>
+          <div className="space-y-3">
+            <div className="flex items-start gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900">
+              <FaBook className="text-primary-600 text-base mt-0.5 flex-shrink-0" />
+              <span className="text-xs text-gray-700 dark:text-gray-300">{strings.nudgeCompleteLesson}</span>
+            </div>
+            <div className="flex items-start gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900">
+              <FaLandmark className="text-primary-600 text-base mt-0.5 flex-shrink-0" />
+              <span className="text-xs text-gray-700 dark:text-gray-300">{strings.nudgeCheckScheme}</span>
+            </div>
+            <div className="flex items-start gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900">
+              <FaChartLine className="text-primary-600 text-base mt-0.5 flex-shrink-0" />
+              <span className="text-xs text-gray-700 dark:text-gray-300">
+                {currentLanguage === 'english' ? 'Track your daily expenses' : 'अपने दैनिक खर्चों को ट्रैक करें'}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -131,10 +152,10 @@ const ConfidenceScore = ({ compact = false }) => {
   return (
     <div className="space-y-6">
       {/* Main Score Card */}
-      <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 border-2 border-gray-200 dark:border-gray-700 shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-8 border border-gray-300 dark:border-gray-700">
         <div className="text-center mb-6">
           <div className="flex justify-center mb-4">
-            <div className="w-24 h-24 bg-gradient-to-br from-[#FF9933]/20 to-[#138808]/20 rounded-full flex items-center justify-center animate-pulse">
+            <div className="w-24 h-24 border-2 border-primary-600 rounded-full flex items-center justify-center text-primary-600 text-5xl">
               {getLevelIcon()}
             </div>
           </div>
@@ -144,7 +165,7 @@ const ConfidenceScore = ({ compact = false }) => {
           </h2>
           
           <div className="flex items-end justify-center gap-2 mb-2">
-            <span className={`text-6xl font-bold bg-gradient-to-r ${getLevelColor()} bg-clip-text text-transparent`}>
+            <span className="text-6xl font-bold text-primary-600">
               {totalScore}
             </span>
             <span className="text-3xl text-gray-500 dark:text-gray-400 mb-2">/100</span>
@@ -158,16 +179,16 @@ const ConfidenceScore = ({ compact = false }) => {
         {/* Progress Bar */}
         <div className="relative h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-2">
           <div 
-            className={`absolute top-0 left-0 h-full bg-gradient-to-r ${getLevelColor()} rounded-full transition-all duration-1000 animate-shimmer`}
+            className="absolute top-0 left-0 h-full bg-primary-600 rounded-full transition-all duration-1000"
             style={{ width: `${totalScore}%` }}
           ></div>
         </div>
       </div>
 
       {/* Score Breakdown */}
-      <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 border-2 border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-300 dark:border-gray-700">
         <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-          <FaChartLine className="text-[#FF9933]" />
+          <FaChartLine className="text-primary-600" />
           {strings.scoreBreakdown}
         </h3>
 
@@ -176,7 +197,7 @@ const ConfidenceScore = ({ compact = false }) => {
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <FaBook className="text-blue-500" />
+                <FaBook className="text-primary-600" />
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {strings.lessonsScore}
                 </span>
@@ -187,7 +208,7 @@ const ConfidenceScore = ({ compact = false }) => {
             </div>
             <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-500"
+                className="h-full bg-primary-600 rounded-full transition-all duration-500"
                 style={{ width: `${breakdown.lessonsScore}%` }}
               ></div>
             </div>
@@ -197,7 +218,7 @@ const ConfidenceScore = ({ compact = false }) => {
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <FaLandmark className="text-purple-500" />
+                <FaLandmark className="text-primary-600" />
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {strings.schemesScore}
                 </span>
@@ -208,7 +229,7 @@ const ConfidenceScore = ({ compact = false }) => {
             </div>
             <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-purple-400 to-purple-600 rounded-full transition-all duration-500"
+                className="h-full bg-primary-600 rounded-full transition-all duration-500"
                 style={{ width: `${breakdown.schemesScore}%` }}
               ></div>
             </div>
@@ -218,7 +239,7 @@ const ConfidenceScore = ({ compact = false }) => {
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <FaComments className="text-green-500" />
+                <FaComments className="text-primary-600" />
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {strings.practiceScore}
                 </span>
@@ -229,7 +250,7 @@ const ConfidenceScore = ({ compact = false }) => {
             </div>
             <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full transition-all duration-500"
+                className="h-full bg-primary-600 rounded-full transition-all duration-500"
                 style={{ width: `${breakdown.practiceScore}%` }}
               ></div>
             </div>
@@ -239,7 +260,7 @@ const ConfidenceScore = ({ compact = false }) => {
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <FaFire className="text-orange-500" />
+                <FaFire className="text-primary-600" />
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {strings.engagementScore}
                 </span>
@@ -250,7 +271,7 @@ const ConfidenceScore = ({ compact = false }) => {
             </div>
             <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-orange-400 to-orange-600 rounded-full transition-all duration-500"
+                className="h-full bg-primary-600 rounded-full transition-all duration-500"
                 style={{ width: `${breakdown.engagementScore}%` }}
               ></div>
             </div>
@@ -260,9 +281,9 @@ const ConfidenceScore = ({ compact = false }) => {
 
       {/* Improvement Suggestions */}
       {suggestions && suggestions.length > 0 && (
-        <div className="bg-gradient-to-r from-[#FF9933]/10 to-[#138808]/10 rounded-3xl p-6 border-2 border-[#FF9933]/30">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-300 dark:border-gray-700">
           <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-            <FaArrowUp className="text-[#138808]" />
+            <FaArrowUp className="text-primary-600" />
             {strings.improveScore}
           </h3>
 
@@ -270,9 +291,9 @@ const ConfidenceScore = ({ compact = false }) => {
             {suggestions.map((suggestion, idx) => (
               <div 
                 key={idx}
-                className="flex items-start gap-3 bg-white dark:bg-gray-800 p-4 rounded-xl"
+                className="flex items-start gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
               >
-                <FaCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
+                <FaCheckCircle className="text-primary-600 mt-1 flex-shrink-0" />
                 <div className="flex-1">
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     {suggestion.type === 'lessons' && strings.nudgeCompleteLesson}
@@ -281,11 +302,7 @@ const ConfidenceScore = ({ compact = false }) => {
                     {suggestion.type === 'engagement' && strings.nudgeDailySaving}
                   </p>
                 </div>
-                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                  suggestion.priority === 'high' ? 'bg-red-100 text-red-700' :
-                  suggestion.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                  'bg-blue-100 text-blue-700'
-                }`}>
+                <span className="px-3 py-1 border border-primary-600 rounded-full text-xs font-medium text-primary-600">
                   {suggestion.priority}
                 </span>
               </div>

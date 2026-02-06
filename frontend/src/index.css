@@ -1,142 +1,105 @@
 /**
- * Main CSS File
- * Imports Tailwind CSS utilities
- * Custom global styles for accessible, rural-friendly UI
+ * Main CSS File - Clean Blue Theme
+ * Simple, professional, easy-to-use interface
  */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles for better accessibility */
 @layer base {
+  * {
+    @apply border-gray-200 dark:border-gray-700;
+  }
+  
   body {
     @apply bg-background-light dark:bg-background-dark;
     @apply text-text-light dark:text-text-dark;
     @apply transition-colors duration-200;
   }
   
-  /* Ensure good contrast ratios */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
+    @apply font-bold text-gray-900 dark:text-gray-100;
   }
   
-  /* Large, touch-friendly buttons */
   button {
     @apply min-h-[48px] px-6 py-3;
     @apply rounded-lg font-medium;
     @apply transition-all duration-200;
-    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500;
   }
   
-  /* Input fields with good visibility */
   input, textarea, select {
     @apply min-h-[48px] px-4 py-3;
     @apply rounded-lg border-2;
-    @apply bg-surface-light dark:bg-surface-dark;
+    @apply bg-white dark:bg-gray-800;
     @apply border-gray-300 dark:border-gray-600;
-    @apply text-text-light dark:text-text-dark;
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark;
+    @apply text-gray-900 dark:text-gray-100;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
   }
 }
 
-/* Component-level utilities */
 @layer components {
-  /* Primary button */
   .btn-primary {
-    @apply bg-primary-light dark:bg-primary-dark;
-    @apply text-white;
-    @apply hover:opacity-90;
-    @apply active:scale-95;
+    @apply bg-primary-600 hover:bg-primary-700 active:bg-primary-800;
+    @apply text-white shadow-sm hover:shadow-md;
+    @apply active:scale-[0.98];
   }
   
-  /* Secondary button */
   .btn-secondary {
-    @apply bg-secondary-light dark:bg-secondary-dark;
-    @apply text-white;
-    @apply hover:opacity-90;
-    @apply active:scale-95;
+    @apply bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600;
+    @apply text-gray-900 dark:text-gray-100;
+    @apply active:scale-[0.98];
   }
   
-  /* Card component */
   .card {
-    @apply bg-surface-light dark:bg-surface-dark;
-    @apply rounded-xl shadow-md;
-    @apply p-6;
-    @apply border border-gray-200 dark:border-gray-700;
+    @apply bg-white dark:bg-gray-800;
+    @apply rounded-lg;
+    @apply p-5;
+    @apply border border-gray-300 dark:border-gray-700;
   }
   
-  /* Icon button (square) */
-  .btn-icon {
-    @apply w-12 h-12 p-0;
-    @apply flex items-center justify-center;
-    @apply rounded-full;
+  .page-container {
+    @apply min-h-screen w-full;
+    @apply bg-gray-50 dark:bg-gray-900;
   }
   
-  /* Badge */
+  .content-full {
+    @apply w-full px-6;
+  }
+  
   .badge {
     @apply inline-flex items-center px-3 py-1;
     @apply text-sm font-medium rounded-full;
-  }
-  
-  /* Progress bar */
-  .progress-bar {
-    @apply w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden;
-  }
-  
-  .progress-fill {
-    @apply h-full bg-primary-light dark:bg-primary-dark;
-    @apply transition-all duration-500;
+    @apply bg-primary-100 text-primary-700;
+    @apply dark:bg-primary-900 dark:text-primary-300;
   }
 }
 
-/* Utility classes for rural-friendly design */
 @layer utilities {
-  /* Extra large touch targets */
-  .touch-target {
-    @apply min-w-[48px] min-h-[48px];
-  }
-  
-  /* High contrast text */
-  .text-high-contrast {
-    @apply text-gray-900 dark:text-gray-100;
-  }
-  
-  /* Readable text size */
-  .text-readable {
-    @apply text-lg leading-relaxed;
+  .text-gradient-blue {
+    @apply bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent;
   }
 }
 
-/* Scrollbar styling for better UX */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-800;
+  @apply bg-gray-100 dark:bg-gray-900;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 dark:bg-gray-600 rounded-full;
+  @apply bg-primary-300 dark:bg-primary-700 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500 dark:bg-gray-500;
+  @apply bg-primary-400 dark:bg-primary-600;
 }
 
-/* Loading animation */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin 2s linear infinite;
-}
-
-/* Fade in animation */
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-from app.routes import auth, users, admin, lessons, schemes, ai, confidence, nudges, expenses, document_scanner, whatsapp
+from app.routes import auth, users, admin, lessons, schemes, ai, confidence, nudges, expenses, document_scanner, whatsapp, voice_call, financial_planning, money_translator, agents, analytics, applications, marketplace
 
 app = FastAPI(title="FinLit API", description="Financial Literacy & Empowerment Platform API", version="1.0.0")
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000,http://10.110.80.128:3000").split(",")
@@ -27,8 +27,15 @@ app.include_router(ai.router, prefix="/api/ai", tags=["AI Advisor"])
 app.include_router(confidence.router, prefix="/api/confidence", tags=["Confidence Score"])
 app.include_router(nudges.router, prefix="/api/nudges", tags=["Daily Nudges"])
 app.include_router(expenses.router, prefix="/api/expenses", tags=["Expense Tracker"])
+app.include_router(financial_planning.router, prefix="/api/financial-planning", tags=["AI Financial Planning"])
 app.include_router(document_scanner.router, prefix="/api/document-scanner", tags=["Document Scanner"])
 app.include_router(whatsapp.router, prefix="/api/whatsapp", tags=["WhatsApp Messaging"])
+app.include_router(voice_call.router, prefix="/api/voice-call", tags=["Voice Call AI Assistant"])
+app.include_router(money_translator.router, prefix="/api/money-translator", tags=["Money Translator"])
+app.include_router(agents.router, prefix="/api/agents", tags=["Agent Network"])
+app.include_router(analytics.router, prefix="/api/analytics", tags=["Government Analytics"])
+app.include_router(applications.router, prefix="/api/applications", tags=["Scheme Applications"])
+app.include_router(marketplace.router, prefix="/api/marketplace", tags=["Marketplace & Redemptions"])
 
 @app.get("/")
 async def root():

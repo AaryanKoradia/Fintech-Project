@@ -1,6 +1,7 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
 from app.utils.auth import get_current_user
 from app.database import get_collection, FILLED_FORMS_COLLECTION
+from app.services.event_tracker import track_document_scan
 import google.generativeai as genai
 import os
 from PIL import Image
@@ -12,10 +13,7 @@ from datetime import datetime
 from pydantic import BaseModel
 
 router = APIRouter()
-
-# Configure Gemini AI
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
 
 class FormDataSubmission(BaseModel):
     form_name: str
@@ -23,31 +21,18 @@ class FormDataSubmission(BaseModel):
     image_url: str = None
 
 @router.post("/upload-document")
-async def upload_document(
-    file: UploadFile = File(...),
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Upload and analyze document images (Aadhaar, PAN, Bank Passbook, Scheme Details)
-    Extracts text using Gemini Vision and provides AI analysis
-    """
+async def upload_document(file: UploadFile = File(...), current_user: dict = Depends(get_current_user)):
     try:
-        # Validate file type
         if not file.content_type.startswith('image/'):
             raise HTTPException(status_code=400, detail="File must be an image")
         
-        # Read image file
         image_bytes = await file.read()
         image = Image.open(io.BytesIO(image_bytes))
         
-        # Convert to RGB if needed
         if image.mode != 'RGB':
             image = image.convert('RGB')
         
-        # Use Gemini Vision model for text extraction
         model = genai.GenerativeModel('gemini-2.5-flash')
-        
-        # Extract text from image
         extraction_prompt = """
         Analyze this document image carefully. It could be:
         - Aadhaar Card
@@ -69,8 +54,6 @@ async def upload_document(
         
         response = model.generate_content([extraction_prompt, image])
         extracted_text = response.text
-        
-        # Analyze the extracted data
         analysis_prompt = f"""
         Based on this extracted document data, provide analysis:
         
@@ -90,10 +73,9 @@ async def upload_document(
         
         analysis_response = model.generate_content(analysis_prompt)
         ai_analysis = analysis_response.text
-        
-        # Detect document type and extract structured data
         doc_type = detect_document_type(extracted_text)
         structured_data = extract_structured_data(extracted_text, doc_type)
+        await track_document_scan(user_id=current_user["sub"], document_type=doc_type, success=True, metadata={"file_name": file.filename})
         
         return {
             "success": True,
@@ -105,39 +87,31 @@ async def upload_document(
         }
         
     except Exception as e:
+        await track_document_scan(
+            user_id=current_user["sub"],
+            document_type="unknown",
+            success=False,
+            metadata={"error": str(e)}
+        )
         print(f"Document scanner error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error processing document: {str(e)}")
 
 
 @router.post("/detect-form-fields")
-async def detect_form_fields(
-    file: UploadFile = File(...),
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Detect input fields in a blank form image and return bounding box coordinates
-    Returns field labels and their exact positions for overlay rendering
-    """
+async def detect_form_fields(file: UploadFile = File(...), current_user: dict = Depends(get_current_user)):
     try:
-        # Validate file type
         if not file.content_type.startswith('image/'):
             raise HTTPException(status_code=400, detail="File must be an image")
         
-        # Read image file
         image_bytes = await file.read()
         image = Image.open(io.BytesIO(image_bytes))
         
-        # Convert to RGB if needed
         if image.mode != 'RGB':
             image = image.convert('RGB')
         
-        # Get image dimensions
         img_width, img_height = image.size
         
-        # Use Gemini Vision model for form field detection
         model = genai.GenerativeModel('gemini-2.5-flash')
-        
-        # Prompt for field detection with bounding boxes
         detection_prompt = """
         Analyze this paper form image carefully. You are detecting INPUT FIELDS (blank spaces where users write).
 
@@ -209,8 +183,7 @@ async def detect_form_fields(
         
         response = model.generate_content([detection_prompt, image])
         response_text = response.text.strip()
-        
-        # Clean the response - remove markdown code blocks if present
+    
         if response_text.startswith('```json'):
             response_text = response_text[7:]
         elif response_text.startswith('```'):
@@ -221,22 +194,17 @@ async def detect_form_fields(
         
         response_text = response_text.strip()
         
-        # Parse JSON response
         import json
         field_data = json.loads(response_text)
         
-        # Validate and normalize the response
         if not isinstance(field_data, dict):
             raise ValueError("Invalid response format")
         
         if 'fields' not in field_data:
             field_data['fields'] = []
         
-        # Ensure image dimensions are set
         field_data['image_width'] = img_width
         field_data['image_height'] = img_height
-        
-        # Convert image to base64 for frontend display
         img_base64 = base64.b64encode(image_bytes).decode()
         
         return {
@@ -255,15 +223,8 @@ async def detect_form_fields(
         print(f"Form field detection error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error detecting form fields: {str(e)}")
 
-
 @router.post("/save-form-data")
-async def save_form_data(
-    form_data: FormDataSubmission,
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Save filled form data to database
-    """
+async def save_form_data(form_data: FormDataSubmission, current_user: dict = Depends(get_current_user)):
     try:
         saved_form = {
             "user_id": current_user["id"],
@@ -275,7 +236,6 @@ async def save_form_data(
             "updated_at": datetime.utcnow()
         }
         
-        # Save to database
         filled_forms_collection = get_collection(FILLED_FORMS_COLLECTION)
         result = await filled_forms_collection.insert_one(saved_form)
         
@@ -293,9 +253,6 @@ async def save_form_data(
 
 @router.get("/my-forms")
 async def get_my_forms(current_user: dict = Depends(get_current_user)):
-    """
-    Get all filled forms for the current user
-    """
     try:
         forms = []
         filled_forms_collection = get_collection(FILLED_FORMS_COLLECTION)
@@ -317,7 +274,6 @@ async def get_my_forms(current_user: dict = Depends(get_current_user)):
 
 
 def detect_document_type(text: str) -> str:
-    """Detect document type from extracted text"""
     text_lower = text.lower()
     
     if 'aadhaar' in text_lower or 'आधार' in text_lower:
@@ -333,13 +289,11 @@ def detect_document_type(text: str) -> str:
 
 
 def extract_structured_data(text: str, doc_type: str) -> Dict[str, Any]:
-    """Extract structured data based on document type"""
     data = {
         "type": doc_type,
         "fields": []
     }
     
-    # Extract PAN number (format: ABCDE1234F)
     pan_match = re.search(r'\b[A-Z]{5}[0-9]{4}[A-Z]\b', text)
     if pan_match:
         data["fields"].append({
@@ -348,7 +302,6 @@ def extract_structured_data(text: str, doc_type: str) -> Dict[str, Any]:
             "icon": "credit-card"
         })
     
-    # Extract account numbers (9-18 digits, excluding phone numbers)
     account_match = re.search(r'\b\d{9,18}\b', text)
     if account_match:
         data["fields"].append({
@@ -356,8 +309,6 @@ def extract_structured_data(text: str, doc_type: str) -> Dict[str, Any]:
             "value": account_match.group(),
             "icon": "university"
         })
-    
-    # Extract amounts (₹ or Rs.)
     amounts = re.findall(r'(?:₹|Rs\.?)\s*(\d+(?:,\d+)*(?:\.\d{2})?)', text)
     if amounts:
         for i, amount in enumerate(amounts[:3]):  # Max 3 amounts
@@ -367,7 +318,6 @@ def extract_structured_data(text: str, doc_type: str) -> Dict[str, Any]:
                 "icon": "money"
             })
     
-    # Extract dates (DD/MM/YYYY or DD-MM-YYYY)
     dates = re.findall(r'\b\d{2}[/-]\d{2}[/-]\d{4}\b', text)
     if dates:
         data["fields"].append({
@@ -376,7 +326,6 @@ def extract_structured_data(text: str, doc_type: str) -> Dict[str, Any]:
             "icon": "calendar"
         })
     
-    # Extract names (capitalize words after common prefixes)
     name_patterns = [
         r'Name[:\s]+([A-Z][a-zA-Z\s]+)',
         r'नाम[:\s]+([A-Z][a-zA-Z\s]+)',

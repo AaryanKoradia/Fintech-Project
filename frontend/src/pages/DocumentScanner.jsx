@@ -366,15 +366,15 @@ const DocumentScanner = () => {
             </div>
 
             {/* Supported Documents */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 border-l-4 border-blue-600 p-4">
-              <h4 className="font-bold text-gray-800 dark:text-white mb-2 text-sm">
+            <div className="bg-primary-50 border-l-4 border-primary-600 p-4">
+              <h4 className="font-bold text-gray-800 mb-2 text-sm">
                 {scanMode === 'document' 
                   ? (currentLanguage === 'english' ? 'Supported Documents:' : 'समर्थित दस्तावेज़:')
                   : (currentLanguage === 'english' ? 'How it works:' : 'यह कैसे काम करता है:')
                 }
               </h4>
               {scanMode === 'document' ? (
-                <ul className="text-xs text-gray-700 dark:text-gray-300 space-y-1">
+                <ul className="text-xs text-gray-700 space-y-1">
                   <li>✓ {currentLanguage === 'english' ? 'Aadhaar Card (आधार कार्ड)' : 'आधार कार्ड'}</li>
                   <li>✓ {currentLanguage === 'english' ? 'PAN Card (पैन कार्ड)' : 'पैन कार्ड'}</li>
                   <li>✓ {currentLanguage === 'english' ? 'Bank Passbook (बैंक पासबुक)' : 'बैंक पासबुक'}</li>
@@ -493,10 +493,10 @@ const DocumentScanner = () => {
                 </div>
 
                 {/* Field List */}
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 border-l-4 border-blue-600 shadow-sm p-6">
-                  <h4 className="font-bold text-gray-800 dark:text-white mb-3 text-sm flex items-center justify-between">
+                <div className="bg-primary-50 border-l-4 border-primary-600 p-6">
+                  <h4 className="font-bold text-gray-800 mb-3 text-sm flex items-center justify-between">
                     <span>{currentLanguage === 'english' ? 'Detected Fields:' : 'पहचाने गए फ़ील्ड:'}</span>
-                    <span className="text-xs bg-blue-600 text-white px-2 py-1 rounded">
+                    <span className="text-xs bg-primary-600 text-white px-2 py-1 rounded">
                       {Object.keys(formData).length}/{formFields.fields?.length || 0} {currentLanguage === 'english' ? 'filled' : 'भरे गए'}
                     </span>
                   </h4>
@@ -507,19 +507,19 @@ const DocumentScanner = () => {
                         <div 
                           key={index} 
                           onClick={() => handleFieldClick(field)}
-                          className={`cursor-pointer transition-all ${
+                          className={`cursor-pointer transition-all border-2 p-2 ${
                             isFilled 
-                              ? 'bg-green-50 dark:bg-green-900/20 border-green-500' 
-                              : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-blue-400'
-                          } border-2 p-2`}
+                              ? 'bg-green-50 border-green-500' 
+                              : 'bg-white border-gray-200 hover:border-primary-600'
+                          }`}
                         >
-                          <p className="text-xs text-gray-600 dark:text-gray-400 flex items-center gap-1">
+                          <p className="text-xs text-gray-600 flex items-center gap-1">
                             {isFilled ? '✓' : '○'} {field.label}
                           </p>
                           <p className={`font-semibold text-sm truncate ${
                             isFilled 
-                              ? 'text-green-700 dark:text-green-300' 
-                              : 'text-gray-400 dark:text-gray-600 italic'
+                              ? 'text-green-700' 
+                              : 'text-gray-400 italic'
                           }`}>
                             {formData[field.label] || (currentLanguage === 'english' ? 'Not filled' : 'नहीं भरा')}
                           </p>
@@ -569,23 +569,23 @@ const DocumentScanner = () => {
                 </div>
 
                 {/* AI Analysis */}
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/10 border-l-4 border-green-600 shadow-sm p-6">
-                  <div className="flex items-center gap-3 mb-4 pb-3 border-b border-green-200 dark:border-green-800">
+                <div className="bg-green-50 border-l-4 border-green-600 p-6">
+                  <div className="flex items-center gap-3 mb-4 pb-3 border-b border-green-200">
                     <div className="w-10 h-10 bg-green-600 flex items-center justify-center">
                       <FaLightbulb className="text-white text-lg" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-800 dark:text-white">
+                      <h3 className="text-lg font-bold text-gray-800">
                         {currentLanguage === 'english' ? 'AI Analysis & Suggestions' : 'AI विश्लेषण और सुझाव'}
                       </h3>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                      <p className="text-xs text-gray-600">
                         {currentLanguage === 'english' ? 'Powered by Google Gemini AI' : 'Google Gemini AI द्वारा संचालित'}
                       </p>
                     </div>
                   </div>
 
-                  <div className="bg-white dark:bg-gray-800 border border-green-200 dark:border-green-800 p-4">
-                    <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed text-sm">
+                  <div className="bg-white border border-green-200 p-4">
+                    <p className="text-gray-700 whitespace-pre-line leading-relaxed text-sm">
                       {result.aiAnalysis}
                     </p>
                   </div>

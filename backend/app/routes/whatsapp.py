@@ -9,25 +9,13 @@ import logging
 
 router = APIRouter()
 
-# UltraMsg Configuration
 ULTRAMSG_INSTANCE = os.getenv("ULTRAMSG_INSTANCE", "instance161117")
 ULTRAMSG_TOKEN = os.getenv("ULTRAMSG_TOKEN", "cuzs4wytqcsvut0c")
 ULTRAMSG_BASE_URL = f"https://api.ultramsg.com/{ULTRAMSG_INSTANCE}"
 
 logger = logging.getLogger(__name__)
 
-
 def send_whatsapp_message(to: str, body: str) -> Dict[str, Any]:
-    """
-    Send WhatsApp message using UltraMsg API
-    
-    Args:
-        to: Phone number without + (e.g., "917058135626")
-        body: Message text
-        
-    Returns:
-        Response from UltraMsg API
-    """
     url = f"{ULTRAMSG_BASE_URL}/messages/chat"
     
     payload = {
@@ -53,20 +41,9 @@ def send_whatsapp_message(to: str, body: str) -> Dict[str, Any]:
 
 
 def handle_command(message: str, user_phone: str) -> str:
-    """
-    Handle WhatsApp commands and return appropriate response
-    
-    Args:
-        message: User's message text
-        user_phone: User's phone number
-        
-    Returns:
-        Response message to send back
-    """
     message_lower = message.lower().strip()
     
-    # Welcome/Hi command
-    if message_lower in ['hi', 'hello', 'hey', 'start', 'namaste', 'नमस्ते']:
+    if message_lower in ['hi', 'hello', 'hey', 'start', 'namaste', 'नमस्ते', 'Hi']:
         return """🙏 *Welcome to FinLit - Financial Literacy Platform*
 
 Please select your preferred language:
@@ -86,9 +63,8 @@ Reply with *1* for English or *2* for Hindi
 
 Type *help* anytime for assistance."""
     
-    # Language selection
     elif message_lower in ['1', 'english']:
-        return """✅ *Language set to English*
+        return """*Language set to English*
 
 🎯 *What would you like to do?*
 
@@ -265,9 +241,8 @@ Visit: https://finlit-app.com/document-scanner
 
 Reply *menu* for all options."""
     
-    # Score/Progress
     elif message_lower in ['score', 'स्कोर', 'progress']:
-        return """📈 *Your Financial Confidence Score*
+        return """*Your Financial Confidence Score*
 
 🎯 *Track your progress:*
 • Learning completion
@@ -288,7 +263,6 @@ Visit: https://finlit-app.com/profile
 
 Reply *menu* for all options."""
     
-    # Unknown command
     else:
         return """❓ *I didn't understand that command*
 
@@ -313,28 +287,55 @@ async def whatsapp_webhook(request: Request):
     """
     try:
         data = await request.json()
+        print(f"\n{'='*50}")
+        print(f"📥 WEBHOOK RECEIVED")
+        print(f"{'='*50}")
+        print(f"Data: {data}")
         logger.info(f"Received webhook: {data}")
         
-        # Extract message details
-        message_body = data.get("body", "")
-        user_phone = data.get("from", "").replace("+", "")
-        message_type = data.get("type", "")
+        # UltraMsg sends nested data structure
+        message_data = data.get("data", {})
         
-        # Only process text messages
+        # Extract message details
+        message_body = message_data.get("body", "")
+        from_number = message_data.get("from", "").replace("@c.us", "").replace("+", "")
+        to_number = message_data.get("to", "").replace("@c.us", "").replace("+", "")
+        message_type = message_data.get("type", "")
+        from_me = message_data.get("fromMe", False)
+        
+        print(f"Message: {message_body}")
+        print(f"From: {from_number}")
+        print(f"To: {to_number}")
+        print(f"Type: {message_type}")
+        print(f"FromMe: {from_me}")
+        
+        AUTHORIZED_NUMBER = "917058135626"
+        if from_number != AUTHORIZED_NUMBER:
+            print(f"Ignored: Unauthorized number {from_number}")
+            return {"status": "ignored", "reason": "Unauthorized number"}
+        
         if message_type != "chat":
+            print(f"Ignored: Not a text message")
             return {"status": "ignored", "reason": "Not a text message"}
         
-        # Ignore messages sent by bot itself
-        if data.get("fromMe", False):
+        if from_me:
+            print(f"Ignored: Message from bot (fromMe=True)")
             return {"status": "ignored", "reason": "Message from bot"}
         
-        # Handle the command and get response
+        bot_patterns = ["🙏 *Welcome", "❓ *I didn't", "✅ *Language", "📱 *FinLit", "📚 *Financial", "💰 *Government", "📊 *Expense", "🤖 *AI", "📄 *Document", "📈 *Your"]
+        if any(message_body.startswith(pattern) for pattern in bot_patterns):
+            print(f"Ignored: Bot response pattern detected")
+            return {"status": "ignored", "reason": "Bot response pattern"}
+        
+        user_phone = from_number
         response_message = handle_command(message_body, user_phone)
-        
-        # Send response back to user
+        print(f"\nBOT RESPONSE:")
+        print(f"{response_message[:200]}...")
+        print(f"\nSending message to {user_phone}...")
         result = send_whatsapp_message(user_phone, response_message)
+        print(f"Send result: {result}")
+        print(f"{'='*50}\n")
         
-        # Log the interaction
         users_collection = get_collection(USERS_COLLECTION)
         await users_collection.update_one(
             {"phone": user_phone},
@@ -375,7 +376,6 @@ async def send_message(
         message: Message text
     """
     try:
-        # Remove + if present
         to = to.replace("+", "")
         
         result = send_whatsapp_message(to, message)
@@ -392,26 +392,13 @@ async def send_message(
 
 
 @router.post("/broadcast")
-async def broadcast_message(
-    message: str = Body(..., embed=True),
-    user_ids: list = Body(None, embed=True),
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Admin endpoint to broadcast WhatsApp messages to multiple users
-    
-    Args:
-        message: Message text
-        user_ids: List of user IDs (if None, send to all users with phone numbers)
-    """
+async def broadcast_message( message: str = Body(..., embed=True), user_ids: list = Body(None, embed=True), current_user: dict = Depends(get_current_user)):
     try:
-        # Check if user is admin
         if current_user.get("role") != "admin":
             raise HTTPException(status_code=403, detail="Admin access required")
         
         users_collection = get_collection(USERS_COLLECTION)
         
-        # Get users to send to
         if user_ids:
             query = {"_id": {"$in": user_ids}, "phone": {"$exists": True, "$ne": ""}}
         else:
@@ -421,7 +408,6 @@ async def broadcast_message(
         async for user in users_collection.find(query):
             users.append(user)
         
-        # Send messages
         results = {
             "total": len(users),
             "sent": 0,
@@ -455,13 +441,10 @@ async def broadcast_message(
 
 @router.get("/test")
 async def test_whatsapp(phone: str = "917058135626"):
-    """
-    Test endpoint to send a test WhatsApp message
-    """
     try:
         result = send_whatsapp_message(
             phone,
-            "🚀 *FinLit WhatsApp Integration is Working!*\n\nReply *hi* to get started with your financial literacy journey."
+            "*FinLit WhatsApp Integration is Working!*\n\nReply *hi* to get started with your financial literacy journey."
         )
         
         return {

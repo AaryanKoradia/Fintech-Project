@@ -21,30 +21,30 @@ const Profile = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col bg-background-light dark:bg-background-dark">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
       
-      <main className="flex-1 px-4 py-8 max-w-4xl mx-auto w-full">
+      <main className="flex-1 px-6 py-8 w-full">
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-text-light dark:text-text-dark mb-2">{strings.profile}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">{strings.profile}</h1>
         </div>
-        <div className="card mb-6">
+        <div className="bg-white border border-gray-300 rounded-lg p-6 mb-6">
           <div className="flex items-center space-x-4 mb-6">
             {/* Avatar */}
-            <div className="w-24 h-24 bg-gradient-to-br from-primary-light to-secondary-light dark:from-primary-dark dark:to-secondary-dark rounded-full flex items-center justify-center">
-              <span className="text-white text-4xl font-bold">
+            <div className="w-24 h-24 bg-primary-50 border-2 border-primary-600 rounded-full flex items-center justify-center">
+              <span className="text-primary-600 text-4xl font-bold">
                 {user?.fullName?.charAt(0) || user?.email?.charAt(0) || '?'}
               </span>
             </div>
             
             <div>
-              <h2 className="text-2xl font-bold text-text-light dark:text-text-dark">
+              <h2 className="text-2xl font-bold text-gray-800">
                 {user?.fullName || user?.email}
               </h2>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600">
                 {user?.email}
               </p>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600">
                 📍 {user?.village}
               </p>
             </div>
@@ -66,7 +66,7 @@ const Profile = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-text-light dark:text-text-dark mb-2">
+                <label className="block text-sm font-medium text-gray-800 mb-2">
                   {strings.village}
                 </label>
                 <input
@@ -78,55 +78,55 @@ const Profile = () => {
               </div>
               
               <div className="flex space-x-4">
-                <button onClick={handleSave} className="btn-primary flex-1">
+                <button onClick={handleSave} className="flex-1 bg-primary-600 hover:bg-primary-700 text-white py-2 rounded-lg font-medium transition-colors">
                   {strings.save}
                 </button>
-                <button onClick={() => setEditing(false)} className="btn-secondary flex-1">
+                <button onClick={() => setEditing(false)} className="flex-1 bg-white border border-gray-300 hover:border-primary-600 text-gray-700 py-2 rounded-lg font-medium transition-colors">
                   {strings.cancel}
                 </button>
               </div>
             </div>
           ) : (
-            <button onClick={() => setEditing(true)} className="btn-primary">
+            <button onClick={() => setEditing(true)} className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
               {strings.editProfile}
             </button>
           )}
         </div>
         
         {/* Settings Card */}
-        <div className="card mb-6">
-          <h3 className="text-2xl font-bold text-text-light dark:text-text-dark mb-6">
+        <div className="bg-white border border-gray-300 rounded-lg p-6 mb-6">
+          <h3 className="text-2xl font-bold text-gray-800 mb-6">
             {strings.settings}
           </h3>
           
           <div className="space-y-4">
             {/* Language Setting */}
-            <div className="flex items-center justify-between py-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between py-4 border-b border-gray-200">
               <div>
-                <h4 className="font-semibold text-text-light dark:text-text-dark">
+                <h4 className="font-semibold text-gray-800">
                   {strings.language}
                 </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   {currentLanguage === 'english' ? 'English' : 'हिंदी'}
                 </p>
               </div>
               <div className="flex space-x-2">
                 <button
                   onClick={() => setLanguage('hindi')}
-                  className={`px-4 py-2 rounded-lg ${
+                  className={`px-4 py-2 rounded-lg border transition-colors ${
                     currentLanguage === 'hindi'
-                      ? 'bg-primary-light dark:bg-primary-dark text-white'
-                      : 'bg-gray-200 dark:bg-gray-700 text-text-light dark:text-text-dark'
+                      ? 'bg-primary-600 text-white border-primary-600'
+                      : 'bg-white text-gray-700 border-gray-300 hover:border-primary-600'
                   }`}
                 >
                   हिंदी
                 </button>
                 <button
                   onClick={() => setLanguage('english')}
-                  className={`px-4 py-2 rounded-lg ${
+                  className={`px-4 py-2 rounded-lg border transition-colors ${
                     currentLanguage === 'english'
-                      ? 'bg-primary-light dark:bg-primary-dark text-white'
-                      : 'bg-gray-200 dark:bg-gray-700 text-text-light dark:text-text-dark'
+                      ? 'bg-primary-600 text-white border-primary-600'
+                      : 'bg-white text-gray-700 border-gray-300 hover:border-primary-600'
                   }`}
                 >
                   English
@@ -135,19 +135,19 @@ const Profile = () => {
             </div>
             
             {/* Dark Mode Setting */}
-            <div className="flex items-center justify-between py-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between py-4 border-b border-gray-200">
               <div>
-                <h4 className="font-semibold text-text-light dark:text-text-dark">
+                <h4 className="font-semibold text-gray-800">
                   {strings.darkMode}
                 </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   {isDarkMode ? 'Enabled' : 'Disabled'}
                 </p>
               </div>
               <button
                 onClick={toggleTheme}
                 className={`w-14 h-8 rounded-full transition-colors ${
-                  isDarkMode ? 'bg-primary-light dark:bg-primary-dark' : 'bg-gray-300'
+                  isDarkMode ? 'bg-primary-600' : 'bg-gray-300'
                 }`}
               >
                 <div

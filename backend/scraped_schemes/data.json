@@ -1,0 +1,702 @@
+[
+  {
+    "name": "PM Kisan Samman Nidhi",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Financial Support",
+    "description": "Direct benefit transfer of ₹6,000/year to farmers in three installments."
+  },
+  {
+    "name": "Ayushman Bharat (PM-JAY)",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Health Insurance",
+    "description": "Free health insurance coverage up to ₹5 lakh per family for hospital care."
+  },
+  {
+    "name": "PM Mudra Yojana",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Business Loans",
+    "description": "Micro-loans up to ₹10 lakh for small business startups and entrepreneurs."
+  },
+  {
+    "name": "Atal Pension Yojana",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Social Security",
+    "description": "Guaranteed monthly pension for workers in the unorganized sector."
+  },
+  {
+    "name": "Sukanya Samriddhi Yojana",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Savings",
+    "description": "High-interest savings account for girl children to fund education/marriage."
+  },
+  {
+    "name": "PM SVANidhi",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Street Vendors",
+    "description": "Collateral-free working capital loans of ₹10,000 for street vendors."
+  },
+  {
+    "name": "PM Awas Yojana (Gramin)",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Housing",
+    "description": "Financial assistance to build permanent (pucca) houses for rural poor."
+  },
+  {
+    "name": "Ujjwala 2.0",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Energy Access",
+    "description": "Free LPG connections for women in BPL households to promote clean cooking."
+  },
+  {
+    "name": "PM Vishwakarma",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Artisan Support",
+    "description": "Support for traditional artisans with training, toolkits, and low-interest loans."
+  },
+  {
+    "name": "Beti Bachao Beti Padhao",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Gender Equality",
+    "description": "National campaign to save girl children and ensure their education."
+  },
+  {
+    "name": "Stand Up India",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Entrepreneurship",
+    "description": "Loans for SC/ST and women entrepreneurs for greenfield enterprises."
+  },
+  {
+    "name": "Startup India",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Business Growth",
+    "description": "Tax exemptions and support for new tech startups and innovation."
+  },
+  {
+    "name": "Ladli Laxmi Yojana",
+    "gov_name": "Madhya Pradesh",
+    "location": "Madhya Pradesh",
+    "purpose": "Education",
+    "description": "Financial aid for girl child education and welfare within the state."
+  },
+  {
+    "name": "Rythu Bandhu",
+    "gov_name": "Telangana",
+    "location": "Telangana",
+    "purpose": "Agriculture",
+    "description": "Direct investment support of ₹5,000 per acre per season for farmers."
+  },
+  {
+    "name": "Kanya Sumangala Yojana",
+    "gov_name": "Uttar Pradesh",
+    "location": "Uttar Pradesh",
+    "purpose": "Women Welfare",
+    "description": "Cash incentives provided to girls from birth through graduation stages."
+  },
+  {
+    "name": "Laxmi Bhandar",
+    "gov_name": "West Bengal",
+    "location": "West Bengal",
+    "purpose": "Financial Aid",
+    "description": "Monthly basic income for female heads of general and SC/ST households."
+  },
+  {
+    "name": "Amma Two Wheeler Scheme",
+    "gov_name": "Tamil Nadu",
+    "location": "Tamil Nadu",
+    "purpose": "Women Empowerment",
+    "description": "Subsidy for working women to purchase scooters or mopeds for commute."
+  },
+  {
+    "name": "Mukhyamantri Kanya Utthan",
+    "gov_name": "Bihar",
+    "location": "Bihar",
+    "purpose": "Women Education",
+    "description": "Incentives for girls passing high school and intermediate exams."
+  },
+  {
+    "name": "Jalyukt Shivar",
+    "gov_name": "Maharashtra",
+    "location": "Maharashtra",
+    "purpose": "Water Conservation",
+    "description": "Drought-proofing villages by deepening streams and building check dams."
+  },
+  {
+    "name": "Gruha Lakshmi",
+    "gov_name": "Karnataka",
+    "location": "Karnataka",
+    "purpose": "Financial Inclusion",
+    "description": "Monthly ₹2,000 allowance for woman heads of eligible households."
+  },
+  {
+    "name": "Kalia Scheme",
+    "gov_name": "Odisha",
+    "location": "Odisha",
+    "purpose": "Agriculture Support",
+    "description": "Assistance for cultivation and livelihood for small and marginal farmers."
+  },
+  {
+    "name": "Biju Swasthya Kalyan",
+    "gov_name": "Odisha",
+    "location": "Odisha",
+    "purpose": "Health Coverage",
+    "description": "State-funded universal health insurance for secondary/tertiary care."
+  },
+  {
+    "name": "Har Ghar Nal Se Jal",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Infrastructure",
+    "description": "Ensuring functional tap water connection to every rural household."
+  },
+  {
+    "name": "Namo Shetkari Mahasanman",
+    "gov_name": "Maharashtra",
+    "location": "Maharashtra",
+    "purpose": "Farmer Aid",
+    "description": "State-funded top-up of ₹6,000 per year added to PM-Kisan benefits."
+  },
+  {
+    "name": "Pudhumai Penn Scheme",
+    "gov_name": "Tamil Nadu",
+    "location": "Tamil Nadu",
+    "purpose": "Higher Education",
+    "description": "Monthly ₹1,000 for girl students pursuing degrees from govt schools."
+  },
+  {
+    "name": "YSR Cheyutha",
+    "gov_name": "Andhra Pradesh",
+    "location": "Andhra Pradesh",
+    "purpose": "Social Welfare",
+    "description": "Financial support for women aged 45-60 from minority communities."
+  },
+  {
+    "name": "Jagananna Vidya Deevena",
+    "gov_name": "Andhra Pradesh",
+    "location": "Andhra Pradesh",
+    "purpose": "Education Fees",
+    "description": "Full fee reimbursement for students from low-income families."
+  },
+  {
+    "name": "Mukhya Mantri Amrutum",
+    "gov_name": "Gujarat",
+    "location": "Gujarat",
+    "purpose": "Health",
+    "description": "Tertiary medical care for BPL families through smart cards."
+  },
+  {
+    "name": "Berojgari Bhatta",
+    "gov_name": "Chhattisgarh",
+    "location": "Chhattisgarh",
+    "purpose": "Employment Aid",
+    "description": "Monthly allowance for unemployed educated youth while seeking jobs."
+  },
+  {
+    "name": "Savitribai Phule Scheme",
+    "gov_name": "Maharashtra",
+    "location": "Maharashtra",
+    "purpose": "Scholarship",
+    "description": "Educational scholarship specifically for girls from backward classes."
+  },
+  {
+    "name": "Krishi Yantra Subsidy",
+    "gov_name": "Madhya Pradesh",
+    "location": "Madhya Pradesh",
+    "purpose": "Agri-Tech",
+    "description": "Subsidy for farmers to purchase modern agricultural machinery."
+  },
+  {
+    "name": "Antyodaya Anna Yojana",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Food Security",
+    "description": "Highly subsidized food grains for the poorest families in India."
+  },
+  {
+    "name": "E-Shram Card",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Labor Welfare",
+    "description": "National database and social security for unorganized workers."
+  },
+  {
+    "name": "Janani Suraksha Yojana",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Maternal Health",
+    "description": "Cash incentives to encourage hospital deliveries for mothers."
+  },
+  {
+    "name": "MGNREGA",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Employment",
+    "description": "Guaranteed 100 days of manual wage employment in rural areas."
+  },
+  {
+    "name": "PM Surya Ghar",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Solar Energy",
+    "description": "Free electricity and subsidies for rooftop solar installations."
+  },
+  {
+    "name": "Saubhagya Scheme",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Electricity",
+    "description": "Universal household electrification across rural and urban India."
+  },
+  {
+    "name": "SVAMITVA Scheme",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Property Rights",
+    "description": "Drone-based mapping to provide property cards to rural owners."
+  },
+  {
+    "name": "Poshan Abhiyaan",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Nutrition",
+    "description": "National mission to improve nutrition for children and mothers."
+  },
+  {
+    "name": "Agnipath Scheme",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Defense Career",
+    "description": "Short-term recruitment for youth into the Indian Armed Forces."
+  },
+  {
+    "name": "PM Garib Kalyan Anna Yojana",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Food Security",
+    "description": "Free 5kg food grains per person for poor families."
+  },
+  {
+    "name": "Skill India Mission",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Skill Training",
+    "description": "Empowering youth with market-relevant skill training and certification."
+  },
+  {
+    "name": "Stand Up India",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Entrepreneurship",
+    "description": "Loans for women and SC/ST to start new business ventures."
+  },
+  {
+    "name": "Pradhan Mantri Fasal Bima",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Agri-Insurance",
+    "description": "Insurance against crop failure due to natural disasters or pests."
+  },
+  {
+    "name": "Soil Health Card",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Agriculture",
+    "description": "Assessment cards for farmers to improve crop productivity with fertilizers."
+  },
+  {
+    "name": "Kisan Credit Card (KCC)",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Agri-Credit",
+    "description": "Low-interest credit for farmers to buy seeds, tools, and fertilizers."
+  },
+  {
+    "name": "PM Jan Dhan Yojana",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Banking",
+    "description": "No-frills bank accounts with insurance and overdraft facilities."
+  },
+  {
+    "name": "Pradhan Mantri Suraksha Bima",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Accident Insurance",
+    "description": "Personal accident insurance for ₹2 lakh at a nominal annual premium."
+  },
+  {
+    "name": "PM Jeevan Jyoti Bima",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Life Insurance",
+    "description": "Life insurance coverage for ₹2 lakh for natural death."
+  },
+  {
+    "name": "Swachh Bharat Mission",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Sanitation",
+    "description": "Subsidies for toilet construction and waste management systems."
+  },
+  {
+    "name": "Digital India Bhashini",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Language Tech",
+    "description": "AI-based platform providing voice-based govt services in regional languages."
+  },
+  {
+    "name": "PM-VANI",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Internet Access",
+    "description": "Public Wi-Fi access network for rural and urban connectivity."
+  },
+  {
+    "name": "Pradhan Mantri Gram Sadak",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Infrastructure",
+    "description": "All-weather road connectivity for unconnected rural habitations."
+  },
+  {
+    "name": "Aapka Aapki Sarkar Jharkhand",
+    "gov_name": "Jharkhand",
+    "location": "Jharkhand",
+    "purpose": "Governance",
+    "description": "Camps to deliver schemes like pensions/ration cards to tribal doorsteps."
+  },
+  {
+    "name": "Mission Shakti (SHG)",
+    "gov_name": "Odisha",
+    "location": "Odisha",
+    "purpose": "Women SHGs",
+    "description": "Institutional and credit support to over 6 lakh women self-help groups."
+  },
+  {
+    "name": "Duare Sarkar",
+    "gov_name": "West Bengal",
+    "location": "West Bengal",
+    "purpose": "Public Outreach",
+    "description": "Doorstep delivery of 25+ government services via local camps."
+  },
+  {
+    "name": "Mukhyamantri Yuva Swarozgar",
+    "gov_name": "Uttar Pradesh",
+    "location": "Uttar Pradesh",
+    "purpose": "Small Business",
+    "description": "Interest-free loans for educated youth to start local industries."
+  },
+  {
+    "name": "Mahila Samman Savings",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Savings",
+    "description": "Fixed deposit scheme for women with high returns and tax benefits."
+  },
+  {
+    "name": "National Pension System",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Retirement",
+    "description": "Voluntary pension system for long-term retirement planning."
+  },
+  {
+    "name": "Deen Dayal Grameen Kaushalya",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Rural Employment",
+    "description": "Skill training and placement for rural youth below poverty line."
+  },
+  {
+    "name": "Sansad Adarsh Gram Yojana",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Village Development",
+    "description": "MPs adopting a village for holistic social and physical growth."
+  },
+  {
+    "name": "Rashtriya Krishi Vikas",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Agri-Development",
+    "description": "Grant-based support for innovative state agricultural programs."
+  },
+  {
+    "name": "PM Matsya Sampada",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Fisheries",
+    "description": "Modernizing the fishing sector and supporting fishermen's welfare."
+  },
+  {
+    "name": "Gold Monetisation Scheme",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Finance",
+    "description": "Depositing idle gold with banks to earn interest and safety."
+  },
+  {
+    "name": "BharatNet",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Broadband",
+    "description": "Connecting all Gram Panchayats with high-speed fiber internet."
+  },
+  {
+    "name": "National Digital Health Mission",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Health Records",
+    "description": "Unique Health IDs for citizens to store medical history digitally."
+  },
+  {
+    "name": "One District One Product",
+    "gov_name": "Uttar Pradesh",
+    "location": "Uttar Pradesh",
+    "purpose": "Local Economy",
+    "description": "Promoting unique local products from each district for global sales."
+  },
+  {
+    "name": "Bhavantar Bhugtan Yojana",
+    "gov_name": "Madhya Pradesh",
+    "location": "Madhya Pradesh",
+    "purpose": "Farmer Price",
+    "description": "Compensating farmers if market price falls below minimum support price."
+  },
+  {
+    "name": "Atmanirbhar Oil Seeds",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Agri-Self Reliance",
+    "description": "Subsidies to increase local production of mustard and soy seeds."
+  },
+  {
+    "name": "National Air Quality Index",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Environment",
+    "description": "Real-time monitoring and reporting of air pollution levels in cities."
+  },
+  {
+    "name": "Mission Indradhanush",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Immunization",
+    "description": "Universal vaccination program for children and pregnant women."
+  },
+  {
+    "name": "Nirbhaya Fund",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Women Safety",
+    "description": "Funding infrastructure projects like CCTV and SOS apps for safety."
+  },
+  {
+    "name": "Amrut 2.0",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Urban Water",
+    "description": "Providing 100% water supply and sewage systems in 500 cities."
+  },
+  {
+    "name": "Smart Cities Mission",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Urban Tech",
+    "description": "Revamping 100 cities with smart grids, traffic and data systems."
+  },
+  {
+    "name": "Make In India",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Manufacturing",
+    "description": "Incentivizing companies to build factories and jobs within India."
+  },
+  {
+    "name": "Startup Village Entrepreneurship",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Rural Business",
+    "description": "Supporting rural poor to set up small village enterprises."
+  },
+  {
+    "name": "Pradhan Mantri Vaya Vandana",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Senior Pension",
+    "description": "Fixed return pension plan for citizens aged 60 and above."
+  },
+  {
+    "name": "National Apprenticeship",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Youth Skill",
+    "description": "Paid on-the-job training for students in various industries."
+  },
+  {
+    "name": "PM-EBus Sewa",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Transport",
+    "description": "Deploying 10,000 electric buses in major cities to reduce carbon."
+  },
+  {
+    "name": "National Hydrogen Mission",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Green Energy",
+    "description": "Promoting Green Hydrogen for fuel and industrial use."
+  },
+  {
+    "name": "Mission Amrit Sarovar",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Water Resource",
+    "description": "Developing and rejuvenating 75 water bodies in every district."
+  },
+  {
+    "name": "Gati Shakti Master Plan",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Logistics",
+    "description": "Unified planning for roads, rail, and ports to boost speed."
+  },
+  {
+    "name": "Deep Ocean Mission",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Exploration",
+    "description": "Exploring deep sea resources and biodiversity in the Indian Ocean."
+  },
+  {
+    "name": "PM-PRANAM",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Farming Ecology",
+    "description": "Reducing chemical fertilizer usage and promoting bio-fertilizers."
+  },
+  {
+    "name": "Rooftop Solarisation",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Solar Energy",
+    "description": "Targeting 1 crore households for rooftop solar and free power."
+  },
+  {
+    "name": "Bharat Small Reactors",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Nuclear Energy",
+    "description": "Developing safe, small modular nuclear reactors with private aid."
+  },
+  {
+    "name": "PM DevINE",
+    "gov_name": "Central Gov",
+    "location": "Northeast India",
+    "purpose": "Regional Dev",
+    "description": "Funding infrastructure and social development in North Eastern states."
+  },
+  {
+    "name": "Mission Vatsalya",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Child Protection",
+    "description": "Supporting child welfare and rehabilitation for children in need."
+  },
+  {
+    "name": "PRASAD Scheme",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Tourism",
+    "description": "Developing spiritual and pilgrimage sites for religious tourism."
+  },
+  {
+    "name": "HRIDAY Scheme",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Heritage",
+    "description": "Preserving the character of historical and heritage cities in India."
+  },
+  {
+    "name": "UDAN (Ude Desh Ka Aam Nagrik)",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Air Travel",
+    "description": "Subsidized regional flights to make air travel affordable for commoners."
+  },
+  {
+    "name": "SAGY - Saansad Adarsh Gram",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Village Reform",
+    "description": "MPs leading holistic development of an adopted village."
+  },
+  {
+    "name": "PM-CARES for Children",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Orphan Support",
+    "description": "Supporting children who lost parents during the COVID pandemic."
+  },
+  {
+    "name": "SMILE Scheme",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Social Inclusion",
+    "description": "Rehabilitation and welfare for marginalized trans and homeless persons."
+  },
+  {
+    "name": "Niveshak Didi Initiative",
+    "gov_name": "Central Gov",
+    "location": "Rural India",
+    "purpose": "Financial Literacy",
+    "description": "Women-led community sessions to boost financial knowledge in villages."
+  },
+  {
+    "name": "BHARATI Initiative",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Research",
+    "description": "Support for Indian women scientists in research and funding."
+  },
+  {
+    "name": "Aadi Vaani App",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Tribal Language",
+    "description": "AI-led translation to preserve and promote tribal dialects."
+  },
+  {
+    "name": "Viksit Bharat 2047",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "National Goal",
+    "description": "Vision for transforming India into a developed nation by its centenary."
+  },
+  {
+    "name": "Namo Bharat Train",
+    "gov_name": "Central Gov",
+    "location": "NCR Region",
+    "purpose": "Mass Transit",
+    "description": "High-speed regional rail transit connecting Delhi and satellite cities."
+  },
+  {
+    "name": "PM-USP (Scholarship)",
+    "gov_name": "Central Gov",
+    "location": "Pan-India",
+    "purpose": "Education",
+    "description": "Merit-based scholarships for students from marginalized backgrounds."
+  }
+]
