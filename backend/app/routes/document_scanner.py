@@ -1,5 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
 from app.utils.auth import get_current_user
+from app.database import get_collection, FILLED_FORMS_COLLECTION
 import google.generativeai as genai
 import os
 from PIL import Image
@@ -7,11 +8,19 @@ import io
 import base64
 from typing import Dict, Any
 import re
+from datetime import datetime
+from pydantic import BaseModel
 
 router = APIRouter()
 
 # Configure Gemini AI
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+
+class FormDataSubmission(BaseModel):
+    form_name: str
+    fields: Dict[str, str]
+    image_url: str = None
 
 @router.post("/upload-document")
 async def upload_document(
@@ -98,6 +107,213 @@ async def upload_document(
     except Exception as e:
         print(f"Document scanner error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error processing document: {str(e)}")
+
+
+@router.post("/detect-form-fields")
+async def detect_form_fields(
+    file: UploadFile = File(...),
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Detect input fields in a blank form image and return bounding box coordinates
+    Returns field labels and their exact positions for overlay rendering
+    """
+    try:
+        # Validate file type
+        if not file.content_type.startswith('image/'):
+            raise HTTPException(status_code=400, detail="File must be an image")
+        
+        # Read image file
+        image_bytes = await file.read()
+        image = Image.open(io.BytesIO(image_bytes))
+        
+        # Convert to RGB if needed
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
+        
+        # Get image dimensions
+        img_width, img_height = image.size
+        
+        # Use Gemini Vision model for form field detection
+        model = genai.GenerativeModel('gemini-2.5-flash')
+        
+        # Prompt for field detection with bounding boxes
+        detection_prompt = """
+        Analyze this paper form image carefully. You are detecting INPUT FIELDS (blank spaces where users write).
+
+        CRITICAL INSTRUCTIONS:
+        1. Detect ONLY the blank input areas (lines, boxes, spaces) - NOT the labels
+        2. The bounding box should cover ONLY the writeable area
+        3. Exclude the field labels from the bounding box
+        4. Be VERY PRECISE with coordinates
+        
+        For each input field:
+        - Look for blank lines (________), empty boxes (□), or blank spaces
+        - Measure the EXACT position of the blank area only
+        - The label is usually to the LEFT or ABOVE the blank space
+        - Don't include the label text in the bounding box
+        
+        Identify field types from nearby labels:
+        - Name / नाम / Name in English
+        - Email / Email ID / ईमेल
+        - Phone Number / Mobile / Phone / फोन / मोबाइल
+        - Address / पता / निवासी पत्ता
+        - Date / तारीख / Date of Birth / DOB / जन्म तिथि
+        - Age / आयु / उम्र / वय
+        - Gender / लिंग / Sex
+        - Father's Name / पिता का नाम
+        - Mother's Name / माता का नाम  
+        - Guardian / अभिभावक
+        - Aadhar Number / आधार संख्या / आधार क्रमांक
+        - Account Number / खाता संख्या
+        - Amount / राशि / रक्कम
+        - Signature / हस्ताक्षर / सही
+        - Standard / Class / इयत्ता / वर्ग
+        - School / College / शाळा / कॉलेज
+        - Residential Address / निवास पत्ता
+        - Any other labeled input field
+
+        For bounding box coordinates:
+        - Origin (0,0) is top-left corner
+        - x = pixels from left edge to START of blank area
+        - y = pixels from top edge to START of blank area  
+        - width = horizontal length of blank area ONLY
+        - height = vertical height of blank area ONLY
+        - Add 5-10px padding to make fields easier to click
+        
+        Output ONLY valid JSON:
+        {{
+          "image_width": {img_width},
+          "image_height": {img_height},
+          "fields": [
+            {{
+              "label": "Name",
+              "bbox": {{
+                "x": 120,
+                "y": 85,
+                "width": 280,
+                "height": 25
+              }}
+            }}
+          ]
+        }}
+
+        Rules:
+        - Output ONLY JSON, no markdown, no explanation
+        - Detect BLANK INPUT AREAS, not labels
+        - If label is in Hindi, translate to English
+        - Exclude pre-printed text from bbox
+        - Be extremely precise with measurements
+        - Skip any fields you're unsure about
+        """
+        
+        response = model.generate_content([detection_prompt, image])
+        response_text = response.text.strip()
+        
+        # Clean the response - remove markdown code blocks if present
+        if response_text.startswith('```json'):
+            response_text = response_text[7:]
+        elif response_text.startswith('```'):
+            response_text = response_text[3:]
+        
+        if response_text.endswith('```'):
+            response_text = response_text[:-3]
+        
+        response_text = response_text.strip()
+        
+        # Parse JSON response
+        import json
+        field_data = json.loads(response_text)
+        
+        # Validate and normalize the response
+        if not isinstance(field_data, dict):
+            raise ValueError("Invalid response format")
+        
+        if 'fields' not in field_data:
+            field_data['fields'] = []
+        
+        # Ensure image dimensions are set
+        field_data['image_width'] = img_width
+        field_data['image_height'] = img_height
+        
+        # Convert image to base64 for frontend display
+        img_base64 = base64.b64encode(image_bytes).decode()
+        
+        return {
+            "success": True,
+            "image_url": f"data:image/jpeg;base64,{img_base64}",
+            "image_width": img_width,
+            "image_height": img_height,
+            "fields": field_data.get('fields', [])
+        }
+        
+    except json.JSONDecodeError as e:
+        print(f"JSON parsing error: {str(e)}")
+        print(f"Response text: {response_text}")
+        raise HTTPException(status_code=500, detail="Error parsing AI response. The form may be too complex or unclear.")
+    except Exception as e:
+        print(f"Form field detection error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error detecting form fields: {str(e)}")
+
+
+@router.post("/save-form-data")
+async def save_form_data(
+    form_data: FormDataSubmission,
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Save filled form data to database
+    """
+    try:
+        saved_form = {
+            "user_id": current_user["id"],
+            "user_email": current_user["email"],
+            "form_name": form_data.form_name,
+            "fields": form_data.fields,
+            "image_url": form_data.image_url,
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        }
+        
+        # Save to database
+        filled_forms_collection = get_collection(FILLED_FORMS_COLLECTION)
+        result = await filled_forms_collection.insert_one(saved_form)
+        
+        return {
+            "success": True,
+            "message": "Form data saved successfully",
+            "form_id": str(result.inserted_id),
+            "fields_count": len(form_data.fields)
+        }
+        
+    except Exception as e:
+        print(f"Save form data error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error saving form data: {str(e)}")
+
+
+@router.get("/my-forms")
+async def get_my_forms(current_user: dict = Depends(get_current_user)):
+    """
+    Get all filled forms for the current user
+    """
+    try:
+        forms = []
+        filled_forms_collection = get_collection(FILLED_FORMS_COLLECTION)
+        cursor = filled_forms_collection.find({"user_id": current_user["id"]}).sort("created_at", -1)
+        
+        async for form in cursor:
+            form["_id"] = str(form["_id"])
+            forms.append(form)
+        
+        return {
+            "success": True,
+            "forms": forms,
+            "count": len(forms)
+        }
+        
+    except Exception as e:
+        print(f"Get forms error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error retrieving forms: {str(e)}")
 
 
 def detect_document_type(text: str) -> str:

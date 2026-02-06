@@ -14,6 +14,12 @@ const DocumentScanner = () => {
   const [result, setResult] = useState(null);
   const [showCamera, setShowCamera] = useState(false);
   
+  // Form field detection state
+  const [scanMode, setScanMode] = useState('document'); // 'document' or 'form'
+  const [formFields, setFormFields] = useState(null);
+  const [formData, setFormData] = useState({});
+  const [selectedField, setSelectedField] = useState(null);
+  
   const fileInputRef = useRef(null);
   const cameraInputRef = useRef(null);
   const videoRef = useRef(null);
@@ -87,13 +93,26 @@ const DocumentScanner = () => {
     formData.append('file', selectedFile);
 
     try {
-      const response = await api.post('/document-scanner/upload-document', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      if (scanMode === 'form') {
+        // Form field detection mode
+        const response = await api.post('/document-scanner/detect-form-fields', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
-      setResult(response.data);
+        setFormFields(response.data);
+        setFormData({});
+      } else {
+        // Document scanning mode
+        const response = await api.post('/document-scanner/upload-document', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        setResult(response.data);
+      }
     } catch (error) {
       console.error('Upload error:', error);
       alert(currentLanguage === 'english' 
@@ -108,8 +127,53 @@ const DocumentScanner = () => {
     setSelectedFile(null);
     setImagePreview(null);
     setResult(null);
+    setFormFields(null);
+    setFormData({});
     stopCamera();
     if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const handleFieldClick = (field) => {
+    setSelectedField(field);
+    const value = prompt(
+      currentLanguage === 'english' 
+        ? `Enter ${field.label}:` 
+        : `${field.label} दर्ज करें:`,
+      formData[field.label] || ''
+    );
+    
+    if (value !== null) {
+      setFormData(prev => ({
+        ...prev,
+        [field.label]: value
+      }));
+    }
+  };
+
+  const saveFormData = async () => {
+    if (Object.keys(formData).length === 0) {
+      alert(currentLanguage === 'english' 
+        ? 'Please fill at least one field before saving.' 
+        : 'सहेजने से पहले कम से कम एक फ़ील्ड भरें।');
+      return;
+    }
+
+    try {
+      const response = await api.post('/document-scanner/save-form-data', {
+        form_name: 'User Form',
+        fields: formData,
+        image_url: formFields.image_url
+      });
+
+      alert(currentLanguage === 'english' 
+        ? `✓ Form saved successfully! ${response.data.fields_count} fields saved.` 
+        : `✓ फॉर्म सफलतापूर्वक सहेजा गया! ${response.data.fields_count} फ़ील्ड सहेजे गए।`);
+    } catch (error) {
+      console.error('Save error:', error);
+      alert(currentLanguage === 'english' 
+        ? 'Error saving form. Please try again.' 
+        : 'फॉर्म सहेजने में त्रुटि। कृपया पुनः प्रयास करें।');
+    }
   };
 
   const getFieldIcon = (iconType) => {
@@ -135,16 +199,40 @@ const DocumentScanner = () => {
             <div className="w-12 h-12 bg-[#FF9933] flex items-center justify-center">
               <FaFileImage className="text-white text-xl" />
             </div>
-            <div>
+            <div className="flex-1">
               <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
                 {currentLanguage === 'english' ? 'Document Scanner & Analyzer' : 'दस्तावेज़ स्कैनर और विश्लेषक'}
               </h1>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 {currentLanguage === 'english' 
-                  ? 'Upload Aadhaar, PAN, Bank Passbook, or Scheme Details' 
-                  : 'आधार, पैन, बैंक पासबुक या योजना विवरण अपलोड करें'}
+                  ? 'Upload Aadhaar, PAN, Bank Passbook, or Fill Forms' 
+                  : 'आधार, पैन, बैंक पासबुक अपलोड करें या फॉर्म भरें'}
               </p>
             </div>
+          </div>
+
+          {/* Mode Selector */}
+          <div className="mt-4 flex gap-2">
+            <button
+              onClick={() => { setScanMode('document'); resetScanner(); }}
+              className={`flex-1 px-4 py-2 font-semibold transition-all ${
+                scanMode === 'document'
+                  ? 'bg-[#FF9933] text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+              }`}
+            >
+              {currentLanguage === 'english' ? '📄 Scan Document' : '📄 दस्तावेज़ स्कैन'}
+            </button>
+            <button
+              onClick={() => { setScanMode('form'); resetScanner(); }}
+              className={`flex-1 px-4 py-2 font-semibold transition-all ${
+                scanMode === 'form'
+                  ? 'bg-[#138808] text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+              }`}
+            >
+              {currentLanguage === 'english' ? '✍️ Fill Form' : '✍️ फॉर्म भरें'}
+            </button>
           </div>
         </div>
 
@@ -250,12 +338,18 @@ const DocumentScanner = () => {
                       {loading ? (
                         <>
                           <FaSpinner className="animate-spin" />
-                          {currentLanguage === 'english' ? 'Analyzing...' : 'विश्लेषण हो रहा है...'}
+                          {scanMode === 'document' 
+                            ? (currentLanguage === 'english' ? 'Analyzing...' : 'विश्लेषण हो रहा है...')
+                            : (currentLanguage === 'english' ? 'Detecting...' : 'पहचान रही है...')
+                          }
                         </>
                       ) : (
                         <>
                           <FaCheckCircle />
-                          {currentLanguage === 'english' ? 'Analyze Document' : 'दस्तावेज़ का विश्लेषण करें'}
+                          {scanMode === 'document'
+                            ? (currentLanguage === 'english' ? 'Analyze Document' : 'दस्तावेज़ का विश्लेषण करें')
+                            : (currentLanguage === 'english' ? 'Detect Fields' : 'फ़ील्ड पहचानें')
+                          }
                         </>
                       )}
                     </button>
@@ -274,19 +368,170 @@ const DocumentScanner = () => {
             {/* Supported Documents */}
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 border-l-4 border-blue-600 p-4">
               <h4 className="font-bold text-gray-800 dark:text-white mb-2 text-sm">
-                {currentLanguage === 'english' ? 'Supported Documents:' : 'समर्थित दस्तावेज़:'}
+                {scanMode === 'document' 
+                  ? (currentLanguage === 'english' ? 'Supported Documents:' : 'समर्थित दस्तावेज़:')
+                  : (currentLanguage === 'english' ? 'How it works:' : 'यह कैसे काम करता है:')
+                }
               </h4>
-              <ul className="text-xs text-gray-700 dark:text-gray-300 space-y-1">
-                <li>✓ {currentLanguage === 'english' ? 'Aadhaar Card (आधार कार्ड)' : 'आधार कार्ड'}</li>
-                <li>✓ {currentLanguage === 'english' ? 'PAN Card (पैन कार्ड)' : 'पैन कार्ड'}</li>
-                <li>✓ {currentLanguage === 'english' ? 'Bank Passbook (बैंक पासबुक)' : 'बैंक पासबुक'}</li>
-                <li>✓ {currentLanguage === 'english' ? 'Scheme Details (योजना विवरण)' : 'योजना विवरण'}</li>
-              </ul>
+              {scanMode === 'document' ? (
+                <ul className="text-xs text-gray-700 dark:text-gray-300 space-y-1">
+                  <li>✓ {currentLanguage === 'english' ? 'Aadhaar Card (आधार कार्ड)' : 'आधार कार्ड'}</li>
+                  <li>✓ {currentLanguage === 'english' ? 'PAN Card (पैन कार्ड)' : 'पैन कार्ड'}</li>
+                  <li>✓ {currentLanguage === 'english' ? 'Bank Passbook (बैंक पासबुक)' : 'बैंक पासबुक'}</li>
+                  <li>✓ {currentLanguage === 'english' ? 'Scheme Details (योजना विवरण)' : 'योजना विवरण'}</li>
+                </ul>
+              ) : (
+                <ul className="text-xs text-gray-700 dark:text-gray-300 space-y-1">
+                  <li>1. {currentLanguage === 'english' ? 'Upload a blank form image' : 'एक खाली फॉर्म अपलोड करें'}</li>
+                  <li>2. {currentLanguage === 'english' ? 'AI detects input fields' : 'AI इनपुट फ़ील्ड पहचानता है'}</li>
+                  <li>3. {currentLanguage === 'english' ? 'Fill data directly on image' : 'सीधे फोटो पर डेटा भरें'}</li>
+                  <li>4. {currentLanguage === 'english' ? 'Save your filled form' : 'भरे हुए फॉर्म को सहेजें'}</li>
+                </ul>
+              )}
             </div>
           </div>
 
           {/* Results Section */}
           <div className="space-y-4">
+            {/* Form Field Detection Results */}
+            {formFields && (
+              <>
+                <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                  <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-[#138808] flex items-center justify-center">
+                        <FaCheckCircle className="text-white text-lg" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-800 dark:text-white">
+                          {currentLanguage === 'english' ? 'Form Detected' : 'फॉर्म पहचाना गया'}
+                        </h3>
+                        <p className="text-sm text-[#138808] dark:text-green-400 font-semibold">
+                          {formFields.fields?.length || 0} {currentLanguage === 'english' ? 'fields found' : 'फ़ील्ड मिले'}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={saveFormData}
+                      disabled={Object.keys(formData).length === 0}
+                      className="px-4 py-2 bg-[#138808] hover:bg-green-700 text-white font-semibold transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <FaCheckCircle />
+                      {currentLanguage === 'english' ? 'Save' : 'सहेजें'}
+                    </button>
+                  </div>
+
+                  {/* Interactive Form Overlay */}
+                  <div className="relative border border-gray-200 dark:border-gray-700 overflow-auto max-h-[700px]">
+                    <img 
+                      src={formFields.image_url} 
+                      alt="Form" 
+                      className="w-full h-auto"
+                    />
+                    
+                    {/* Field Label Overlays - Google Lens Style */}
+                    {formFields.fields?.map((field, index) => {
+                      const isFilled = formData[field.label];
+                      const scaleFactor = formFields.image_width ? 1 : 1;
+                      
+                      return (
+                        <div
+                          key={index}
+                          onClick={() => handleFieldClick(field)}
+                          style={{
+                            position: 'absolute',
+                            left: `${field.bbox.x * scaleFactor}px`,
+                            top: `${field.bbox.y * scaleFactor}px`,
+                            width: `${field.bbox.width * scaleFactor}px`,
+                            height: `${field.bbox.height * scaleFactor}px`,
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease'
+                          }}
+                          className="group"
+                        >
+                          {/* Border Box */}
+                          <div 
+                            className={`w-full h-full border-2 ${
+                              isFilled 
+                                ? 'border-green-500 bg-green-500/10' 
+                                : 'border-blue-500 bg-blue-500/5 group-hover:bg-blue-500/15'
+                            } transition-all`}
+                          />
+                          
+                          {/* Label Tag - Google Lens Style */}
+                          <div 
+                            className={`absolute -top-6 left-0 ${
+                              isFilled 
+                                ? 'bg-green-500' 
+                                : 'bg-blue-500 group-hover:bg-blue-600'
+                            } text-white px-2 py-1 text-xs font-semibold shadow-lg whitespace-nowrap flex items-center gap-1`}
+                            style={{ fontSize: '11px' }}
+                          >
+                            {isFilled ? '✓' : '✎'} {field.label}
+                            {isFilled && (
+                              <span className="ml-1 opacity-75">
+                                ({formData[field.label]?.substring(0, 15)}{formData[field.label]?.length > 15 ? '...' : ''})
+                              </span>
+                            )}
+                          </div>
+                          
+                          {/* Hint Text Inside */}
+                          {!isFilled && (
+                            <div 
+                              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                              style={{ fontSize: `${Math.max(9, field.bbox.height * 0.3)}px` }}
+                            >
+                              <span className="bg-white/90 dark:bg-gray-800/90 px-2 py-1 text-gray-600 dark:text-gray-400 font-medium border border-blue-300 group-hover:text-blue-600 transition-colors">
+                                {currentLanguage === 'english' ? 'Click to fill' : 'भरने के लिए क्लिक करें'}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Field List */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 border-l-4 border-blue-600 shadow-sm p-6">
+                  <h4 className="font-bold text-gray-800 dark:text-white mb-3 text-sm flex items-center justify-between">
+                    <span>{currentLanguage === 'english' ? 'Detected Fields:' : 'पहचाने गए फ़ील्ड:'}</span>
+                    <span className="text-xs bg-blue-600 text-white px-2 py-1 rounded">
+                      {Object.keys(formData).length}/{formFields.fields?.length || 0} {currentLanguage === 'english' ? 'filled' : 'भरे गए'}
+                    </span>
+                  </h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {formFields.fields?.map((field, index) => {
+                      const isFilled = formData[field.label];
+                      return (
+                        <div 
+                          key={index} 
+                          onClick={() => handleFieldClick(field)}
+                          className={`cursor-pointer transition-all ${
+                            isFilled 
+                              ? 'bg-green-50 dark:bg-green-900/20 border-green-500' 
+                              : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-blue-400'
+                          } border-2 p-2`}
+                        >
+                          <p className="text-xs text-gray-600 dark:text-gray-400 flex items-center gap-1">
+                            {isFilled ? '✓' : '○'} {field.label}
+                          </p>
+                          <p className={`font-semibold text-sm truncate ${
+                            isFilled 
+                              ? 'text-green-700 dark:text-green-300' 
+                              : 'text-gray-400 dark:text-gray-600 italic'
+                          }`}>
+                            {formData[field.label] || (currentLanguage === 'english' ? 'Not filled' : 'नहीं भरा')}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Document Analysis Results */}
             {result ? (
               <>
                 {/* Document Type */}
@@ -365,14 +610,16 @@ const DocumentScanner = () => {
                   <FaChartBar className="text-4xl text-gray-400 dark:text-gray-600" />
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 font-semibold">
-                  {currentLanguage === 'english' 
-                    ? 'Upload a document to see AI analysis' 
-                    : 'AI विश्लेषण देखने के लिए दस्तावेज़ अपलोड करें'}
+                  {scanMode === 'document' 
+                    ? (currentLanguage === 'english' ? 'Upload a document to see AI analysis' : 'AI विश्लेषण देखने के लिए दस्तावेज़ अपलोड करें')
+                    : (currentLanguage === 'english' ? 'Upload a form to detect fields' : 'फ़ील्ड पहचानने के लिए फॉर्म अपलोड करें')
+                  }
                 </p>
                 <p className="text-gray-500 dark:text-gray-500 text-sm mt-2">
-                  {currentLanguage === 'english' 
-                    ? 'Results will appear here after scanning' 
-                    : 'स्कैन करने के बाद परिणाम यहां दिखाई देंगे'}
+                  {scanMode === 'document'
+                    ? (currentLanguage === 'english' ? 'Results will appear here after scanning' : 'स्कैन करने के बाद परिणाम यहां दिखाई देंगे')
+                    : (currentLanguage === 'english' ? 'Interactive fields will appear here' : 'इंटरैक्टिव फ़ील्ड यहां दिखाई देंगे')
+                  }
                 </p>
               </div>
             )}

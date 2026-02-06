@@ -7,7 +7,7 @@ load_dotenv()
 from app.routes import auth, users, admin, lessons, schemes, ai, confidence, nudges, expenses, document_scanner
 
 app = FastAPI(title="FinLit API", description="Financial Literacy & Empowerment Platform API", version="1.0.0")
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",")
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000,http://10.110.80.128:3000").split(",")
 
 app.add_middleware(
     CORSMiddleware,
