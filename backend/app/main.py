@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-from app.routes import auth, users, admin, lessons, schemes, ai, confidence, nudges, expenses, document_scanner
+from app.routes import auth, users, admin, lessons, schemes, ai, confidence, nudges, expenses, document_scanner, whatsapp
 
 app = FastAPI(title="FinLit API", description="Financial Literacy & Empowerment Platform API", version="1.0.0")
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000,http://10.110.80.128:3000").split(",")
@@ -28,6 +28,7 @@ app.include_router(confidence.router, prefix="/api/confidence", tags=["Confidenc
 app.include_router(nudges.router, prefix="/api/nudges", tags=["Daily Nudges"])
 app.include_router(expenses.router, prefix="/api/expenses", tags=["Expense Tracker"])
 app.include_router(document_scanner.router, prefix="/api/document-scanner", tags=["Document Scanner"])
+app.include_router(whatsapp.router, prefix="/api/whatsapp", tags=["WhatsApp Messaging"])
 
 @app.get("/")
 async def root():
