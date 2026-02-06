@@ -17,7 +17,6 @@ const Profile = () => {
   });
   
   const handleSave = () => {
-    // TODO: Call API to update profile
     setEditing(false);
   };
   

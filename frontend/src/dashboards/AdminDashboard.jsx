@@ -99,7 +99,7 @@ const AdminDashboard = () => {
             <p className="text-4xl font-bold text-text-light dark:text-text-dark">{stats.totalSchemes}</p>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Link to="/admin/users" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
@@ -113,6 +113,21 @@ const AdminDashboard = () => {
               </div>
             </div>
           </Link>
+          
+          <Link to="/admin/manage-admins" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer border-2 border-[#FF9933]/30">
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#FF9933] to-[#138808] rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-text-light dark:text-text-dark">Manage Admins</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Add & Remove</p>
+              </div>
+            </div>
+          </Link>
+          
           <Link to="/admin/schemes" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center flex-shrink-0">
@@ -127,6 +142,7 @@ const AdminDashboard = () => {
               </div>
             </div>
           </Link>
+          
           <Link to="/admin/analytics" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center flex-shrink-0">

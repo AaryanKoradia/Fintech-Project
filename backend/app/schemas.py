@@ -89,3 +89,18 @@ class AdminStats(BaseModel):
     activeUsers: int = 0
     averageProgress: int = 0
     totalSchemes: int = 0
+
+class AdminCreate(BaseModel):
+    fullName: str = Field(..., min_length=2, max_length=100)
+    email: EmailStr
+    password: str = Field(..., min_length=6, max_length=72)
+    village: str = Field(default="Admin Panel")
+
+class AdminResponse(BaseModel):
+    id: str
+    fullName: str
+    email: str
+    village: str
+    role: str
+    createdAt: datetime
+    isActive: bool

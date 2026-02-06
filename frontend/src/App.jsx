@@ -28,6 +28,7 @@ import Profile from './pages/Profile';
 import ManageUsers from './pages/admin/ManageUsers';
 import ManageSchemes from './pages/admin/ManageSchemes';
 import Analytics from './pages/admin/Analytics';
+import ManageAdmins from './pages/admin/ManageAdmins';
 
 function App() {
   return (
@@ -97,6 +98,14 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['ADMIN']}>
                     <ManageUsers />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/manage-admins"
+                element={
+                  <ProtectedRoute allowedRoles={['ADMIN']}>
+                    <ManageAdmins />
                   </ProtectedRoute>
                 }
               />
