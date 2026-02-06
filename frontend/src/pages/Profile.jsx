@@ -25,14 +25,9 @@ const Profile = () => {
       <Navbar />
       
       <main className="flex-1 px-4 py-8 max-w-4xl mx-auto w-full">
-        {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-text-light dark:text-text-dark mb-2">
-            {strings.profile}
-          </h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-text-light dark:text-text-dark mb-2">{strings.profile}</h1>
         </div>
-        
-        {/* Profile Card */}
         <div className="card mb-6">
           <div className="flex items-center space-x-4 mb-6">
             {/* Avatar */}

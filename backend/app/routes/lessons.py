@@ -104,17 +104,57 @@ async def complete_lesson(lesson_id: str, current_user: dict = Depends(get_curre
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
     
     users_collection = get_collection(USERS_COLLECTION)
+    user = await users_collection.find_one({"_id": ObjectId(current_user["sub"])})
+    
+    completed_lessons = user.get("completedLessons", [])
+    
+    if lesson_id in completed_lessons:
+        return {
+            "message": "Lesson already completed!",
+            "coinsEarned": 0
+        }
+    
+    current_coins = user.get("coins", 0)
+    new_coins = current_coins + lesson["coins"]
+    current_badges = user.get("badges", [])
+    new_badge = None
+    
+    if new_coins >= 50 and "50_coins" not in current_badges:
+        current_badges.append("50_coins")
+        new_badge = "First 50 Coins!"
+    if new_coins >= 100 and "100_coins" not in current_badges:
+        current_badges.append("100_coins")
+        new_badge = "Century Achiever!"
+    if new_coins >= 200 and "200_coins" not in current_badges:
+        current_badges.append("200_coins")
+        new_badge = "Double Century!"
+    if new_coins >= 500 and "500_coins" not in current_badges:
+        current_badges.append("500_coins")
+        new_badge = "Elite Learner!"
+    
     await users_collection.update_one(
         {"_id": ObjectId(current_user["sub"])},
         {
             "$inc": {
                 "coins": lesson["coins"],
                 "lessonsCompleted": 1
+            },
+            "$push": {
+                "completedLessons": lesson_id
+            },
+            "$set": {
+                "badges": current_badges
             }
         }
     )
     
-    return {
+    response_data = {
         "message": "Lesson completed!",
-        "coinsEarned": lesson["coins"]
+        "coinsEarned": lesson["coins"],
+        "totalCoins": new_coins
     }
+    
+    if new_badge:
+        response_data["newBadge"] = new_badge
+    
+    return response_data
