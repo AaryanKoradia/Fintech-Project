@@ -8,7 +8,7 @@ import {
   FaPlus, FaTimes, FaTrash, FaCheckCircle, FaExclamationTriangle,
   FaPiggyBank, FaShoppingCart, FaBus, FaUtensils, FaBolt, FaHeart,
   FaFilm, FaGraduationCap, FaLightbulb, FaCoins, FaChild, FaRing,
-  FaHome, FaCar, FaBriefcase, FaCalendarAlt
+  FaHome, FaCar, FaBriefcase, FaCalendarAlt, FaVolumeUp, FaStop
 } from 'react-icons/fa';
 
 const ExpenseTracker = () => {
@@ -17,6 +17,7 @@ const ExpenseTracker = () => {
   // Step Management
   const [currentStep, setCurrentStep] = useState('check'); // 'check', 'profile', 'plan', 'tracker'
   const [loading, setLoading] = useState(false);
+  const [isListeningAdvice, setIsListeningAdvice] = useState(false);
   
   // Financial Profile State
   const [profile, setProfile] = useState(null);
@@ -196,23 +197,23 @@ const handleExpenseSubmit = async (e) => {
   
   const expenseCategories = [
     { value: 'food', label: '🍽️ Food', icon: <FaUtensils />, color: 'bg-green-500' },
-    { value: 'transport', label: '🚗 Transport', icon: <FaBus />, color: 'bg-blue-500' },
+    { value: 'transport', label: '🚗 Transport', icon: <FaBus />, color: 'bg-primary' },
     { value: 'utilities', label: '💡 Utilities', icon: <FaBolt />, color: 'bg-yellow-500' },
     { value: 'healthcare', label: '🏥 Healthcare', icon: <FaHeart />, color: 'bg-red-500' },
-    { value: 'education', label: '📚 Education', icon: <FaGraduationCap />, color: 'bg-purple-500' },
-    { value: 'entertainment', label: '🎬 Entertainment', icon: <FaFilm />, color: 'bg-pink-500' },
-    { value: 'shopping', label: '🛍️ Shopping', icon: <FaShoppingCart />, color: 'bg-indigo-500' },
+    { value: 'education', label: '📚 Education', icon: <FaGraduationCap />, color: 'bg-primary' },
+    { value: 'entertainment', label: '🎬 Entertainment', icon: <FaFilm />, color: 'bg-primary' },
+    { value: 'shopping', label: '🛍️ Shopping', icon: <FaShoppingCart />, color: 'bg-primary' },
     { value: 'other', label: '📦 Other', icon: <FaMoneyBillWave />, color: 'bg-gray-500' }
   ];
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-primary-light via-white to-primary-light">
       <Navbar />
       
       <main className="flex-1 px-4 md:px-6 py-8 max-w-7xl mx-auto w-full">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-3">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-3">
             💰 AI Financial Planner
           </h1>
           <p className="text-gray-600 text-lg">
@@ -234,7 +235,7 @@ const handleExpenseSubmit = async (e) => {
         {/* Loading State */}
         {currentStep === 'check' && (
           <div className="bg-white rounded-2xl shadow-xl p-12 max-w-md mx-auto text-center">
-            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600 text-lg">Loading your financial profile...</p>
           </div>
         )}
@@ -254,6 +255,7 @@ const handleExpenseSubmit = async (e) => {
             removeMilestone={removeMilestone}
             handleProfileSubmit={handleProfileSubmit}
             loading={loading}
+            strings={strings}
           />
         )}
         
@@ -280,6 +282,10 @@ const handleExpenseSubmit = async (e) => {
             deleteExpense={deleteExpense}
             expenseCategories={expenseCategories}
             loading={loading}
+            isListeningAdvice={isListeningAdvice}
+            setIsListeningAdvice={setIsListeningAdvice}
+            currentLanguage={currentLanguage}
+            strings={strings}
           />
         )}
       </main>
@@ -293,11 +299,11 @@ const handleExpenseSubmit = async (e) => {
 const StepIndicator = ({ step, label, active, completed }) => (
   <div className="flex flex-col items-center">
     <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg transition-all ${
-      completed ? 'bg-green-500 text-white' : active ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
+      completed ? 'bg-green-500 text-white' : active ? 'bg-primary text-white' : 'bg-gray-300 text-gray-600'
     }`}>
       {completed ? <FaCheckCircle /> : step}
     </div>
-    <span className={`mt-2 text-sm font-medium ${active ? 'text-blue-600' : 'text-gray-500'}`}>{label}</span>
+    <span className={`mt-2 text-sm font-medium ${active ? 'text-primary' : 'text-gray-500'}`}>{label}</span>
   </div>
 );
 
@@ -305,14 +311,14 @@ const StepIndicator = ({ step, label, active, completed }) => (
 const ProfileForm = ({ 
   profileForm, setProfileForm, familyMemberForm, setFamilyMemberForm,
   milestoneForm, setMilestoneForm, addFamilyMember, removeFamilyMember,
-  addMilestone, removeMilestone, handleProfileSubmit, loading
+  addMilestone, removeMilestone, handleProfileSubmit, loading, strings
 }) => (
   <form onSubmit={handleProfileSubmit} className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
     <div className="space-y-8">
       {/* Basic Info */}
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-          <FaUser className="text-blue-600" /> Basic Information
+          <FaUser className="text-primary" /> Basic Information
         </h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
@@ -321,7 +327,7 @@ const ProfileForm = ({
               type="number"
               value={profileForm.monthlyIncome}
               onChange={(e) => setProfileForm({...profileForm, monthlyIncome: e.target.value})}
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none"
               placeholder="30000"
               required
             />
@@ -332,7 +338,7 @@ const ProfileForm = ({
               type="text"
               value={profileForm.occupation}
               onChange={(e) => setProfileForm({...profileForm, occupation: e.target.value})}
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none"
               placeholder={strings.placeholderOccupation}
             />
           </div>
@@ -344,7 +350,7 @@ const ProfileForm = ({
               type="checkbox"
               checked={profileForm.hasBankAccount}
               onChange={(e) => setProfileForm({...profileForm, hasBankAccount: e.target.checked})}
-              className="w-5 h-5 text-blue-600"
+              className="w-5 h-5 text-primary"
             />
             <span className="text-gray-700">I have a Bank Account</span>
           </label>
@@ -354,7 +360,7 @@ const ProfileForm = ({
               type="checkbox"
               checked={profileForm.hasInsurance}
               onChange={(e) => setProfileForm({...profileForm, hasInsurance: e.target.checked})}
-              className="w-5 h-5 text-blue-600"
+              className="w-5 h-5 text-primary"
             />
             <span className="text-gray-700">I have Insurance</span>
           </label>
@@ -364,23 +370,23 @@ const ProfileForm = ({
       {/* Family Members */}
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-          <FaUsers className="text-blue-600" /> Family Members
+          <FaUsers className="text-primary" /> Family Members
         </h2>
         
-        <div className="bg-blue-50 p-6 rounded-lg mb-4">
+        <div className="bg-primary/5 p-6 rounded-lg mb-4">
           <div className="grid md:grid-cols-4 gap-4 mb-4">
             <input
               type="text"
               placeholder={strings.placeholderName}
               value={familyMemberForm.name}
               onChange={(e) => setFamilyMemberForm({...familyMemberForm, name: e.target.value})}
-              className="px-4 py-2 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none"
+              className="px-4 py-2 border-2 border-primary/20 rounded-lg focus:border-primary focus:outline-none"
             />
             
             <select
               value={familyMemberForm.relationship}
               onChange={(e) => setFamilyMemberForm({...familyMemberForm, relationship: e.target.value, gender: e.target.value === 'daughter' ? 'female' : e.target.value === 'son' ? 'male' : familyMemberForm.gender})}
-              className="px-4 py-2 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none"
+              className="px-4 py-2 border-2 border-primary/20 rounded-lg focus:border-primary focus:outline-none"
             >
               <option value="son">Son</option>
               <option value="daughter">Daughter</option>
@@ -394,13 +400,13 @@ const ProfileForm = ({
               placeholder={strings.placeholderAge}
               value={familyMemberForm.age}
               onChange={(e) => setFamilyMemberForm({...familyMemberForm, age: e.target.value})}
-              className="px-4 py-2 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none"
+              className="px-4 py-2 border-2 border-primary/20 rounded-lg focus:border-primary focus:outline-none"
             />
             
             <button
               type="button"
               onClick={addFamilyMember}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+              className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-hover transition-colors flex items-center justify-center gap-2"
             >
               <FaPlus /> Add
             </button>
@@ -434,7 +440,7 @@ const ProfileForm = ({
       {/* Life Milestones */}
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-          <FaBullseye className="text-blue-600" /> Life Milestones & Goals
+          <FaBullseye className="text-primary" /> Life Milestones & Goals
         </h2>
         
         <div className="bg-green-50 p-6 rounded-lg mb-4">
@@ -520,7 +526,7 @@ const ProfileForm = ({
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transition-all disabled:opacity-50"
+        className="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-primary-hover hover:shadow-lg transition-all disabled:opacity-50"
       >
         {loading ? 'Saving Profile...' : 'Save Profile & Continue'}
       </button>
@@ -532,7 +538,7 @@ const ProfileForm = ({
 const GenerateAIPlanScreen = ({ profile, generatingPlan, onGenerate }) => (
   <div className="bg-white rounded-2xl shadow-xl p-8 max-w-3xl mx-auto text-center">
     <div className="mb-6">
-      <FaRobot className="text-6xl text-blue-600 mx-auto mb-4 animate-bounce" />
+      <FaRobot className="text-6xl text-primary mx-auto mb-4 animate-bounce" />
       <h2 className="text-3xl font-bold text-gray-800 mb-3">Ready to Generate Your AI Financial Plan</h2>
       <p className="text-gray-600">
         Based on your profile, our AI will create a personalized financial roadmap with scheme recommendations and milestone planning.
@@ -540,7 +546,7 @@ const GenerateAIPlanScreen = ({ profile, generatingPlan, onGenerate }) => (
     </div>
     
     {profile && (
-      <div className="bg-blue-50 p-6 rounded-xl mb-6 text-left">
+      <div className="bg-primary/5 p-6 rounded-xl mb-6 text-left">
         <h3 className="font-bold text-gray-800 mb-3">Your Profile Summary:</h3>
         <div className="space-y-2 text-sm text-gray-700">
           <p>💰 Monthly Income: ₹{profile.monthlyIncome?.toLocaleString()}</p>
@@ -553,7 +559,7 @@ const GenerateAIPlanScreen = ({ profile, generatingPlan, onGenerate }) => (
     <button
       onClick={onGenerate}
       disabled={generatingPlan}
-      className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-12 py-4 rounded-xl font-bold text-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      className="bg-primary text-white px-12 py-4 rounded-xl font-bold text-lg hover:bg-primary-hover hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {generatingPlan ? (
         <span className="flex items-center justify-center gap-3">
@@ -572,12 +578,13 @@ const GenerateAIPlanScreen = ({ profile, generatingPlan, onGenerate }) => (
 // Expense Tracker Main Component
 const ExpenseTrackerMain = ({ 
   aiPlan, monthlyData, expenses, showExpenseForm, setShowExpenseForm,
-  newExpense, setNewExpense, handleExpenseSubmit, deleteExpense, expenseCategories, loading
+  newExpense, setNewExpense, handleExpenseSubmit, deleteExpense, expenseCategories, loading,
+  isListeningAdvice, setIsListeningAdvice, currentLanguage, strings
 }) => (
   <div className="space-y-6">
     {/* Budget Summary Cards */}
     <div className="grid md:grid-cols-4 gap-6">
-      <div className="bg-gradient-to-br from-blue-500 to-blue-700 text-white p-6 rounded-xl shadow-lg">
+      <div className="bg-primary text-white p-6 rounded-xl shadow-lg">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium opacity-90">Monthly Income</span>
           <FaMoneyBillWave className="text-2xl opacity-80" />
@@ -626,12 +633,12 @@ const ExpenseTrackerMain = ({
         <div className="space-y-3 max-h-96 overflow-y-auto">
           {aiPlan?.recommendedSchemes && aiPlan.recommendedSchemes.length > 0 ? (
             aiPlan.recommendedSchemes.map((scheme, idx) => (
-              <div key={idx} className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                <h4 className="font-bold text-blue-900 mb-1">{scheme.schemeName}</h4>
+              <div key={idx} className="bg-primary/5 p-4 rounded-lg border-l-4 border-primary">
+                <h4 className="font-bold text-gray-900 mb-1">{scheme.schemeName}</h4>
                 <p className="text-sm text-gray-700 mb-2">{scheme.reason}</p>
                 <div className="flex items-center gap-4 text-xs text-gray-600">
                   <span>💰 Benefit: {scheme.benefit}</span>
-                  <span className="bg-blue-200 px-2 py-1 rounded">Priority: {scheme.priority}</span>
+                  <span className="bg-primary/20 px-2 py-1 rounded">Priority: {scheme.priority}</span>
                 </div>
               </div>
             ))
@@ -675,10 +682,44 @@ const ExpenseTrackerMain = ({
     
     {/* AI Advice */}
     {aiPlan?.aiAdvice && (
-      <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl shadow-lg p-6 border-l-4 border-purple-500">
-        <h3 className="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
-          <FaRobot className="text-purple-600" /> AI Financial Advice
-        </h3>
+      <div className="bg-primary/5 rounded-xl shadow-lg p-6 border-l-4 border-primary">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <FaRobot className="text-primary" /> AI Financial Advice
+          </h3>
+          <button
+            onClick={() => {
+              if (isListeningAdvice) {
+                window.speechSynthesis.cancel();
+                setIsListeningAdvice(false);
+              } else {
+                const utterance = new SpeechSynthesisUtterance(aiPlan.aiAdvice);
+                utterance.lang = currentLanguage === 'hindi' ? 'hi-IN' : 'en-US';
+                utterance.rate = 0.9;
+                utterance.onend = () => setIsListeningAdvice(false);
+                window.speechSynthesis.speak(utterance);
+                setIsListeningAdvice(true);
+              }
+            }}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${
+              isListeningAdvice 
+                ? 'bg-red-500 hover:bg-red-600 text-white' 
+                : 'bg-primary hover:bg-primary-hover text-white'
+            }`}
+          >
+            {isListeningAdvice ? (
+              <>
+                <FaStop className="text-sm" />
+                <span>{currentLanguage === 'english' ? 'Stop' : 'रोकें'}</span>
+              </>
+            ) : (
+              <>
+                <FaVolumeUp className="text-sm" />
+                <span>{currentLanguage === 'english' ? 'Listen' : 'सुनें'}</span>
+              </>
+            )}
+          </button>
+        </div>
         <div className="text-gray-700 whitespace-pre-line leading-relaxed">{aiPlan.aiAdvice}</div>
       </div>
     )}
@@ -690,7 +731,7 @@ const ExpenseTrackerMain = ({
         <button
           onClick={() => setShowExpenseForm(!showExpenseForm)}
           className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 ${
-            showExpenseForm ? 'bg-gray-400 hover:bg-gray-500' : 'bg-blue-600 hover:bg-blue-700'
+            showExpenseForm ? 'bg-gray-400 hover:bg-gray-500' : 'bg-primary hover:bg-primary-hover'
           } text-white`}
         >
           {showExpenseForm ? <><FaTimes /> Cancel</> : <><FaPlus /> Add Expense</>}
@@ -698,21 +739,21 @@ const ExpenseTrackerMain = ({
       </div>
       
       {showExpenseForm && (
-        <form onSubmit={handleExpenseSubmit} className="bg-blue-50 p-6 rounded-lg mb-6">
+        <form onSubmit={handleExpenseSubmit} className="bg-primary/5 p-6 rounded-lg mb-6">
           <div className="grid md:grid-cols-4 gap-4">
             <input
               type="number"
               placeholder={strings.placeholderAmount}
               value={newExpense.amount}
               onChange={(e) => setNewExpense({...newExpense, amount: e.target.value})}
-              className="px-4 py-3 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none"
+              className="px-4 py-3 border-2 border-primary/20 rounded-lg focus:border-primary focus:outline-none"
               required
             />
             
             <select
               value={newExpense.category}
               onChange={(e) => setNewExpense({...newExpense, category: e.target.value})}
-              className="px-4 py-3 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none"
+              className="px-4 py-3 border-2 border-primary/20 rounded-lg focus:border-primary focus:outline-none"
               required
             >
               <option value="">Select Category</option>
@@ -726,14 +767,14 @@ const ExpenseTrackerMain = ({
               placeholder={strings.placeholderDescription}
               value={newExpense.description}
               onChange={(e) => setNewExpense({...newExpense, description: e.target.value})}
-              className="px-4 py-3 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none"
+              className="px-4 py-3 border-2 border-primary/20 rounded-lg focus:border-primary focus:outline-none"
               required
             />
             
             <button
               type="submit"
               disabled={loading}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold disabled:opacity-50"
+              className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-hover transition-colors font-semibold disabled:opacity-50"
             >
               {loading ? 'Adding...' : 'Add Expense'}
             </button>

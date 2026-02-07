@@ -56,7 +56,7 @@ const AdminDashboard = () => {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400">{strings.totalUsers}</h3>
               <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-6 h-6 text-primary dark:text-primary" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                 </svg>
               </div>
@@ -77,8 +77,8 @@ const AdminDashboard = () => {
           <div className="card hover:shadow-xl transition-shadow">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400">{strings.completionRate}</h3>
-              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center">
+                <svg className="w-6 h-6 text-primary dark:text-primary" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
               </div>
@@ -89,8 +89,8 @@ const AdminDashboard = () => {
           <div className="card hover:shadow-xl transition-shadow">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400">{strings.allSchemes}</h3>
-              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center">
+                <svg className="w-6 h-6 text-primary dark:text-primary" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
                   <path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
                 </svg>
@@ -103,7 +103,7 @@ const AdminDashboard = () => {
           <Link to="/admin/users" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-8 h-8 text-primary dark:text-primary" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                 </svg>
               </div>
@@ -114,9 +114,9 @@ const AdminDashboard = () => {
             </div>
           </Link>
           
-          <Link to="/admin/manage-admins" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer border-2 border-[#FF9933]/30">
+          <Link to="/admin/manage-admins" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer border-2 border-primary/30">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#FF9933] to-[#138808] rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
                 <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd" />
                 </svg>
@@ -128,10 +128,10 @@ const AdminDashboard = () => {
             </div>
           </Link>
           
-          <Link to="/admin/notifications" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer border-2 border-orange-500/30">
+          <Link to="/admin/notifications" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer border-2 border-primary/30">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-8 h-8 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-8 h-8 text-primary dark:text-primary" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
                 </svg>
               </div>
@@ -159,8 +159,8 @@ const AdminDashboard = () => {
           
           <Link to="/admin/analytics" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-8 h-8 text-primary dark:text-primary" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
               </div>

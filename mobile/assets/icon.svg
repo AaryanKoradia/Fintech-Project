@@ -1,0 +1,6 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="1024" fill="#2596be"/>
+  <circle cx="512" cy="512" r="300" fill="#ffffff"/>
+  <path d="M 512 312 L 512 512 L 662 512" stroke="#2596be" stroke-width="40" stroke-linecap="round" fill="none"/>
+  <text x="512" y="780" font-family="Arial, sans-serif" font-size="120" fill="#ffffff" text-anchor="middle" font-weight="bold">SAKHI</text>
+</svg>

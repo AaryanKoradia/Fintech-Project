@@ -105,7 +105,7 @@ const Footer = () => {
               </div>
               <div className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <FaEnvelope className="text-primary-600 mt-1 text-xs flex-shrink-0" />
-                <span>support@finliteracy.in</span>
+                <span>support@sakhi.in</span>
               </div>
               <div className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <FaMapMarkerAlt className="text-primary-600 mt-1 text-xs flex-shrink-0" />

@@ -1,0 +1,7 @@
+<svg width="2048" height="2048" viewBox="0 0 2048 2048" xmlns="http://www.w3.org/2000/svg">
+  <rect width="2048" height="2048" fill="#2596be"/>
+  <circle cx="1024" cy="900" r="400" fill="#ffffff"/>
+  <path d="M 1024 600 L 1024 900 L 1324 900" stroke="#2596be" stroke-width="60" stroke-linecap="round" fill="none"/>
+  <text x="1024" y="1500" font-family="Arial, sans-serif" font-size="200" fill="#ffffff" text-anchor="middle" font-weight="bold">SAKHI</text>
+  <text x="1024" y="1680" font-family="Arial, sans-serif" font-size="80" fill="#ffffff" text-anchor="middle">Financial Literacy</text>
+</svg>

@@ -178,12 +178,12 @@ const DocumentScanner = () => {
 
   const getFieldIcon = (iconType) => {
     const icons = {
-      'id-card': <FaIdCard className="text-orange-600" />,
-      'credit-card': <FaCreditCard className="text-blue-600" />,
+      'id-card': <FaIdCard className="text-primary" />,
+      'credit-card': <FaCreditCard className="text-primary" />,
       'university': <FaUniversity className="text-green-600" />,
       'money': <FaMoneyBillWave className="text-yellow-600" />,
-      'calendar': <FaCalendar className="text-purple-600" />,
-      'user': <FaUser className="text-indigo-600" />
+      'calendar': <FaCalendar className="text-primary" />,
+      'user': <FaUser className="text-primary" />
     };
     return icons[iconType] || <FaFileImage className="text-gray-600" />;
   };
@@ -194,9 +194,9 @@ const DocumentScanner = () => {
       
       <main className="flex-1 px-4 py-6 max-w-7xl mx-auto w-full">
         {/* Header */}
-        <div className="bg-white dark:bg-gray-800 border-l-4 border-[#FF9933] shadow-sm mb-6 p-6">
+        <div className="bg-white dark:bg-gray-800 border-l-4 border-primary shadow-soft-sm mb-6 p-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-[#FF9933] flex items-center justify-center">
+            <div className="w-12 h-12 bg-primary flex items-center justify-center">
               <FaFileImage className="text-white text-xl" />
             </div>
             <div className="flex-1">
@@ -217,17 +217,17 @@ const DocumentScanner = () => {
               onClick={() => { setScanMode('document'); resetScanner(); }}
               className={`flex-1 px-4 py-2 font-semibold transition-all ${
                 scanMode === 'document'
-                  ? 'bg-[#FF9933] text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
               }`}
             >
-              {currentLanguage === 'english' ? '📄 Scan Document' : '📄 दस्तावेज़ स्कैन'}
+              {currentLanguage === 'english' ? 'Scan Document' : 'दस्तावेज़ स्कैन'}
             </button>
             <button
               onClick={() => { setScanMode('form'); resetScanner(); }}
               className={`flex-1 px-4 py-2 font-semibold transition-all ${
                 scanMode === 'form'
-                  ? 'bg-[#138808] text-white'
+                  ? 'bg-success text-white'
                   : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
               }`}
             >
@@ -301,7 +301,7 @@ const DocumentScanner = () => {
                   <div className="flex gap-2">
                     <button
                       onClick={capturePhoto}
-                      className="flex-1 px-4 py-3 bg-[#138808] hover:bg-green-700 text-white font-semibold shadow-sm transition-all flex items-center justify-center gap-2"
+                      className="flex-1 px-4 py-3 bg-success hover:bg-success/90 text-white font-semibold shadow-soft-sm transition-all flex items-center justify-center gap-2 min-h-[48px]"
                     >
                       <FaCamera />
                       {currentLanguage === 'english' ? 'Capture' : 'फोटो लें'}
@@ -333,7 +333,7 @@ const DocumentScanner = () => {
                     <button
                       onClick={handleUpload}
                       disabled={loading}
-                      className="flex-1 px-6 py-3 bg-[#FF9933] hover:bg-orange-700 text-white font-semibold shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="flex-1 px-6 py-3 bg-primary hover:bg-primary-hover text-white font-semibold shadow-soft-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-[48px]"
                     >
                       {loading ? (
                         <>
@@ -399,14 +399,14 @@ const DocumentScanner = () => {
                 <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 p-6">
                   <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-200 dark:border-gray-700">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-[#138808] flex items-center justify-center">
+                      <div className="w-10 h-10 bg-success flex items-center justify-center">
                         <FaCheckCircle className="text-white text-lg" />
                       </div>
                       <div>
                         <h3 className="text-lg font-bold text-gray-800 dark:text-white">
                           {currentLanguage === 'english' ? 'Form Detected' : 'फॉर्म पहचाना गया'}
                         </h3>
-                        <p className="text-sm text-[#138808] dark:text-green-400 font-semibold">
+                        <p className="text-sm text-success dark:text-success font-semibold">
                           {formFields.fields?.length || 0} {currentLanguage === 'english' ? 'fields found' : 'फ़ील्ड मिले'}
                         </p>
                       </div>
@@ -414,7 +414,7 @@ const DocumentScanner = () => {
                     <button
                       onClick={saveFormData}
                       disabled={Object.keys(formData).length === 0}
-                      className="px-4 py-2 bg-[#138808] hover:bg-green-700 text-white font-semibold transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-2 bg-success hover:bg-success/90 text-white font-semibold transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px]"
                     >
                       <FaCheckCircle />
                       {currentLanguage === 'english' ? 'Save' : 'सहेजें'}
@@ -454,7 +454,7 @@ const DocumentScanner = () => {
                             className={`w-full h-full border-2 ${
                               isFilled 
                                 ? 'border-green-500 bg-green-500/10' 
-                                : 'border-blue-500 bg-blue-500/5 group-hover:bg-blue-500/15'
+                                : 'border-primary bg-primary/5 group-hover:bg-primary/15'
                             } transition-all`}
                           />
                           
@@ -481,7 +481,7 @@ const DocumentScanner = () => {
                               className="absolute inset-0 flex items-center justify-center pointer-events-none"
                               style={{ fontSize: `${Math.max(9, field.bbox.height * 0.3)}px` }}
                             >
-                              <span className="bg-white/90 dark:bg-gray-800/90 px-2 py-1 text-gray-600 dark:text-gray-400 font-medium border border-blue-300 group-hover:text-blue-600 transition-colors">
+                              <span className="bg-white/90 dark:bg-gray-800/90 px-2 py-1 text-gray-600 dark:text-gray-400 font-medium border border-primary/30 group-hover:text-primary transition-colors">
                                 {currentLanguage === 'english' ? 'Click to fill' : 'भरने के लिए क्लिक करें'}
                               </span>
                             </div>
@@ -537,14 +537,14 @@ const DocumentScanner = () => {
                 {/* Document Type */}
                 <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 p-6">
                   <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200 dark:border-gray-700">
-                    <div className="w-10 h-10 bg-[#138808] flex items-center justify-center">
+                    <div className="w-10 h-10 bg-success flex items-center justify-center">
                       <FaCheckCircle className="text-white text-lg" />
                     </div>
                     <div>
                       <h3 className="text-lg font-bold text-gray-800 dark:text-white">
                         {currentLanguage === 'english' ? 'Document Identified' : 'दस्तावेज़ पहचाना गया'}
                       </h3>
-                      <p className="text-sm text-[#138808] dark:text-green-400 font-semibold">
+                      <p className="text-sm text-success dark:text-success font-semibold">
                         {result.documentType}
                       </p>
                     </div>

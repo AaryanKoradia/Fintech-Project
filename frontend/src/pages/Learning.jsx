@@ -504,7 +504,7 @@ const Learning = () => {
               <div className="mb-6 animate-fade-in">
                 {content[currentStep].type === 'intro' && (
                   <div className="bg-blue-50 border border-blue-500 p-6 rounded-lg">
-                    <FaInfoCircle className="text-4xl text-blue-600 mb-4" />
+                    <FaInfoCircle className="text-4xl text-primary mb-4" />
                     <p className="text-lg text-gray-700 leading-relaxed">
                       {content[currentStep].text}
                     </p>

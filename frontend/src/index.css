@@ -1,11 +1,23 @@
 /**
- * Main CSS File - Clean Blue Theme
- * Simple, professional, easy-to-use interface
+ * Main CSS File - Unified Warm Orange & Civic Blue Theme
+ * Simple, professional, villager-friendly interface
  */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-bg-main: #FFFFFF;
+  --color-bg-card: #EFF6FF;
+  --color-primary: #2596be;
+  --color-secondary: #1E3A8A;
+  --color-success: #166534;
+  --color-warning: #D97706;
+  --color-error: #B91C1C;
+  --color-text-primary: #111827;
+  --color-text-secondary: #4B5563;
+}
 
 /* Google Translate Widget Styling */
 #google_translate_element {
@@ -35,7 +47,7 @@
 .goog-te-gadget .goog-te-combo {
   display: inline-block !important;
   font-size: 14px !important;
-  color: #000080 !important;
+  color: var(--color-text-primary) !important;
   margin: 0 !important;
 }
 
@@ -45,7 +57,7 @@
   border: none !important;
   border-radius: 0.375rem !important;
   background-color: transparent !important;
-  color: #000080 !important;
+  color: var(--color-text-primary) !important;
   font-size: 0.875rem !important;
   font-weight: 600 !important;
   cursor: pointer !important;
@@ -55,12 +67,12 @@
 }
 
 .goog-te-combo:hover {
-  background-color: rgba(255, 153, 51, 0.05) !important;
+  background-color: rgba(194, 65, 12, 0.05) !important;
 }
 
 .goog-te-combo:focus {
   outline: none !important;
-  background-color: rgba(255, 153, 51, 0.1) !important;
+  background-color: rgba(194, 65, 12, 0.1) !important;
 }
 
 /* Dark mode styles */
@@ -70,7 +82,7 @@
 }
 
 .dark .goog-te-combo:hover {
-  background-color: rgba(255, 153, 51, 0.1) !important;
+  background-color: rgba(194, 65, 12, 0.1) !important;
 }
 
 .dark .goog-te-combo option {

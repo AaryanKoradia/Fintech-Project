@@ -120,14 +120,14 @@ const MoneyTranslator = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-orange-50 via-white to-yellow-50">
+    <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
       
       <main className="flex-1 px-4 md:px-6 py-8 max-w-4xl mx-auto w-full">
         {/* Header */}
         <div className="mb-8 text-center">
-          <div className="inline-block bg-orange-100 p-4 rounded-full mb-4">
-            <FaEnvelope className="text-5xl text-orange-600" />
+          <div className="inline-block bg-primary/10 p-4 rounded-full mb-4">
+            <FaEnvelope className="text-5xl text-primary" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3">
             💬 {currentLanguage === 'hindi' ? 'Paisa Samjhao' : 'Money Translator'}
@@ -140,7 +140,7 @@ const MoneyTranslator = () => {
         </div>
         
         {/* New Message Alert */}
-        <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white p-4 rounded-xl shadow-lg mb-6 flex items-center gap-3 animate-pulse">
+        <div className="bg-primary text-white p-4 rounded-xl shadow-soft-md mb-6 flex items-center gap-3">
           <FaBell className="text-3xl" />
           <div>
             <p className="font-bold text-lg">
@@ -153,10 +153,10 @@ const MoneyTranslator = () => {
         </div>
         
         {/* SMS Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6 border-l-4 border-orange-500">
+        <div className="bg-white rounded-2xl shadow-soft-lg p-6 mb-6 border-l-4 border-primary">
           <div className="flex items-start gap-4 mb-4">
-            <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center text-3xl flex-shrink-0">
-              <FaUniversity className="text-orange-600" />
+            <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center text-3xl flex-shrink-0">
+              <FaUniversity className="text-primary" />
             </div>
             <div className="flex-1">
               <h3 className="font-bold text-xl text-gray-800 mb-1">{currentMessage.bank}</h3>
@@ -170,7 +170,7 @@ const MoneyTranslator = () => {
             <button
               onClick={handleUnderstand}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-3"
+              className="w-full bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary-hover hover:shadow-soft-md transition-all disabled:opacity-50 flex items-center justify-center gap-3 min-h-[48px]"
             >
               {loading ? (
                 <>

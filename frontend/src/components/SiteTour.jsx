@@ -11,13 +11,13 @@ const SiteTour = ({ onClose }) => {
       {
         title: "Welcome to Financial Literacy Platform!",
         description: "This platform helps rural users learn about savings, budgeting, government schemes, and financial management. Let's take a quick tour to understand all features.",
-        icon: <FaGraduationCap className="text-4xl text-blue-600" />,
+        icon: <FaGraduationCap className="text-4xl text-primary" />,
         color: "blue"
       },
       {
         title: "Learning Lessons",
         description: "Complete interactive financial lessons to improve your knowledge. Each lesson teaches important concepts about money management, savings, and banking. Earn coins for every lesson you complete!",
-        icon: <FaGraduationCap className="text-4xl text-blue-600" />,
+        icon: <FaGraduationCap className="text-4xl text-primary" />,
         color: "blue",
         features: [
           "10 comprehensive financial lessons",
@@ -41,7 +41,7 @@ const SiteTour = ({ onClose }) => {
       {
         title: "Government Schemes",
         description: "Discover government schemes you're eligible for. Browse schemes by category, view details, check eligibility criteria, and see scheme locations on an interactive map.",
-        icon: <FaUniversity className="text-4xl text-indigo-600" />,
+        icon: <FaUniversity className="text-4xl text-primary" />,
         color: "indigo",
         features: [
           "100+ government schemes",
@@ -65,7 +65,7 @@ const SiteTour = ({ onClose }) => {
       {
         title: "Expense Tracker",
         description: "Track your daily expenses to understand your spending patterns. Add expenses by category, view monthly summaries, and get insights to manage your money better.",
-        icon: <FaPen className="text-4xl text-purple-600" />,
+        icon: <FaPen className="text-4xl text-primary" />,
         color: "purple",
         features: [
           "Track daily expenses",
@@ -89,7 +89,7 @@ const SiteTour = ({ onClose }) => {
       {
         title: "Document Scanner",
         description: "Scan important documents and extract information automatically. Upload bank statements, bills, or government documents to understand them better.",
-        icon: <FaFileImage className="text-4xl text-cyan-600" />,
+        icon: <FaFileImage className="text-4xl text-primary" />,
         color: "cyan",
         features: [
           "Scan documents",
@@ -101,7 +101,7 @@ const SiteTour = ({ onClose }) => {
       {
         title: "Money Translator",
         description: "Don't understand bank SMS messages? Paste any bank message and get a simple explanation in your language. Understand debits, credits, balances, and charges easily.",
-        icon: <FaEnvelope className="text-4xl text-teal-600" />,
+        icon: <FaEnvelope className="text-4xl text-primary" />,
         color: "teal",
         features: [
           "Understand bank SMS",
@@ -122,13 +122,13 @@ const SiteTour = ({ onClose }) => {
       {
         title: "वित्तीय साक्षरता मंच में आपका स्वागत है!",
         description: "यह मंच ग्रामीण उपयोगकर्ताओं को बचत, बजट, सरकारी योजनाओं और वित्तीय प्रबंधन के बारे में सीखने में मदद करता है। आइए सभी सुविधाओं को समझने के लिए एक त्वरित दौरा करें।",
-        icon: <FaGraduationCap className="text-4xl text-blue-600" />,
+        icon: <FaGraduationCap className="text-4xl text-primary" />,
         color: "blue"
       },
       {
         title: "सीखने के पाठ",
         description: "अपने ज्ञान को बेहतर बनाने के लिए इंटरैक्टिव वित्तीय पाठ पूरे करें। प्रत्येक पाठ पैसे के प्रबंधन, बचत और बैंकिंग के बारे में महत्वपूर्ण अवधारणाएं सिखाता है। हर पाठ पूरा करने पर सिक्के कमाएं!",
-        icon: <FaGraduationCap className="text-4xl text-blue-600" />,
+        icon: <FaGraduationCap className="text-4xl text-primary" />,
         color: "blue",
         features: [
           "10 व्यापक वित्तीय पाठ",
@@ -152,7 +152,7 @@ const SiteTour = ({ onClose }) => {
       {
         title: "सरकारी योजनाएं",
         description: "उन सरकारी योजनाओं की खोज करें जिनके लिए आप पात्र हैं। श्रेणी के अनुसार योजनाएं ब्राउज़ करें, विवरण देखें, पात्रता मानदंड जांचें, और इंटरैक्टिव मानचित्र पर योजना स्थान देखें।",
-        icon: <FaUniversity className="text-4xl text-indigo-600" />,
+        icon: <FaUniversity className="text-4xl text-primary" />,
         color: "indigo",
         features: [
           "100+ सरकारी योजनाएं",
@@ -176,7 +176,7 @@ const SiteTour = ({ onClose }) => {
       {
         title: "व्यय ट्रैकर",
         description: "अपने खर्च के पैटर्न को समझने के लिए अपने दैनिक खर्चों को ट्रैक करें। श्रेणी के अनुसार खर्च जोड़ें, मासिक सारांश देखें, और अपने पैसे को बेहतर तरीके से प्रबंधित करने के लिए अंतर्दृष्टि प्राप्त करें।",
-        icon: <FaPen className="text-4xl text-purple-600" />,
+        icon: <FaPen className="text-4xl text-primary" />,
         color: "purple",
         features: [
           "दैनिक खर्च ट्रैक करें",
@@ -200,7 +200,7 @@ const SiteTour = ({ onClose }) => {
       {
         title: "दस्तावेज़ स्कैनर",
         description: "महत्वपूर्ण दस्तावेज़ स्कैन करें और जानकारी स्वचालित रूप से निकालें। बैंक स्टेटमेंट, बिल या सरकारी दस्तावेज अपलोड करें और उन्हें बेहतर ढंग से समझें।",
-        icon: <FaFileImage className="text-4xl text-cyan-600" />,
+        icon: <FaFileImage className="text-4xl text-primary" />,
         color: "cyan",
         features: [
           "दस्तावेज़ स्कैन करें",
@@ -212,7 +212,7 @@ const SiteTour = ({ onClose }) => {
       {
         title: "पैसा समझाओ",
         description: "बैंक SMS संदेश नहीं समझते? किसी भी बैंक संदेश को पेस्ट करें और अपनी भाषा में एक सरल व्याख्या प्राप्त करें। डेबिट, क्रेडिट, बैलेंस और शुल्क को आसानी से समझें।",
-        icon: <FaEnvelope className="text-4xl text-teal-600" />,
+        icon: <FaEnvelope className="text-4xl text-primary" />,
         color: "teal",
         features: [
           "बैंक SMS समझें",
@@ -259,7 +259,7 @@ const SiteTour = ({ onClose }) => {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
         
-        <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-8 text-white">
+        <div className="relative bg-primary px-6 py-8 text-white">
           <button
             onClick={handleSkip}
             className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"

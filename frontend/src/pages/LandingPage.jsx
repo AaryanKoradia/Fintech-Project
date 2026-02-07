@@ -117,26 +117,26 @@ const LandingPage = () => {
   ];
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-orange-50 via-white to-green-50 dark:from-gray-900 dark:via-background-dark dark:to-gray-900">
+    <div className="min-h-screen flex flex-col bg-white dark:from-gray-900 dark:via-background-dark dark:to-gray-900">
       <Navbar />
       
       <main className="flex-1 px-4 py-12">
         {/* Hero Section - Government Portal Style */}
         <div className="max-w-6xl mx-auto text-center mb-16">
           <div className="relative inline-block mb-8">
-            <div className="w-28 h-28 bg-gradient-to-br from-[#FF9933] via-white to-[#138808] rounded-full flex items-center justify-center mx-auto shadow-gov-lg ring-4 ring-[#000080]/20 animate-pulse">
+            <div className="w-28 h-28 bg-primary rounded-full flex items-center justify-center mx-auto shadow-soft-md ring-4 ring-authority/20">
               <div className="w-24 h-24 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center">
-                <FaRupeeSign className="text-5xl text-[#000080] dark:text-[#4169E1]" />
+                <FaRupeeSign className="text-5xl text-authority dark:text-authority" />
               </div>
             </div>
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-[#FF9933] to-[#FF7700] bg-clip-text text-transparent">
+            <span className="text-primary">
               {currentLanguage === 'english' ? 'Financial Literacy' : 'वित्तीय साक्षरता'}
             </span>
             <br />
-            <span className="bg-gradient-to-r from-[#000080] to-[#000066] bg-clip-text text-transparent">
+            <span className="text-authority">
               {currentLanguage === 'english' ? '& Empowerment Platform' : 'और सशक्तिकरण मंच'}
             </span>
           </h1>
@@ -173,7 +173,7 @@ const LandingPage = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <Link
               to={dashboardLink}
-              className="px-10 py-4 rounded-lg bg-gradient-to-r from-[#138808] to-[#0f6d06] hover:from-[#0f6d06] hover:to-[#0a5004] text-white text-xl font-semibold shadow-gov-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2"
+              className="px-10 py-4 rounded-lg bg-primary hover:bg-primary-hover text-white text-xl font-semibold shadow-soft-md hover:shadow-soft-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 min-h-[48px]"
             >
               <FaRupeeSign className="w-5 h-5" />
               {isAuthenticated ? strings.dashboard : (currentLanguage === 'english' ? 'Get Started Free' : 'मुफ्त शुरू करें')}
@@ -182,7 +182,7 @@ const LandingPage = () => {
             {!isAuthenticated && (
               <Link
                 to="/login"
-                className="px-10 py-4 rounded-lg bg-white hover:bg-gray-50 text-[#138808] border-2 border-[#138808] text-xl font-semibold shadow-gov-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2"
+                className="px-10 py-4 rounded-lg bg-white hover:bg-gray-50 text-primary border-2 border-primary text-xl font-semibold shadow-soft-md hover:shadow-soft-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 min-h-[48px]"
               >
                 <FaUsers className="w-5 h-5" />
                 {strings.login}

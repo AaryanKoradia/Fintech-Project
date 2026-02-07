@@ -143,7 +143,7 @@ const Marketplace = () => {
 
         {/* Stats Cards */}
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-lg p-6">
+          <div className="bg-primary text-white rounded-lg p-6 shadow-soft-md">
             <div className="flex items-center justify-between mb-2">
               <FaCoins className="text-3xl opacity-80" />
               <span className="text-sm opacity-80">
@@ -156,7 +156,7 @@ const Marketplace = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg p-6">
+          <div className="bg-success text-white rounded-lg p-6 shadow-soft-md">
             <div className="flex items-center justify-between mb-2">
               <FaRupeeSign className="text-3xl opacity-80" />
               <span className="text-sm opacity-80">
@@ -169,7 +169,7 @@ const Marketplace = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg p-6">
+          <div className="bg-authority text-white rounded-lg p-6 shadow-soft-md">
             <div className="flex items-center justify-between mb-2">
               <FaTrophy className="text-3xl opacity-80" />
               <span className="text-sm opacity-80">
@@ -182,7 +182,7 @@ const Marketplace = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg p-6">
+          <div className="bg-primary text-white rounded-lg p-6 shadow-soft-md">
             <div className="flex items-center justify-between mb-2">
               <FaGift className="text-3xl opacity-80" />
               <span className="text-sm opacity-80">
@@ -197,9 +197,9 @@ const Marketplace = () => {
         </div>
 
         {/* Conversion Info */}
-        <div className="max-w-7xl mx-auto mb-6 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded">
+        <div className="max-w-7xl mx-auto mb-6 bg-authority/10 dark:bg-authority/20 border-l-4 border-authority p-4 rounded">
           <div className="flex items-start gap-3">
-            <FaInfoCircle className="text-blue-600 dark:text-blue-400 mt-1" />
+            <FaInfoCircle className="text-primary dark:text-primary mt-1" />
             <div>
               <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-1">
                 {currentLanguage === 'english' ? 'Government Subsidy 100%' : 'सरकारी सब्सिडी 100%'}

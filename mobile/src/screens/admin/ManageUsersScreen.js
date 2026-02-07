@@ -1,0 +1,27 @@
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { useTheme } from '../../context/ThemeContext';
+import { Colors, Typography } from '../../styles/theme';
+
+export default function ManageUsersScreen() {
+  const { isDark } = useTheme();
+
+  return (
+    <View style={[styles.container, { backgroundColor: isDark ? Colors.backgroundDark : Colors.background }]}>
+      <Text style={[styles.text, { color: isDark ? Colors.textDark : Colors.text }]}>
+        Manage Users - Coming Soon
+      </Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: Typography.h4,
+  },
+});

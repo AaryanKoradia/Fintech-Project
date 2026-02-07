@@ -85,7 +85,7 @@ const UserDashboard = () => {
               <div className="flex gap-3 w-full lg:w-auto">
                 <button
                   onClick={handleStartTour}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/30 text-primary dark:text-primary rounded-lg hover:bg-primary/20 dark:hover:bg-primary/50 transition-colors"
                   title={currentLanguage === 'english' ? 'Take Site Tour' : 'साइट दौरा लें'}
                 >
                   <FaQuestionCircle className="text-lg" />
@@ -97,7 +97,7 @@ const UserDashboard = () => {
                 <div className="flex gap-4">
                   <div className="flex-1 lg:flex-none bg-gray-50 dark:bg-gray-700/50 rounded-lg px-5 py-4 border border-gray-200 dark:border-gray-600">
                     <div className="flex items-center gap-2 mb-1">
-                      <FaChartLine className="text-blue-600 dark:text-blue-400" />
+                      <FaChartLine className="text-primary dark:text-primary" />
                       <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">
                         {currentLanguage === 'english' ? 'Progress' : 'प्रगति'}
                       </p>
@@ -107,7 +107,7 @@ const UserDashboard = () => {
 
                   <div className="flex-1 lg:flex-none bg-gray-50 dark:bg-gray-700/50 rounded-lg px-5 py-4 border border-gray-200 dark:border-gray-600">
                     <div className="flex items-center gap-2 mb-1">
-                      <FaMedal className="text-purple-600 dark:text-purple-400" />
+                      <FaMedal className="text-primary dark:text-primary" />
                       <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">
                         {currentLanguage === 'english' ? 'Badges' : 'बैज'}
                       </p>
@@ -124,11 +124,11 @@ const UserDashboard = () => {
             
             <div className="relative">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                  <FaGraduationCap className="text-xl text-blue-600 dark:text-blue-400" />
+                <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/30 flex items-center justify-center">
+                  <FaGraduationCap className="text-xl text-primary dark:text-primary" />
                 </div>
-                <div className="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
-                  <p className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+                <div className="px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30">
+                  <p className="text-xs font-semibold text-primary dark:text-primary">
                     {currentLanguage === 'english' ? 'Learning' : 'सीख रहे'}
                   </p>
                 </div>
@@ -146,11 +146,11 @@ const UserDashboard = () => {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600 dark:text-gray-400">{currentLanguage === 'english' ? 'Completion' : 'पूर्णता'}</span>
-                  <span className="font-semibold text-blue-600 dark:text-blue-400">{Math.floor(progressPercent)}%</span>
+                  <span className="font-semibold text-primary dark:text-primary">{Math.floor(progressPercent)}%</span>
                 </div>
                 <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                   <div 
-                    className="absolute inset-y-0 left-0 bg-blue-600 rounded-full transition-all duration-1000"
+                    className="absolute inset-y-0 left-0 bg-primary rounded-full transition-all duration-1000"
                     style={{ width: `${progressPercent}%` }}
                   />
                 </div>
@@ -187,16 +187,16 @@ const UserDashboard = () => {
             </div>
           </div>
 
-          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-800 p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-purple-100 dark:border-gray-700">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-soft-md hover:shadow-soft-lg transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
             
             <div className="relative">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-lg">
+                <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center shadow-soft-md">
                   <FaTrophy className="text-2xl text-white" />
                 </div>
-                <div className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
-                  <p className="text-xs font-semibold text-purple-600 dark:text-purple-400">
+                <div className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                  <p className="text-xs font-semibold text-primary dark:text-primary">
                     {currentLanguage === 'english' ? 'Achievements' : 'उपलब्धियां'}
                   </p>
                 </div>
@@ -211,7 +211,7 @@ const UserDashboard = () => {
               </div>
 
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                <FaAward className="text-purple-500" />
+                <FaAward className="text-primary" />
                 <span>{currentLanguage === 'english' ? 'Unlocked rewards' : 'अनलॉक पुरस्कार'}</span>
               </div>
             </div>
@@ -226,11 +226,11 @@ const UserDashboard = () => {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Link to="/user/learn" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-orange-500 dark:hover:border-orange-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 to-orange-500/0 group-hover:from-orange-500/5 group-hover:to-orange-500/10 transition-all duration-300"></div>
+            <Link to="/user/learn" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-soft-md hover:shadow-soft-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary">
+              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-all duration-300"></div>
               
               <div className="relative flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center shadow-soft-md flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <FaBook className="text-lg text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -240,7 +240,7 @@ const UserDashboard = () => {
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                     {currentLanguage === 'english' ? 'Financial lessons' : 'वित्तीय पाठ'}
                   </p>
-                  <div className="flex items-center gap-2 text-orange-600 dark:text-orange-400 font-medium text-sm group-hover:gap-3 transition-all">
+                  <div className="flex items-center gap-2 text-primary dark:text-primary font-medium text-sm group-hover:gap-3 transition-all">
                     <span>{currentLanguage === 'english' ? 'Continue' : 'जारी रखें'}</span>
                     <FaArrowRight className="text-xs" />
                   </div>
@@ -248,11 +248,11 @@ const UserDashboard = () => {
               </div>
             </Link>
 
-            <Link to="/user/expenses" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-500/0 group-hover:from-blue-500/5 group-hover:to-blue-500/10 transition-all duration-300"></div>
+            <Link to="/user/expenses" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-soft-md hover:shadow-soft-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary">
+              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-all duration-300"></div>
               
               <div className="relative flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center shadow-soft-md flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <FaPen className="text-lg text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -262,7 +262,7 @@ const UserDashboard = () => {
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                     {currentLanguage === 'english' ? 'Track expenses' : 'खर्च ट्रैक करें'}
                   </p>
-                  <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium text-sm group-hover:gap-3 transition-all">
+                  <div className="flex items-center gap-2 text-primary dark:text-primary font-medium text-sm group-hover:gap-3 transition-all">
                     <span>{currentLanguage === 'english' ? 'Open' : 'खोलें'}</span>
                     <FaArrowRight className="text-xs" />
                   </div>
@@ -270,11 +270,11 @@ const UserDashboard = () => {
               </div>
             </Link>
 
-            <Link to="/user/schemes" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-indigo-500/0 group-hover:from-indigo-500/5 group-hover:to-indigo-500/10 transition-all duration-300"></div>
+            <Link to="/user/schemes" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-soft-md hover:shadow-soft-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-authority dark:hover:border-authority">
+              <div className="absolute inset-0 bg-authority/0 group-hover:bg-authority/5 transition-all duration-300"></div>
               
               <div className="relative flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 rounded-lg bg-authority flex items-center justify-center shadow-soft-md flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <FaUniversity className="text-lg text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -284,7 +284,7 @@ const UserDashboard = () => {
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                     {currentLanguage === 'english' ? 'Government benefits' : 'सरकारी लाभ'}
                   </p>
-                  <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-medium text-sm group-hover:gap-3 transition-all">
+                  <div className="flex items-center gap-2 text-authority dark:text-authority font-medium text-sm group-hover:gap-3 transition-all">
                     <span>{currentLanguage === 'english' ? 'Explore' : 'खोजें'}</span>
                     <FaArrowRight className="text-xs" />
                   </div>
@@ -292,11 +292,11 @@ const UserDashboard = () => {
               </div>
             </Link>
 
-            <Link to="/user/ai-advisor" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-purple-500/0 group-hover:from-purple-500/5 group-hover:to-purple-500/10 transition-all duration-300"></div>
+            <Link to="/user/ai-advisor" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-soft-md hover:shadow-soft-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary">
+              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-all duration-300"></div>
               
               <div className="relative flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center shadow-soft-md flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <FaLightbulb className="text-lg text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -306,7 +306,7 @@ const UserDashboard = () => {
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                     {currentLanguage === 'english' ? 'Get answers' : 'उत्तर पाएं'}
                   </p>
-                  <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400 font-medium text-sm group-hover:gap-3 transition-all">
+                  <div className="flex items-center gap-2 text-primary dark:text-primary font-medium text-sm group-hover:gap-3 transition-all">
                     <span>{currentLanguage === 'english' ? 'Ask AI' : 'AI से पूछें'}</span>
                     <FaArrowRight className="text-xs" />
                   </div>
@@ -314,11 +314,11 @@ const UserDashboard = () => {
               </div>
             </Link>
 
-            <Link to="/user/document-scanner" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-cyan-500 dark:hover:border-cyan-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-cyan-500/0 group-hover:from-cyan-500/5 group-hover:to-cyan-500/10 transition-all duration-300"></div>
+            <Link to="/user/document-scanner" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-soft-md hover:shadow-soft-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary">
+              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-all duration-300"></div>
               
               <div className="relative flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center shadow-soft-md flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <FaFileImage className="text-lg text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -328,7 +328,7 @@ const UserDashboard = () => {
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                     {currentLanguage === 'english' ? 'Scan docs' : 'स्कैन करें'}
                   </p>
-                  <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-medium text-sm group-hover:gap-3 transition-all">
+                  <div className="flex items-center gap-2 text-primary dark:text-primary font-medium text-sm group-hover:gap-3 transition-all">
                     <span>{currentLanguage === 'english' ? 'Scan now' : 'अभी स्कैन करें'}</span>
                     <FaArrowRight className="text-xs" />
                   </div>
@@ -336,11 +336,11 @@ const UserDashboard = () => {
               </div>
             </Link>
 
-            <Link to="/user/money-translator" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-teal-500 dark:hover:border-teal-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/0 to-teal-500/0 group-hover:from-teal-500/5 group-hover:to-teal-500/10 transition-all duration-300"></div>
+            <Link to="/user/money-translator" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-soft-md hover:shadow-soft-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary">
+              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-all duration-300"></div>
               
               <div className="relative flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center shadow-soft-md flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <FaEnvelope className="text-lg text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -350,7 +350,7 @@ const UserDashboard = () => {
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                     {currentLanguage === 'english' ? 'Understand bank SMS' : 'बैंक SMS समझें'}
                   </p>
-                  <div className="flex items-center gap-2 text-teal-600 dark:text-teal-400 font-medium text-sm group-hover:gap-3 transition-all">
+                  <div className="flex items-center gap-2 text-primary dark:text-primary font-medium text-sm group-hover:gap-3 transition-all">
                     <span>{currentLanguage === 'english' ? 'Translate' : 'अनुवाद करें'}</span>
                     <FaArrowRight className="text-xs" />
                   </div>
@@ -358,24 +358,24 @@ const UserDashboard = () => {
               </div>
             </Link>
 
-            <Link to="/user/marketplace" className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 p-5 shadow-md hover:shadow-xl transition-all duration-300 border-2 border-emerald-500 dark:border-emerald-600">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/0 to-emerald-500/0 group-hover:from-emerald-500/10 group-hover:to-emerald-500/20 transition-all duration-300"></div>
+            <Link to="/user/marketplace" className="group relative overflow-hidden rounded-xl bg-primary-light dark:from-primary/20 dark:to-primary/20 p-5 shadow-soft-md hover:shadow-soft-lg transition-all duration-300 border-2 border-primary dark:border-primary">
+              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all duration-300"></div>
               <div className="absolute top-3 right-3">
-                <span className="px-2 py-1 bg-emerald-500 text-white text-xs font-bold rounded-full animate-pulse">{strings.newNotification}</span>
+                <span className="px-2 py-1 bg-primary text-white text-xs font-bold rounded-full animate-pulse">{strings.newNotification}</span>
               </div>
               
               <div className="relative flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center shadow-soft-md flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <FaShoppingCart className="text-lg text-white" />
                 </div>
                 <div className="flex-1 min-w-0 pr-12">
                   <h3 className="font-bold text-gray-900 dark:text-white mb-1 text-base">
                     {currentLanguage === 'english' ? '🎁 Marketplace' : '🎁 बाज़ार'}
                   </h3>
-                  <p className="text-sm text-emerald-700 dark:text-emerald-400 font-semibold mb-2">
+                  <p className="text-sm text-primary dark:text-primary font-semibold mb-2">
                     {currentLanguage === 'english' ? 'Redeem coins for benefits!' : 'सिक्कों को लाभ के लिए भुनाएं!'}
                   </p>
-                  <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-medium text-sm group-hover:gap-3 transition-all">
+                  <div className="flex items-center gap-2 text-primary dark:text-primary font-medium text-sm group-hover:gap-3 transition-all">
                     <span>{currentLanguage === 'english' ? 'Shop now' : 'अभी खरीदें'}</span>
                     <FaArrowRight className="text-xs" />
                   </div>
@@ -383,11 +383,11 @@ const UserDashboard = () => {
               </div>
             </Link>
 
-            <Link to="/user/banking-education" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-pink-500 dark:hover:border-pink-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-500/0 to-pink-500/0 group-hover:from-pink-500/5 group-hover:to-pink-500/10 transition-all duration-300"></div>
+            <Link to="/user/banking-education" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-soft-md hover:shadow-soft-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary">
+              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-all duration-300"></div>
               
               <div className="relative flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center shadow-soft-md flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <FaUniversity className="text-lg text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -397,7 +397,7 @@ const UserDashboard = () => {
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                     {currentLanguage === 'english' ? 'Learn about banking' : 'बैंकिंग के बारे में जानें'}
                   </p>
-                  <div className="flex items-center gap-2 text-pink-600 dark:text-pink-400 font-medium text-sm group-hover:gap-3 transition-all">
+                  <div className="flex items-center gap-2 text-primary dark:text-primary font-medium text-sm group-hover:gap-3 transition-all">
                     <span>{currentLanguage === 'english' ? 'Learn' : 'सीखें'}</span>
                     <FaArrowRight className="text-xs" />
                   </div>
@@ -405,8 +405,8 @@ const UserDashboard = () => {
               </div>
             </Link>
 
-            <Link to="/user/profile" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-gray-500 dark:hover:border-gray-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-500/0 to-gray-500/0 group-hover:from-gray-500/5 group-hover:to-gray-500/10 transition-all duration-300"></div>
+            <Link to="/user/profile" className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-5 shadow-soft-md hover:shadow-soft-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-gray-500 dark:hover:border-gray-500">
+              <div className="absolute inset-0 bg-gray-500/0 group-hover:bg-gray-500/5 transition-all duration-300"></div>
               
               <div className="relative flex items-start gap-4">
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-600 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
@@ -429,18 +429,18 @@ const UserDashboard = () => {
           </div>
         </div>        </div>
         <div className="mb-8">
-          <SchemeMap />
-        </div>
-
-        <div className="mb-8">
           <GovernmentNotifications />
         </div>
 
-        <div className="rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+        <div className="mb-8 rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-lg border border-gray-100 dark:border-gray-700">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             {currentLanguage === 'english' ? '24/7 Voice Support' : '24/7 वॉइस सहायता'}
           </h2>
           <VoiceCallAssistant />
+        </div>
+
+        <div className="mb-8">
+          <SchemeMap />
         </div>
       </main>
       

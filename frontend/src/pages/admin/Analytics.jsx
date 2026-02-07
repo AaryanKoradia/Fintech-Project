@@ -61,11 +61,11 @@ const Analytics = () => {
               </div>
               <div className="card">
                 <h3 className="text-sm text-gray-600 dark:text-gray-400 mb-2">Avg Progress</h3>
-                <p className="text-4xl font-bold text-blue-600 dark:text-blue-400">{analytics.averageProgress}%</p>
+                <p className="text-4xl font-bold text-primary dark:text-primary">{analytics.averageProgress}%</p>
               </div>
               <div className="card">
                 <h3 className="text-sm text-gray-600 dark:text-gray-400 mb-2">Lessons Completed</h3>
-                <p className="text-4xl font-bold text-purple-600 dark:text-purple-400">{analytics.totalLessonsCompleted}</p>
+                <p className="text-4xl font-bold text-primary dark:text-primary">{analytics.totalLessonsCompleted}</p>
               </div>
             </div>
             <div className="card mb-8">

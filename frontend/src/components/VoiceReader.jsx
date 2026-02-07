@@ -149,8 +149,8 @@ const VoiceReader = () => {
         <div className="mb-4 bg-white dark:bg-gray-800 rounded-xl shadow-xl p-4 border border-gray-200 dark:border-gray-700 animate-fade-in max-w-xs">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                <FaVolumeUp className="text-blue-600 dark:text-blue-400 text-sm" />
+              <div className="w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/30 flex items-center justify-center">
+                <FaVolumeUp className="text-primary dark:text-primary text-sm" />
               </div>
               <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                 {currentLanguage === 'hindi' ? 'वॉइस रीडर' : 'Voice Reader'}
@@ -227,8 +227,8 @@ const VoiceReader = () => {
         onDoubleClick={readButtonText}
         className={`group w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${
           isReading
-            ? 'bg-blue-600 hover:bg-blue-700 scale-110'
-            : 'bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700'
+            ? 'bg-primary hover:bg-primary-hover scale-110'
+            : 'bg-primary hover:bg-primary-hover'
         } text-white hover:shadow-xl active:scale-95 border-2 border-white dark:border-gray-800 relative`}
         aria-label={currentLanguage === 'hindi' 
           ? 'टेक्स्ट को सुनने के लिए चुनें' 

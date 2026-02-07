@@ -46,15 +46,15 @@ export const AuthProvider = ({ children }) => {
       setToken(access_token);
       setUser(userData);
     
-      // Role-based navigation
+      // Role-based navigation (replace: true prevents back button from going to login page)
       if (userData.role === 'ADMIN') {
-        navigate('/admin/dashboard');
+        navigate('/admin/dashboard', { replace: true });
       } else if (userData.role === 'AGENT') {
-        navigate('/agent/portal');
+        navigate('/agent/portal', { replace: true });
       } else if (userData.role === 'DISTRICT_OFFICER' || userData.role === 'STATE_OFFICER' || userData.role === 'MINISTRY') {
-        navigate('/government/dashboard');
+        navigate('/government/dashboard', { replace: true });
       } else {
-        navigate('/user/dashboard');
+        navigate('/user/dashboard', { replace: true });
       }
       
       return { success: true };
@@ -76,15 +76,15 @@ export const AuthProvider = ({ children }) => {
       setToken(access_token);
       setUser(newUser);
       
-      // Role-based navigation
+      // Role-based navigation (replace: true prevents back button issues)
       if (newUser.role === 'ADMIN') {
-        navigate('/admin/dashboard');
+        navigate('/admin/dashboard', { replace: true });
       } else if (newUser.role === 'AGENT') {
-        navigate('/agent/portal');
+        navigate('/agent/portal', { replace: true });
       } else if (newUser.role === 'DISTRICT_OFFICER' || newUser.role === 'STATE_OFFICER' || newUser.role === 'MINISTRY') {
-        navigate('/government/dashboard');
+        navigate('/government/dashboard', { replace: true });
       } else {
-        navigate('/user/dashboard');
+        navigate('/user/dashboard', { replace: true });
       }
       
       return { success: true };
@@ -101,7 +101,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
     setToken(null);
     setUser(null);
-    navigate('/login');
+    navigate('/login', { replace: true });
   };
   
   const hasRole = (role) => {

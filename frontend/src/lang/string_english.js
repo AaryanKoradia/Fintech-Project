@@ -6,7 +6,7 @@
 
 const STRINGS_ENGLISH = {
   // Common
-  appName: "FinLit",
+  appName: "Sakhi",
   appTagline: "Your Financial Friend",
   loading: "Loading...",
   error: "Error",
@@ -149,10 +149,10 @@ const STRINGS_ENGLISH = {
   contactUs: "Contact Us",
   termsConditions: "Terms & Conditions",
   privacyPolicy: "Privacy Policy",
-  copyright: "© 2026 FinLit. Empowering Rural India.",
+  copyright: "© 2026 Sakhi. Empowering Rural India.",
   
   // Onboarding
-  welcomeTitle: "Welcome to FinLit!",
+  welcomeTitle: "Welcome to Sakhi!",
   welcomeMessage: "Learn to manage money, grow savings, and build a better future.",
   getStarted: "Get Started",
   skipTutorial: "Skip Tutorial",

@@ -9,7 +9,7 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { FaUser, FaEnvelope, FaLock, FaMapMarkerAlt, FaRupeeSign } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock, FaMapMarkerAlt, FaRupeeSign, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Signup = () => {
   const { strings, currentLanguage } = useLanguage();
@@ -25,6 +25,8 @@ const Signup = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   
   const handleChange = (e) => {
     setFormData({
@@ -59,19 +61,19 @@ const Signup = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen flex flex-col bg-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Navbar />
       
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md animate-fade-in">
-          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 border border-gray-100 dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-soft-lg p-8 border border-gray-100 dark:border-gray-700">
             {/* Logo */}
-            <div className="w-24 h-24 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+            <div className="w-24 h-24 bg-primary rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-soft-md">
               <FaRupeeSign className="text-white text-5xl" />
             </div>
             
             {/* Title */}
-            <h2 className="text-3xl font-extrabold text-center bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
+            <h2 className="text-3xl font-extrabold text-center text-authority dark:text-authority mb-2">
               {strings.signup}
             </h2>
             <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
@@ -105,7 +107,7 @@ const Signup = () => {
                     value={formData.fullName}
                     onChange={handleChange}
                     required
-                    className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
+                    className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-primary dark:focus:border-primary focus:ring-2 focus:ring-primary/20 dark:focus:ring-primary/30 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
                     placeholder={strings.placeholderFullName}
                   />
                 </div>
@@ -126,7 +128,7 @@ const Signup = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
+                    className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-primary dark:focus:border-primary focus:ring-2 focus:ring-primary/20 dark:focus:ring-primary/30 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
                     placeholder={strings.placeholderEmail}
                   />
                 </div>
@@ -147,7 +149,7 @@ const Signup = () => {
                     value={formData.village}
                     onChange={handleChange}
                     required
-                    className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
+                    className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-primary dark:focus:border-primary focus:ring-2 focus:ring-primary/20 dark:focus:ring-primary/30 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
                     placeholder={strings.placeholderVillage}
                   />
                 </div>
@@ -162,16 +164,23 @@ const Signup = () => {
                     <FaLock className="text-gray-400" />
                   </div>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
                     required
                     minLength={6}
-                    className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
+                    className="w-full pl-12 pr-12 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-primary dark:focus:border-primary focus:ring-2 focus:ring-primary/20 dark:focus:ring-primary/30 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
                     placeholder="••••••••"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-primary transition-colors"
+                  >
+                    {showPassword ? <FaEyeSlash className="text-lg" /> : <FaEye className="text-lg" />}
+                  </button>
                 </div>
               </div>
               
@@ -184,23 +193,30 @@ const Signup = () => {
                     <FaLock className="text-gray-400" />
                   </div>
                   <input
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     id="confirmPassword"
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     required
                     minLength={6}
-                    className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
+                    className="w-full pl-12 pr-12 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-primary dark:focus:border-primary focus:ring-2 focus:ring-primary/20 dark:focus:ring-primary/30 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
                     placeholder="••••••••"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-primary transition-colors"
+                  >
+                    {showConfirmPassword ? <FaEyeSlash className="text-lg" /> : <FaEye className="text-lg" />}
+                  </button>
                 </div>
               </div>
               
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-teal-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg shadow-soft-md hover:shadow-soft-lg hover:bg-primary-hover transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px]"
               >
                 {loading ? (
                   <div className="flex items-center justify-center">
@@ -214,7 +230,7 @@ const Signup = () => {
             {/* Login Link */}
             <p className="text-center mt-6 text-gray-600 dark:text-gray-400">
               {strings.alreadyHaveAccount}{' '}
-              <Link to="/login" className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline">
+              <Link to="/login" className="text-primary dark:text-primary font-bold hover:underline">
                 {strings.login}
               </Link>
             </p>

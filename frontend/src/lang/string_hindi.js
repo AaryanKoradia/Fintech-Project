@@ -6,7 +6,7 @@
 
 const STRINGS_HINDI = {
   // Common - सामान्य
-  appName: "फिनलिट",
+  appName: "सखी",
   appTagline: "आपका वित्तीय साथी",
   loading: "लोड हो रहा है...",
   error: "त्रुटि",
@@ -149,10 +149,10 @@ const STRINGS_HINDI = {
   contactUs: "संपर्क करें",
   termsConditions: "नियम और शर्तें",
   privacyPolicy: "गोपनीयता नीति",
-  copyright: "© 2026 फिनलिट। ग्रामीण भारत को सशक्त बनाना।",
+  copyright: "© 2026 सखी। ग्रामीण भारत को सशक्त बनाना।",
   
   // Onboarding - ऑनबोर्डिंग
-  welcomeTitle: "फिनलिट में आपका स्वागत है!",
+  welcomeTitle: "सखी में आपका स्वागत है!",
   welcomeMessage: "पैसे का प्रबंधन सीखें, बचत बढ़ाएं, और बेहतर भविष्य बनाएं।",
   getStarted: "शुरू करें",
   skipTutorial: "ट्यूटोरियल छोड़ें",
