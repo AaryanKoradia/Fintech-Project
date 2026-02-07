@@ -7,6 +7,91 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Google Translate Widget Styling */
+#google_translate_element {
+  display: inline-block !important;
+  vertical-align: middle;
+}
+
+/* Hide all Google Translate branding */
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  font-family: inherit !important;
+  font-size: 0 !important;
+  color: transparent !important;
+}
+
+.goog-te-gadget img {
+  display: none !important;
+}
+
+.goog-te-gadget > span {
+  display: none !important;
+}
+
+.goog-te-gadget .goog-te-combo {
+  display: inline-block !important;
+  font-size: 14px !important;
+  color: #000080 !important;
+  margin: 0 !important;
+}
+
+/* Style the actual dropdown to match our design */
+.goog-te-combo {
+  padding: 0.4rem 0.75rem !important;
+  border: none !important;
+  border-radius: 0.375rem !important;
+  background-color: transparent !important;
+  color: #000080 !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  outline: none !important;
+  appearance: auto !important;
+  min-width: 120px !important;
+}
+
+.goog-te-combo:hover {
+  background-color: rgba(255, 153, 51, 0.05) !important;
+}
+
+.goog-te-combo:focus {
+  outline: none !important;
+  background-color: rgba(255, 153, 51, 0.1) !important;
+}
+
+/* Dark mode styles */
+.dark .goog-te-combo {
+  background-color: transparent !important;
+  color: #f3f4f6 !important;
+}
+
+.dark .goog-te-combo:hover {
+  background-color: rgba(255, 153, 51, 0.1) !important;
+}
+
+.dark .goog-te-combo option {
+  background-color: #1f2937 !important;
+  color: #f3f4f6 !important;
+}
+
+/* Hide the Google Translate banner at top */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.skiptranslate iframe {
+  visibility: hidden !important;
+  display: none !important;
+}
+
 @layer base {
   * {
     @apply border-gray-200 dark:border-gray-700;

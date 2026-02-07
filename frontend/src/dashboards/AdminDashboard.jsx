@@ -128,6 +128,20 @@ const AdminDashboard = () => {
             </div>
           </Link>
           
+          <Link to="/admin/notifications" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer border-2 border-orange-500/30">
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-8 h-8 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-text-light dark:text-text-dark">Send Notifications</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Alert Users</p>
+              </div>
+            </div>
+          </Link>
+          
           <Link to="/admin/schemes" className="card hover:shadow-xl transition-all hover:scale-105 cursor-pointer">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center flex-shrink-0">

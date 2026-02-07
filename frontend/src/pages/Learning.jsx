@@ -323,7 +323,7 @@ const Learning = () => {
       
       window.speechSynthesis.speak(utterance);
     } else {
-      alert('Voice feature not supported in your browser');
+      alert(strings.voiceNotSupported);
     }
   };
 

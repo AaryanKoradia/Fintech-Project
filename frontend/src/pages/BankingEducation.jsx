@@ -360,9 +360,9 @@ const StepAnimation = ({ type }) => {
     'app-register': (
       <div className="py-6">
         <div className="bg-white border border-gray-300 rounded-lg p-4 space-y-3">
-          <input type="text" placeholder="Customer ID" className="w-full border border-gray-300 rounded px-3 py-2 text-sm" readOnly />
-          <input type="text" placeholder="Mobile Number" className="w-full border border-gray-300 rounded px-3 py-2 text-sm" readOnly />
-          <input type="password" placeholder="Create MPIN" className="w-full border border-gray-300 rounded px-3 py-2 text-sm" readOnly />
+          <input type="text" placeholder={strings.placeholderCustomerId} className="w-full border border-gray-300 rounded px-3 py-2 text-sm" readOnly />
+          <input type="text" placeholder={strings.placeholderMobileNumber} className="w-full border border-gray-300 rounded px-3 py-2 text-sm" readOnly />
+          <input type="password" placeholder={strings.placeholderCreateMPIN} className="w-full border border-gray-300 rounded px-3 py-2 text-sm" readOnly />
           <button className="w-full bg-primary-600 text-white rounded py-2 text-sm">Register</button>
         </div>
       </div>

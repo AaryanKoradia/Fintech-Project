@@ -158,7 +158,7 @@ const VoiceCallAssistant = () => {
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(WEBHOOK_URL);
-                    alert('Webhook URL copied!');
+                    alert(strings.webhookCopied);
                   }}
                   className="text-xs bg-primary-600 text-white px-3 py-1 rounded hover:bg-primary-700"
                 >

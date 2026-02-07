@@ -38,6 +38,15 @@ const STRINGS_HINDI = {
   loginSuccess: "लॉगिन सफल!",
   signupSuccess: "खाता बन गया!",
   loginError: "लॉगिन नहीं हुआ। जानकारी जांचें।",
+  welcomeBackLogin: "वापस स्वागत है! जारी रखने के लिए लॉगिन करें",
+  loggingIn: "लॉगिन हो रहा है...",
+  startJourney: "आज अपनी वित्तीय यात्रा शुरू करें",
+  creatingAccount: "खाता बनाया जा रहा है...",
+  passwordMismatch: "पासवर्ड मेल नहीं खाते",
+  placeholderFullName: "अपना पूरा नाम दर्ज करें",
+  placeholderEmail: "आपका@ईमेल.कॉम",
+  placeholderVillage: "आपका गाँव/शहर",
+  placeholderPassword: "••••••••",
   
   // Navigation - नेविगेशन
   home: "होम",
@@ -311,6 +320,26 @@ const STRINGS_HINDI = {
   noExpenses: "अभी तक कोई खर्च नहीं",
   deleteExpense: "खर्च हटाएं",
   expenseDate: "तारीख",
+  placeholderOccupation: "शिक्षक, किसान, व्यापार...",
+  placeholderName: "नाम",
+  placeholderAge: "उम्र",
+  placeholderGoal: "लक्ष्य (जैसे, बेटी की शादी)",
+  placeholderYear: "वर्ष",
+  placeholderCost: "लागत (₹)",
+  placeholderAmount: "राशि (₹)",
+  placeholderDescription: "विवरण",
+  
+  // Notifications - सूचनाएं
+  newNotification: "नया",
+  placeholderNotificationTitle: "जैसे, नई योजना उपलब्ध!",
+  placeholderNotificationMessage: "अंग्रेज़ी में सूचना संदेश दर्ज करें...",
+  placeholderNotificationMessageHindi: "हिंदी में सूचना संदेश दर्ज करें...",
+  placeholderContactNumber: "जैसे, +91 1800-XXX-XXXX",
+  
+  // Admin - प्रशासक
+  placeholderAdminName: "पूरा नाम दर्ज करें",
+  placeholderAdminEmail: "एडमिन@उदाहरण.कॉम",
+  placeholderAdminPassword: "कम से कम 6 अक्षर",
   
   // Document Scanner
   scanDocument: "दस्तावेज़ स्कैन करें",
@@ -328,6 +357,24 @@ const STRINGS_HINDI = {
   panCard: "पैन कार्ड",
   bankPassbook: "बैंक पासबुक",
   schemeDetails: "योजना विवरण",
+  
+  // Alerts and Error Messages - चेतावनी और त्रुटि संदेश
+  micAccessDenied: "माइक्रोफ़ोन एक्सेस अस्वीकृत। कृपया ब्राउज़र सेटिंग में माइक्रोफ़ोन एक्सेस की अनुमति दें।",
+  networkErrorSpeech: "नेटवर्क त्रुटि। वाक् पहचान के लिए इंटरनेट कनेक्शन आवश्यक है।",
+  speechNotSupported: "इस ब्राउज़र में वाक् पहचान समर्थित नहीं है। कृपया Chrome या Edge का उपयोग करें।",
+  allowMicAccess: "कृपया वॉइस इनपुट उपयोग करने के लिए माइक्रोफ़ोन एक्सेस की अनुमति दें। अपनी ब्राउज़र सेटिंग जांचें।",
+  voiceNotSupported: "आपके ब्राउज़र में वॉइस सुविधा समर्थित नहीं है",
+  webhookCopied: "Webhook URL कॉपी हो गया!",
+  failedToSaveProfile: "प्रोफ़ाइल सहेजने में विफल",
+  failedToGenerateAIPlan: "AI योजना बनाने में विफल",
+  failedToAddExpense: "खर्च जोड़ने में विफल",
+  failedToDeleteExpense: "खर्च हटाने में विफल",
+  failedToTranslate: "संदेश का अनुवाद नहीं हो सका। कृपया पुनः प्रयास करें।",
+  
+  // Banking Education - बैंकिंग शिक्षा
+  placeholderCustomerId: "ग्राहक आईडी",
+  placeholderMobileNumber: "मोबाइल नंबर",
+  placeholderCreateMPIN: "MPIN बनाएं",
 };
 
 export default STRINGS_HINDI;

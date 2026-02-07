@@ -65,10 +65,10 @@ const AIAdvisor = () => {
           // Don't alert immediately, just log
           console.log('No speech detected. Keep speaking...');
         } else if (event.error === 'not-allowed') {
-          alert('Microphone access denied. Please allow microphone access in browser settings.');
+          alert(strings.micAccessDenied);
           setIsListening(false);
         } else if (event.error === 'network') {
-          alert('Network error. Speech recognition requires internet connection.');
+          alert(strings.networkErrorSpeech);
           setIsListening(false);
         } else {
           console.log(`Speech error: ${event.error}`);
@@ -121,7 +121,7 @@ const AIAdvisor = () => {
   // Start voice recognition
   const startListening = async () => {
     if (!recognitionRef.current) {
-      alert('Speech recognition not supported in this browser. Please use Chrome or Edge.');
+      alert(strings.speechNotSupported);
       return;
     }
 
@@ -136,7 +136,7 @@ const AIAdvisor = () => {
       }
     } catch (error) {
       console.error('Microphone access error:', error);
-      alert('Please allow microphone access to use voice input. Check your browser settings.');
+      alert(strings.allowMicAccess);
       setIsListening(false);
     }
   };

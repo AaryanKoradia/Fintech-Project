@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-from app.routes import auth, users, admin, lessons, schemes, ai, confidence, nudges, expenses, document_scanner, whatsapp, voice_call, financial_planning, money_translator, agents, analytics, applications, marketplace
+from app.routes import auth, users, admin, lessons, schemes, ai, confidence, nudges, expenses, document_scanner, whatsapp, voice_call, financial_planning, money_translator, agents, analytics, applications, marketplace, notifications
 
 app = FastAPI(title="FinLit API", description="Financial Literacy & Empowerment Platform API", version="1.0.0")
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173,https://fintech-3c.vercel.app").split(",")
@@ -36,6 +36,7 @@ app.include_router(agents.router, prefix="/api/agents", tags=["Agent Network"])
 app.include_router(analytics.router, prefix="/api/analytics", tags=["Government Analytics"])
 app.include_router(applications.router, prefix="/api/applications", tags=["Scheme Applications"])
 app.include_router(marketplace.router, prefix="/api/marketplace", tags=["Marketplace & Redemptions"])
+app.include_router(notifications.router, prefix="/api/notifications", tags=["Notifications"])
 
 @app.get("/")
 async def root():

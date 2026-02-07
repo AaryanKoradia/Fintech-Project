@@ -12,7 +12,7 @@ import Footer from '../components/Footer';
 import { FaEnvelope, FaLock, FaRupeeSign } from 'react-icons/fa';
 
 const Login = () => {
-  const { strings } = useLanguage();
+  const { strings, currentLanguage } = useLanguage();
   const { login } = useAuth();
   
   const [formData, setFormData] = useState({
@@ -61,7 +61,7 @@ const Login = () => {
               {strings.login}
             </h2>
             <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
-              Welcome back! Please login to continue
+              {strings.welcomeBackLogin}
             </p>
             
             {/* Error Message */}
@@ -92,7 +92,7 @@ const Login = () => {
                     onChange={handleChange}
                     required
                     className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
-                    placeholder="your@email.com"
+                    placeholder={currentLanguage === 'english' ? 'your@email.com' : 'आपका@ईमेल.कॉम'}
                   />
                 </div>
               </div>
@@ -126,7 +126,7 @@ const Login = () => {
                 {loading ? (
                   <div className="flex items-center justify-center">
                     <div className="w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                    Logging in...
+                    {strings.loggingIn}
                   </div>
                 ) : strings.login}
               </button>

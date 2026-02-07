@@ -108,7 +108,7 @@ const ExpenseTracker = () => {
       setProfile(response.data);
       setCurrentStep('plan');
     } catch (error) {
-      alert('Failed to save profile: ' + (error.response?.data?.detail || error.message));
+      alert(strings.failedToSaveProfile + ': ' + (error.response?.data?.detail || error.message));
     } finally {
       setLoading(false);
     }
@@ -160,7 +160,7 @@ const ExpenseTracker = () => {
       setCurrentStep('tracker');
       fetchMonthlyData();
     } catch (error) {
-      alert('Failed to generate AI plan: ' + (error.response?.data?.detail || error.message));
+      alert(strings.failedToGenerateAIPlan + ': ' + (error.response?.data?.detail || error.message));
     } finally {
       setGeneratingPlan(false);
     }
@@ -178,7 +178,7 @@ const handleExpenseSubmit = async (e) => {
       setShowExpenseForm(false);
       fetchMonthlyData();
     } catch (error) {
-      alert('Failed to add expense');
+      alert(strings.failedToAddExpense);
     } finally {
       setLoading(false);
     }
@@ -190,7 +190,7 @@ const handleExpenseSubmit = async (e) => {
       await api.delete(`/financial-planning/expenses/${expenseId}`);
       fetchMonthlyData();
     } catch (error) {
-      alert('Failed to delete expense');
+      alert(strings.failedToDeleteExpense);
     }
   };
   
@@ -333,7 +333,7 @@ const ProfileForm = ({
               value={profileForm.occupation}
               onChange={(e) => setProfileForm({...profileForm, occupation: e.target.value})}
               className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-              placeholder="Teacher, Farmer, Business..."
+              placeholder={strings.placeholderOccupation}
             />
           </div>
         </div>
@@ -371,7 +371,7 @@ const ProfileForm = ({
           <div className="grid md:grid-cols-4 gap-4 mb-4">
             <input
               type="text"
-              placeholder="Name"
+              placeholder={strings.placeholderName}
               value={familyMemberForm.name}
               onChange={(e) => setFamilyMemberForm({...familyMemberForm, name: e.target.value})}
               className="px-4 py-2 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none"
@@ -391,7 +391,7 @@ const ProfileForm = ({
             
             <input
               type="number"
-              placeholder="Age"
+              placeholder={strings.placeholderAge}
               value={familyMemberForm.age}
               onChange={(e) => setFamilyMemberForm({...familyMemberForm, age: e.target.value})}
               className="px-4 py-2 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none"
@@ -441,7 +441,7 @@ const ProfileForm = ({
           <div className="grid md:grid-cols-4 gap-4 mb-4">
             <input
               type="text"
-              placeholder="Goal (e.g., Daughter's Wedding)"
+              placeholder={strings.placeholderGoal}
               value={milestoneForm.goal}
               onChange={(e) => setMilestoneForm({...milestoneForm, goal: e.target.value})}
               className="md:col-span-2 px-4 py-2 border-2 border-green-200 rounded-lg focus:border-green-500 focus:outline-none"
@@ -449,7 +449,7 @@ const ProfileForm = ({
             
             <input
               type="number"
-              placeholder="Year"
+              placeholder={strings.placeholderYear}
               value={milestoneForm.targetYear}
               onChange={(e) => setMilestoneForm({...milestoneForm, targetYear: e.target.value})}
               className="px-4 py-2 border-2 border-green-200 rounded-lg focus:border-green-500 focus:outline-none"
@@ -457,7 +457,7 @@ const ProfileForm = ({
             
             <input
               type="number"
-              placeholder="Cost (₹)"
+              placeholder={strings.placeholderCost}
               value={milestoneForm.estimatedCost}
               onChange={(e) => setMilestoneForm({...milestoneForm, estimatedCost: e.target.value})}
               className="px-4 py-2 border-2 border-green-200 rounded-lg focus:border-green-500 focus:outline-none"
@@ -702,7 +702,7 @@ const ExpenseTrackerMain = ({
           <div className="grid md:grid-cols-4 gap-4">
             <input
               type="number"
-              placeholder="Amount (₹)"
+              placeholder={strings.placeholderAmount}
               value={newExpense.amount}
               onChange={(e) => setNewExpense({...newExpense, amount: e.target.value})}
               className="px-4 py-3 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none"
@@ -723,7 +723,7 @@ const ExpenseTrackerMain = ({
             
             <input
               type="text"
-              placeholder="Description"
+              placeholder={strings.placeholderDescription}
               value={newExpense.description}
               onChange={(e) => setNewExpense({...newExpense, description: e.target.value})}
               className="px-4 py-3 border-2 border-blue-200 rounded-lg focus:border-blue-500 focus:outline-none"

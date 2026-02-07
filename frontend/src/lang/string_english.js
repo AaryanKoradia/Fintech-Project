@@ -38,6 +38,15 @@ const STRINGS_ENGLISH = {
   loginSuccess: "Login Successful!",
   signupSuccess: "Account Created!",
   loginError: "Login failed. Check your details.",
+  welcomeBackLogin: "Welcome back! Please login to continue",
+  loggingIn: "Logging in...",
+  startJourney: "Start your financial journey today",
+  creatingAccount: "Creating account...",
+  passwordMismatch: "Passwords do not match",
+  placeholderFullName: "Enter your full name",
+  placeholderEmail: "your@email.com",
+  placeholderVillage: "Your village/city",
+  placeholderPassword: "••••••••",
   
   // Navigation
   home: "Home",
@@ -311,6 +320,26 @@ const STRINGS_ENGLISH = {
   noExpenses: "No expenses yet",
   deleteExpense: "Delete Expense",
   expenseDate: "Date",
+  placeholderOccupation: "Teacher, Farmer, Business...",
+  placeholderName: "Name",
+  placeholderAge: "Age",
+  placeholderGoal: "Goal (e.g., Daughter's Wedding)",
+  placeholderYear: "Year",
+  placeholderCost: "Cost (₹)",
+  placeholderAmount: "Amount (₹)",
+  placeholderDescription: "Description",
+  
+  // Notifications
+  newNotification: "NEW",
+  placeholderNotificationTitle: "e.g., New Scheme Available!",
+  placeholderNotificationMessage: "Enter notification message in English...",
+  placeholderNotificationMessageHindi: "हिंदी में सूचना संदेश दर्ज करें...",
+  placeholderContactNumber: "e.g., +91 1800-XXX-XXXX",
+  
+  // Admin
+  placeholderAdminName: "Enter full name",
+  placeholderAdminEmail: "admin@example.com",
+  placeholderAdminPassword: "Minimum 6 characters",
   
   // Document Scanner
   scanDocument: "Scan Document",
@@ -328,6 +357,24 @@ const STRINGS_ENGLISH = {
   panCard: "PAN Card",
   bankPassbook: "Bank Passbook",
   schemeDetails: "Scheme Details",
+  
+  // Alerts and Error Messages
+  micAccessDenied: "Microphone access denied. Please allow microphone access in browser settings.",
+  networkErrorSpeech: "Network error. Speech recognition requires internet connection.",
+  speechNotSupported: "Speech recognition not supported in this browser. Please use Chrome or Edge.",
+  allowMicAccess: "Please allow microphone access to use voice input. Check your browser settings.",
+  voiceNotSupported: "Voice feature not supported in your browser",
+  webhookCopied: "Webhook URL copied!",
+  failedToSaveProfile: "Failed to save profile",
+  failedToGenerateAIPlan: "Failed to generate AI plan",
+  failedToAddExpense: "Failed to add expense",
+  failedToDeleteExpense: "Failed to delete expense",
+  failedToTranslate: "Failed to translate message. Please try again.",
+  
+  // Banking Education
+  placeholderCustomerId: "Customer ID",
+  placeholderMobileNumber: "Mobile Number",
+  placeholderCreateMPIN: "Create MPIN",
 };
 
 export default STRINGS_ENGLISH;

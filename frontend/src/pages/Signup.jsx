@@ -9,10 +9,10 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { FaUser, FaEnvelope, FaLock, FaMapMarkerAlt, FaUserShield, FaRupeeSign } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock, FaMapMarkerAlt, FaRupeeSign } from 'react-icons/fa';
 
 const Signup = () => {
-  const { strings } = useLanguage();
+  const { strings, currentLanguage } = useLanguage();
   const { signup } = useAuth();
   
   const [formData, setFormData] = useState({
@@ -40,7 +40,7 @@ const Signup = () => {
     
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError(currentLanguage === 'english' ? 'Passwords do not match' : 'पासवर्ड मेल नहीं खाते');
       return;
     }
     
@@ -75,7 +75,7 @@ const Signup = () => {
               {strings.signup}
             </h2>
             <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
-              Start your financial journey today
+              {strings.startJourney}
             </p>
             
             {/* Error Message */}
@@ -106,7 +106,7 @@ const Signup = () => {
                     onChange={handleChange}
                     required
                     className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
-                    placeholder="Enter your full name"
+                    placeholder={strings.placeholderFullName}
                   />
                 </div>
               </div>
@@ -127,7 +127,7 @@ const Signup = () => {
                     onChange={handleChange}
                     required
                     className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
-                    placeholder="your@email.com"
+                    placeholder={strings.placeholderEmail}
                   />
                 </div>
               </div>
@@ -148,29 +148,8 @@ const Signup = () => {
                     onChange={handleChange}
                     required
                     className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
-                    placeholder="Your village/city"
+                    placeholder={strings.placeholderVillage}
                   />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="role" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                  Account Type
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <FaUserShield className="text-gray-400" />
-                  </div>
-                  <select
-                    id="role"
-                    name="role"
-                    value={formData.role}
-                    onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all appearance-none"
-                  >
-                    <option value="USER">User (Learner)</option>
-                    <option value="ADMIN">Admin (Mentor/NGO)</option>
-                  </select>
                 </div>
               </div>
               
@@ -226,7 +205,7 @@ const Signup = () => {
                 {loading ? (
                   <div className="flex items-center justify-center">
                     <div className="w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                    Creating account...
+                    {strings.creatingAccount}
                   </div>
                 ) : strings.signup}
               </button>

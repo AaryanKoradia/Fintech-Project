@@ -60,7 +60,7 @@ const MoneyTranslator = () => {
       setShowExplanation(true);
     } catch (error) {
       console.error('Translation error:', error);
-      alert('Failed to translate message. Please try again.');
+      alert(strings.failedToTranslate);
     } finally {
       setLoading(false);
     }
@@ -88,7 +88,7 @@ const MoneyTranslator = () => {
       
       window.speechSynthesis.speak(utterance);
     } else {
-      alert('Voice feature not supported in your browser');
+      alert(strings.voiceNotSupported);
     }
   };
   

@@ -265,7 +265,7 @@ const ManageAdmins = () => {
                     value={newAdmin.fullName}
                     onChange={(e) => setNewAdmin({ ...newAdmin, fullName: e.target.value })}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#FF9933] dark:bg-gray-700 dark:text-white"
-                    placeholder="Enter full name"
+                    placeholder={strings.placeholderAdminName}
                   />
                 </div>
                 
@@ -279,7 +279,7 @@ const ManageAdmins = () => {
                     value={newAdmin.email}
                     onChange={(e) => setNewAdmin({ ...newAdmin, email: e.target.value })}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#FF9933] dark:bg-gray-700 dark:text-white"
-                    placeholder="admin@example.com"
+                    placeholder={strings.placeholderAdminEmail}
                   />
                 </div>
                 
@@ -294,7 +294,7 @@ const ManageAdmins = () => {
                     value={newAdmin.password}
                     onChange={(e) => setNewAdmin({ ...newAdmin, password: e.target.value })}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#FF9933] dark:bg-gray-700 dark:text-white"
-                    placeholder="Minimum 6 characters"
+                    placeholder={strings.placeholderAdminPassword}
                   />
                 </div>
                 

@@ -19,10 +19,12 @@ import ManageUsers from './pages/admin/ManageUsers';
 import ManageSchemes from './pages/admin/ManageSchemes';
 import Analytics from './pages/admin/Analytics';
 import ManageAdmins from './pages/admin/ManageAdmins';
+import ManageNotifications from './pages/admin/ManageNotifications';
 import BankingEducation from './pages/BankingEducation';
 import GovernmentDashboard from './pages/GovernmentDashboard';
 import AgentPortal from './pages/AgentPortal';
 import Marketplace from './pages/Marketplace';
+import VoiceReader from './components/VoiceReader';
 
 function App() {
   return (
@@ -30,26 +32,13 @@ function App() {
       <ThemeProvider>
         <LanguageProvider>
           <AuthProvider>
+            <VoiceReader />
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route
-                path="/user/dashboard"
-                element={
-                  <ProtectedRoute allowedRoles={['USER']}>
-                    <UserDashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/user/learn"
-                element={
-                  <ProtectedRoute allowedRoles={['USER']}>
-                    <Learning />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="/user/dashboard" element={<ProtectedRoute allowedRoles={['USER']}><UserDashboard /></ProtectedRoute>} />
+              <Route path="/user/learn" element={<ProtectedRoute allowedRoles={['USER']}><Learning /></ProtectedRoute>} />
               <Route
                 path="/user/schemes"
                 element={
@@ -154,8 +143,16 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/admin/notifications"
+                element={
+                  <ProtectedRoute allowedRoles={['ADMIN']}>
+                    <ManageNotifications />
+                  </ProtectedRoute>
+                }
+              />
               
-              {/* Government Dashboard - for ADMIN, DISTRICT_OFFICER, STATE_OFFICER, MINISTRY */}
+             
               <Route
                 path="/government/dashboard"
                 element={
