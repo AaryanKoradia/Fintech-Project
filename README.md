@@ -79,21 +79,6 @@ Production: `https://fintech-3c-b.onrender.com`
 
 API Documentation: `http://localhost:8000/docs` (development)
 
-## 🔐 Environment Variables
-
-### Frontend (.env)
-```
-VITE_API_BASE_URL=https://fintech-3c-b.onrender.com
-VITE_GOOGLE_MAPS_API_KEY=AIzaSyAO0HujaxWeMdB0SNv9knyj044NTliWufc
-```
-
-### Backend (.env)
-```
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/fintech_3c
-JWT_SECRET=your-super-secret-jwt-key-change-in-production
-GEMINI_API_KEY=your-gemini-api-key-here
-ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173,https://fintech-3c.vercel.app
-```
 
 ## 👥 User Roles
 
