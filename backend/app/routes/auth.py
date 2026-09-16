@@ -20,30 +20,30 @@ async def signup(user_data: UserSignup):
         "email": user_data.email,
         "hashedPassword": hash_password(user_data.password),
         "village": user_data.village,
-        "role": user_data.role,
+        "role": "USER",
         "createdAt": datetime.utcnow(),
         "progress": 0,
         "coins": 0,
         "badges": [],
         "isActive": True
     }
-    
+
     result = await users_collection.insert_one(user_dict)
     user_id = str(result.inserted_id)
     access_token = create_access_token(
         data={
             "sub": user_id,
             "email": user_data.email,
-            "role": user_data.role
+            "role": "USER"
         }
     )
-    
+
     user_response = {
         "id": user_id,
         "fullName": user_data.fullName,
         "email": user_data.email,
         "village": user_data.village,
-        "role": user_data.role,
+        "role": "USER",
         "progress": 0,
         "coins": 0,
         "badges": []

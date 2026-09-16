@@ -7,7 +7,6 @@ class UserSignup(BaseModel):
     email: str = Field(..., min_length=3, max_length=100)
     password: str = Field(..., min_length=6, max_length=72)  
     village: str = Field(..., min_length=2, max_length=100)
-    role: str = Field(default="USER", pattern="^(USER|ADMIN)$")
 
 class UserLogin(BaseModel):
     email: str

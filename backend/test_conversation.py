@@ -1,7 +1,8 @@
+import os
 import requests
 
 BASE_URL = "http://localhost:8000/api"
-YOUR_PHONE = "917058135626"  
+YOUR_PHONE = os.environ["TEST_PHONE_NUMBER"]  # set this env var before running
 
 def simulate_user_message(message):
     print(f"\nUser sends: {message}")
