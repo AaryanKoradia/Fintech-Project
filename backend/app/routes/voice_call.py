@@ -15,7 +15,16 @@ if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
 
 SERVER_URL = os.getenv("SERVER_URL", "https://zola-cathectic-oralia.ngrok-free.dev")
+EXOTEL_WEBHOOK_SECRET = os.getenv("EXOTEL_WEBHOOK_SECRET", "")
 call_sessions = {}
+
+def verify_webhook_secret(request: Request) -> bool:
+    """If EXOTEL_WEBHOOK_SECRET is set, require it as a ?secret= query param
+    on the webhook URL configured in Exotel's dashboard. If it isn't set,
+    the check is skipped (unconfigured, not enforced)."""
+    if not EXOTEL_WEBHOOK_SECRET:
+        return True
+    return request.query_params.get("secret") == EXOTEL_WEBHOOK_SECRET
 
 SYSTEM_CONTEXT = """You are a helpful financial assistant for FinLit, a financial literacy platform. 
 You help users with:
@@ -62,9 +71,10 @@ def create_exotel_response(message: str, gather_input: bool = True, end_call: bo
     return xml
 
 @router.get("/incoming-call")
-@router.get("/incoming-call")
 @router.post("/incoming-call")
 async def handle_incoming_call(request: Request):
+    if not verify_webhook_secret(request):
+        raise HTTPException(status_code=403, detail="Invalid webhook secret")
     try:
         params = dict(request.query_params)
         
@@ -106,16 +116,7 @@ async def handle_incoming_call(request: Request):
                 "Content-Type": "text/xml; charset=utf-8"
             }
         )
-        
-        return Response(
-            content=xml_content,
-            media_type="application/xml",
-            headers={
-                "Content-Type": "application/xml",
-                "Cache-Control": "no-cache"
-            }
-        )
-        
+
     except Exception as e:
         logger.error(f"Error in incoming call handler: {e}")
         error_msg = "क्षमा करें, कुछ गलत हो गया। कृपया बाद में प्रयास करें।"
@@ -132,6 +133,8 @@ async def process_voice_input(
     Digits: str = None
 ):
     """Process user voice input and generate AI response (supports both GET and POST)"""
+    if not verify_webhook_secret(request):
+        raise HTTPException(status_code=403, detail="Invalid webhook secret")
     try:
         # Handle both query parameters (GET) and form data (POST)
         if request.method == "GET":
@@ -193,6 +196,8 @@ async def call_status_webhook(
     CallDuration: str = None
 ):
     """Handle call status updates from Exotel (supports both GET and POST)"""
+    if not verify_webhook_secret(request):
+        raise HTTPException(status_code=403, detail="Invalid webhook secret")
     try:
         # Handle both query parameters (GET) and form data (POST)
         if request.method == "GET":
@@ -322,9 +327,9 @@ async def emergency_help(
     """Provide emergency financial help information"""
     try:
         help_msg = """आपातकालीन वित्तीय सहायता के लिए:
-पीएम केयर्स फंड: 1800-XXX-XXXX
-बैंक हेल्पलाइन: आपके बैंक का टोल फ्री नंबर
-साइबर क्राइम: 1930
+अपने बैंक की हेल्पलाइन: आपके बैंक का टोल फ्री नंबर (पासबुक/कार्ड पर देखें)
+साइबर क्राइम हेल्पलाइन: 1930
+राष्ट्रीय उपभोक्ता हेल्पलाइन: 1915
 हम आपको SMS से विवरण भेज रहे हैं।"""
         
         xml_response = create_exotel_response(help_msg, gather_input=False, end_call=True)

@@ -3,19 +3,22 @@ Quick test script for WhatsApp integration
 Run this to test WhatsApp message sending
 """
 
+import os
 import requests
 
 # Configuration
 BASE_URL = "http://localhost:8000/api"
-PHONE = "917058135626"  # Change to your test phone number
+PHONE = os.environ["TEST_PHONE_NUMBER"]  # set this env var before running
+ADMIN_TOKEN = os.environ["TEST_ADMIN_TOKEN"]  # bearer token for an ADMIN account -- /test now requires admin auth
+AUTH_HEADERS = {"Authorization": f"Bearer {ADMIN_TOKEN}"}
 
 def test_send_message():
     """Test sending a WhatsApp message"""
     print("🧪 Testing WhatsApp Message...")
-    
+
     url = f"{BASE_URL}/whatsapp/test?phone={PHONE}"
-    
-    response = requests.get(url)
+
+    response = requests.get(url, headers=AUTH_HEADERS)
     
     print(f"Status Code: {response.status_code}")
     print(f"Response: {response.json()}")

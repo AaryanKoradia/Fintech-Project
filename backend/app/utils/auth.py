@@ -5,9 +5,21 @@ from passlib.context import CryptContext
 from fastapi import HTTPException, status, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import os
+import secrets
+import logging
+
+logger = logging.getLogger(__name__)
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-SECRET_KEY = os.getenv("JWT_SECRET", "your-super-secret-jwt-key-change-in-production")
+SECRET_KEY = os.getenv("JWT_SECRET")
+if not SECRET_KEY:
+    SECRET_KEY = secrets.token_hex(32)
+    logger.warning(
+        "JWT_SECRET is not set. Generated a random secret for this process only -- "
+        "every existing token will be invalidated on restart, and this will break "
+        "auth in any multi-process/multi-instance deployment. Set JWT_SECRET in the "
+        "environment before deploying."
+    )
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  
 security = HTTPBearer()

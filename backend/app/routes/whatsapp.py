@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request, HTTPException, Depends, Body
-from app.utils.auth import get_current_user
+from app.utils.auth import get_current_user, require_admin
 from app.database import get_collection, USERS_COLLECTION
 import requests
 import os
@@ -9,9 +9,10 @@ import logging
 
 router = APIRouter()
 
-ULTRAMSG_INSTANCE = os.getenv("ULTRAMSG_INSTANCE", "instance161117")
-ULTRAMSG_TOKEN = os.getenv("ULTRAMSG_TOKEN", "cuzs4wytqcsvut0c")
+ULTRAMSG_INSTANCE = os.getenv("ULTRAMSG_INSTANCE")
+ULTRAMSG_TOKEN = os.getenv("ULTRAMSG_TOKEN")
 ULTRAMSG_BASE_URL = f"https://api.ultramsg.com/{ULTRAMSG_INSTANCE}"
+AUTHORIZED_NUMBER = os.getenv("WHATSAPP_AUTHORIZED_NUMBER", "")
 
 logger = logging.getLogger(__name__)
 
@@ -309,8 +310,7 @@ async def whatsapp_webhook(request: Request):
         print(f"Type: {message_type}")
         print(f"FromMe: {from_me}")
         
-        AUTHORIZED_NUMBER = "917058135626"
-        if from_number != AUTHORIZED_NUMBER:
+        if not AUTHORIZED_NUMBER or from_number != AUTHORIZED_NUMBER:
             print(f"Ignored: Unauthorized number {from_number}")
             return {"status": "ignored", "reason": "Unauthorized number"}
         
@@ -366,7 +366,7 @@ async def whatsapp_webhook(request: Request):
 async def send_message(
     to: str = Body(..., embed=True),
     message: str = Body(..., embed=True),
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(require_admin)
 ):
     """
     Admin endpoint to send WhatsApp messages
@@ -392,11 +392,8 @@ async def send_message(
 
 
 @router.post("/broadcast")
-async def broadcast_message( message: str = Body(..., embed=True), user_ids: list = Body(None, embed=True), current_user: dict = Depends(get_current_user)):
+async def broadcast_message( message: str = Body(..., embed=True), user_ids: list = Body(None, embed=True), current_user: dict = Depends(require_admin)):
     try:
-        if current_user.get("role") != "admin":
-            raise HTTPException(status_code=403, detail="Admin access required")
-        
         users_collection = get_collection(USERS_COLLECTION)
         
         if user_ids:
@@ -440,7 +437,7 @@ async def broadcast_message( message: str = Body(..., embed=True), user_ids: lis
 
 
 @router.get("/test")
-async def test_whatsapp(phone: str = "917058135626"):
+async def test_whatsapp(phone: str = "917058135626", current_user: dict = Depends(require_admin)):
     try:
         result = send_whatsapp_message(
             phone,

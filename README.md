@@ -1,6 +1,6 @@
 # Financial Literacy & Empowerment Platform for Rural India
 
-A production-grade, voice-friendly, AI-ready financial empowerment platform designed specifically for rural and first-time users in India.
+A voice-friendly, AI-ready financial empowerment platform for rural and first-time users in India, with a web app, a WhatsApp bot, and a mobile app (Expo/React Native).
 
 ## 🎯 Mission
 
@@ -19,7 +19,11 @@ Help rural users understand savings, budgeting, government schemes, and small bu
 - **FastAPI** (Python)
 - **MongoDB** database
 - **JWT** authentication
-- **Gemini API** integration (placeholder ready)
+- **Gemini API** integration for the AI advisor and voice-call assistant
+- **UltraMsg** for the WhatsApp bot, **Exotel** for the voice-call line
+
+### Mobile
+- **React Native (Expo)** app in `mobile/`, talking to the same backend API
 
 ## 📁 Project Structure
 
@@ -50,6 +54,11 @@ Fintech_3C/
 │   ├── .env                 # Backend environment variables
 │   └── requirements.txt
 │
+├── mobile/                  # Expo / React Native app
+│   ├── src/
+│   ├── App.js
+│   └── package.json
+│
 └── README.md
 ```
 
@@ -78,6 +87,17 @@ Development: `http://localhost:8000`
 Production: `https://fintech-3c-b.onrender.com`
 
 API Documentation: `http://localhost:8000/docs` (development)
+
+### Creating the first admin account
+
+There's no signup path for admins -- the only way to create one is:
+
+```bash
+cd backend
+ADMIN_EMAIL=you@example.com ADMIN_PASSWORD='a-strong-unique-password' python -m app.init_admin
+```
+
+Set `JWT_SECRET`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` for real in your environment before running this in anything beyond local development.
 
 
 ## 👥 User Roles
@@ -144,11 +164,17 @@ Default language: **Hindi**
 
 ## 🔒 Security
 
-- JWT token authentication
+- JWT token authentication (set a real `JWT_SECRET` in your environment -- the app generates a temporary one if it's missing, which invalidates all sessions on every restart)
 - Password hashing with bcrypt
-- Role-based API protection
-- Input validation
-- Secure CORS configuration
+- Role is assigned server-side at signup and can't be set by the client; admin accounts are created only via `python -m app.init_admin` with `ADMIN_EMAIL`/`ADMIN_PASSWORD` set in the environment
+- Input validation via Pydantic
+- CORS restricted to `ALLOWED_ORIGINS`
+
+### Known limitations
+
+- The AI advisor and voice-call assistant depend on `GEMINI_API_KEY` being set; without it, responses fall back to an error message rather than failing the request.
+- Voice-call speech input (`process-input`) currently uses a placeholder transcript instead of real speech-to-text -- see the comments in `backend/app/routes/voice_call.py` for where to wire in a real STT provider.
+- The WhatsApp webhook and the Exotel voice webhooks accept an optional shared-secret query parameter (`WHATSAPP_AUTHORIZED_NUMBER` gate and `EXOTEL_WEBHOOK_SECRET` respectively) but neither is full request-signature verification -- treat both as best-effort until the respective provider's real signature scheme is implemented.
 
 ## 📦 Deployment
 
@@ -172,4 +198,4 @@ Built with ❤️ for rural India. Designed to empower communities through finan
 
 ## 📄 License
 
-MIT License - See LICENSE file for details
+No LICENSE file is currently included in this repository, so no license is granted to third parties by default. Add one (MIT or otherwise) if you want to permit reuse.
